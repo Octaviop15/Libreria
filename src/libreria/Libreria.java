@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package libreria;
+import controlador.Controlador;
 
 /**
  *
@@ -15,6 +16,8 @@ public class Libreria {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Controlador c = new Controlador();
+        c.ejecutar();
         // TODO code application logic here
     }
     
