@@ -18,6 +18,9 @@ public class Controlador {
     private VPrincipal vp;
     private VNuVenta vnv;
     private VNuCliente vnc;
+    private Edit edit;
+    
+    private static Conexion conexion;
     
     
     
@@ -25,7 +28,7 @@ public class Controlador {
         vp = new VPrincipal();
         vnv = new VNuVenta(vp,true);
         vnc = new VNuCliente(vnv,true);
-        
+        edit=new Edit(vp,true);
        
     }
     
@@ -35,12 +38,13 @@ public class Controlador {
         
         vnv.setControlador(this);
         vnc.setControlador(this);
+        
     }
     
     
     public void procesar(String valor){
         if(valor.equals(vp.BTN_NUEVA_VENTA)){
-            vnv.setVisible(true);  
+            vnv.setVisible(true);
         }
         
         if(valor.equals(vnv.BTN_NUEVO_CLIENTE)){
@@ -86,6 +90,27 @@ public class Controlador {
             
      
         }
+    }
+    
+    public void proc(String valor){
+    if(valor.equals(vp.BTN_NUEVO_EDITORIAL)){
+            edit.setVisible(true);
+        }
+    }
+public void alta(String valor){
+if(valor.equals(edit.BTN_NUEVO_PRO)){
+            
+        }
+}
+    
+    
+    
+    public static Conexion getConexion() {
+        return conexion;
+    }
+
+    public static void setConexion(Conexion conexion) {
+        Controlador.conexion = conexion;
     }
     
 }
