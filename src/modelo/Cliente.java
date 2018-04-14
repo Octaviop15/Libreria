@@ -25,7 +25,7 @@ public class Cliente {
         
     }
     
-    public Cliente(String nombre,String apellido,int dni,String fechaNac,String ciudad,String domicilio,int tel,String correo){
+    public Cliente(String nombre,String apellido,int dni,String fechaNac,String ciudad,String domicilio,int tel,int celular,String correo){
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
@@ -33,6 +33,7 @@ public class Cliente {
         this.ciudad = ciudad;
         this.domicilio = domicilio;
         this.tel_fijo = tel;
+        this.tel_movil = celular;
         this.correo = correo;
         
     }

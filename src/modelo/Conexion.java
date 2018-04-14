@@ -29,7 +29,7 @@ public class Conexion {
             conn = DriverManager.getConnection(url,user,pass);
             }
         catch(Exception e){
-            JOptionPane.showMessageDialog(null,"e");
+            JOptionPane.showMessageDialog(null,e);
         }
         }
 

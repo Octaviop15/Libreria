@@ -6,6 +6,8 @@
 package controlador;
 import modelo.*;
 import vista.*;
+import java.sql.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -46,14 +48,43 @@ public class Controlador {
         }
         
         if(valor.equals(vnc.BTN_AGREGAR_CLIENTE)){
-            cliente = new Cliente(vnc.getNombre(),vnc.getApellido(),vnc.getDNI(),vnc.getFechaNac(),vnc.getCiudad(),vnc.getDireccion(),vnc.getTel(),
-                      vnc.getCorreo());
-            
-         //   String sql = INSERT INTO cliente (nombre,apellido,dni,fecha_nacimiento,tel_fijo,tel_movil,ciudad,direccion,correo) VALUES (vnc.getNombre(),vnc.getApellido(),vnc.getDNI(),vnc.getFechaNac(),vnc.getTel(),null,vnc.getCiudad(),vnc.getDireccion(),
-          //               vnc.getCorreo());
+            Conexion conectar = new Conexion();
+            Connection conn   = conectar.getConexion();
             
             
+            String nombre      = vnc.getNombre();      
+            String apellido    = vnc.getApellido();
+            int dni            = vnc.getDNI();
+            String fechaNac    =  vnc.getFechaNac();
+            String ciudad      = vnc.getCiudad();
+            String direccion   = vnc.getDireccion();
+            int telFijo        = vnc.getTelFijo();
+            int celular        = vnc.getCelular();
+            String correo      = vnc.getCorreo();
             
+            
+            
+             String SQL = "INSERT INTO cliente (nombre,apellido,dni,fecha_nacimiento,tel_fijo,tel_movil,ciudad,direccion,correo) "
+                      +    "VALUES ('"+nombre+"','"+apellido+"','"+dni+"','"+fechaNac+"','"+telFijo+"','"+celular+"','"+ciudad+"','"+direccion+"','"+correo+"')";
+              
+              
+              // cliente = new Cliente(nombre,apellido,DNI,fechaNac,Ciudad,direccion,telFijo,celular,correo);
+              
+              /* String SQL = "INSERT INTO cliente (idCliente,nombre,apellido,dni,fecha_nacimiento,tel_fijo,tel_movil,ciudad,direccion,correo) "
+                      +    "VALUES ('"+vnc.getNombre()+"','"+vnc.getApellido()+"','"+vnc.getDNI()+"','"+vnc.getFechaNac()+"','"+vnc.getTelFijo()+"','"+vnc.getCelular()+"','"+vnc.getCiudad()+"','"+vnc.getDireccion()+"','"+vnc.getCorreo()+"')"; */
+              
+              
+              try{
+                  Statement sentencia = conn.createStatement();
+                  sentencia.executeUpdate(SQL);
+                  
+              }
+              catch(SQLException e){
+                  JOptionPane.showMessageDialog(null,e);
+              }
+            
+            
+     
         }
     }
     
