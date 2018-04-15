@@ -5,6 +5,7 @@
  */
 package vista;
 import controlador.Controlador;
+
 /**
  *
  * @author Octavio
@@ -20,6 +21,8 @@ public class VNuVenta extends javax.swing.JDialog {
     public VNuVenta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+       
+       
        
     }
     
@@ -48,7 +51,6 @@ public class VNuVenta extends javax.swing.JDialog {
             }
         });
 
-        jTextField1.setText("jTextField1");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -61,8 +63,8 @@ public class VNuVenta extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(77, 77, 77)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(65, 65, 65))
         );

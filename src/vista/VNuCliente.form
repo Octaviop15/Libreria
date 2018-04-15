@@ -48,8 +48,8 @@
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="textoApellido" pref="174" max="32767" attributes="0"/>
-                                  <Component id="textoNombre" max="32767" attributes="0"/>
+                                  <Component id="txtApellido" pref="174" max="32767" attributes="0"/>
+                                  <Component id="txtNombre" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -74,13 +74,13 @@
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="textoDNI" alignment="1" max="32767" attributes="0"/>
-                                          <Component id="textoCelular" max="32767" attributes="0"/>
-                                          <Component id="textoCiudad" max="32767" attributes="0"/>
-                                          <Component id="textoTel" max="32767" attributes="0"/>
-                                          <Component id="textoFecNac" max="32767" attributes="0"/>
-                                          <Component id="textoDireccion" max="32767" attributes="0"/>
-                                          <Component id="textoCorreo" pref="174" max="32767" attributes="0"/>
+                                          <Component id="txtDNI" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="txtCelular" max="32767" attributes="0"/>
+                                          <Component id="txtCiudad" max="32767" attributes="0"/>
+                                          <Component id="txtTel" max="32767" attributes="0"/>
+                                          <Component id="txtFecNac" max="32767" attributes="0"/>
+                                          <Component id="txtDireccion" max="32767" attributes="0"/>
+                                          <Component id="txtCorreo" pref="174" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -98,12 +98,12 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="textoNombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtNombre" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <Component id="textoApellido" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtApellido" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
@@ -113,38 +113,38 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textoDNI" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtDNI" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textoFecNac" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtFecNac" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="textoTel" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtTel" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="textoCelular" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtCelular" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="textoCiudad" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtCiudad" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="textoDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="textoCorreo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtCorreo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -177,25 +177,34 @@
         <Property name="text" type="java.lang.String" value="DNI"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="textoNombre">
-    </Component>
-    <Component class="javax.swing.JTextField" name="textoApellido">
+    <Component class="javax.swing.JTextField" name="txtNombre">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textoApellidoActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNombreActionPerformed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNombreKeyTyped"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="textoDNI">
+    <Component class="javax.swing.JTextField" name="txtApellido">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtApellidoActionPerformed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtApellidoKeyTyped"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="textoFecNac">
+    <Component class="javax.swing.JTextField" name="txtDNI">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtDNIKeyTyped"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtFecNac">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
         <Property name="text" type="java.lang.String" value="Fecha Nacimiento"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="textoTel">
+    <Component class="javax.swing.JTextField" name="txtTel">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textoTelActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTelActionPerformed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTelKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
@@ -203,7 +212,10 @@
         <Property name="text" type="java.lang.String" value="Tel_fjio"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="textoCiudad">
+    <Component class="javax.swing.JTextField" name="txtCiudad">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCiudadKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
@@ -220,9 +232,12 @@
         <Property name="text" type="java.lang.String" value="Correro"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="textoDireccion">
+    <Component class="javax.swing.JTextField" name="txtDireccion">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtDireccionKeyTyped"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="textoCorreo">
+    <Component class="javax.swing.JTextField" name="txtCorreo">
     </Component>
     <Component class="javax.swing.JButton" name="botonAceptar">
       <Properties>
@@ -240,9 +255,10 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonCancelarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="textoCelular">
+    <Component class="javax.swing.JTextField" name="txtCelular">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textoCelularActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCelularActionPerformed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCelularKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel11">
