@@ -20,7 +20,7 @@ public class Controlador {
     private VNuCliente vnc;
     private Edit edit;
     
-    private static Conexion conexion;
+   
     
     
     
@@ -105,12 +105,9 @@ if(valor.equals(edit.BTN_NUEVO_PRO)){
     
     
     
-    public static Conexion getConexion() {
-        return conexion;
-    }
+   
+    
 
-    public static void setConexion(Conexion conexion) {
-        Controlador.conexion = conexion;
-    }
+   
     
 }
