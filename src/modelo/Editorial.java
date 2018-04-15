@@ -12,12 +12,12 @@ package modelo;
 public class Editorial {
     private int idEditorial;
     private String nombre;
-    private String telefono;
+    private int telefono;
     private String direccion;
     private String ciudad;
-    private String Resultado;
+    
 
-    public Editorial(String nombre, String telefono, String direccion, String ciudad) {
+    public Editorial(String nombre, int telefono, String direccion, String ciudad) {
         this.nombre = nombre;
         this.telefono = telefono;
         this.direccion = direccion;
@@ -40,11 +40,11 @@ public class Editorial {
         this.nombre = nombre;
     }
 
-    public String getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
 
@@ -64,13 +64,7 @@ public class Editorial {
         this.ciudad = ciudad;
     }
 
-    public String getResultado() {
-        return Resultado;
-    }
-
-    public void setResultado(String Resultado) {
-        this.Resultado = Resultado;
-    }
+ 
     
     
     
