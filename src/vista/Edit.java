@@ -21,6 +21,9 @@ public class Edit extends javax.swing.JDialog {
         initComponents();
     }
 
+    public void setControlador(Controlador controlador){
+        this.controlador = controlador;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -241,6 +244,22 @@ public class Edit extends javax.swing.JDialog {
             }
         });
     }
+public String getnombreeditorial(){
+        return jTextField1.getText();  
+    }
+public Integer gettelefonoeditorial(){
+        return Integer.parseInt(jTextField1.getText());
+                
+    }
+
+public String getdireccioneditorial(){
+        return jTextField1.getText();  
+    }
+
+public String getciudadeditoral(){
+        return jTextField1.getText();  
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

@@ -38,6 +38,7 @@ public class Controlador {
         
         vnv.setControlador(this);
         vnc.setControlador(this);
+        edit.setControlador(this);
         
     }
     
@@ -91,7 +92,7 @@ public class Controlador {
      
         }
     }
-    
+    /*EMMANUEL PROGRAMACION*/
     public void proc(String valor){
     if(valor.equals(vp.BTN_NUEVO_EDITORIAL)){
             edit.setVisible(true);
@@ -99,7 +100,26 @@ public class Controlador {
     }
 public void alta(String valor){
 if(valor.equals(edit.BTN_NUEVO_PRO)){
-            
+    Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    
+    String nombre      = edit.getnombreeditorial();
+    int telefono        = edit.gettelefonoeditorial();
+    String direccion      = edit.getdireccioneditorial();
+    String ciudad      = edit.getciudadeditoral();
+    
+    String SQL = "INSERT INTO editorial (nombre,telefono,direccion,ciudad) "
+                      +    "VALUES ('"+nombre+"','"+telefono+"','"+direccion+"','"+ciudad+"')";
+    
+    
+       try{
+                  Statement sentencia = conn.createStatement();
+                  sentencia.executeUpdate(SQL);
+                  
+              }
+              catch(SQLException e){
+                  JOptionPane.showMessageDialog(null,e);
+              }
         }
 }
     
