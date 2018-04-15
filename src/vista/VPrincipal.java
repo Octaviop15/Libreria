@@ -47,7 +47,7 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Nueva Editorial");
+        jButton2.setText("Editorial");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -62,8 +62,8 @@ public class VPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jButton1)
                 .addGap(38, 38, 38)
-                .addComponent(jButton2)
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(175, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

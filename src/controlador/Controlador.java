@@ -103,8 +103,16 @@ if(valor.equals(edit.BTN_NUEVO_PRO)){
     Conexion conectar = new Conexion();
     Connection conn   = conectar.getConexion();
     
+    String n= edit.getnombreeditorial(); 
+    if(n.equals(""))
+    { JOptionPane.showMessageDialog(null,"Debe tener un nombre editorial");}
+    else{
+   
+
+    
+    
     String nombre      = edit.getnombreeditorial();
-    int telefono        = edit.gettelefonoeditorial();
+      int telefono        = edit.gettelefonoeditorial();
     String direccion      = edit.getdireccioneditorial();
     String ciudad      = edit.getciudadeditoral();
     
@@ -112,14 +120,16 @@ if(valor.equals(edit.BTN_NUEVO_PRO)){
                       +    "VALUES ('"+nombre+"','"+telefono+"','"+direccion+"','"+ciudad+"')";
     
     
-       try{
+       try{  
+           
                   Statement sentencia = conn.createStatement();
                   sentencia.executeUpdate(SQL);
                   
               }
               catch(SQLException e){
                   JOptionPane.showMessageDialog(null,e);
-              }
+              } 
+}
         }
 }
     

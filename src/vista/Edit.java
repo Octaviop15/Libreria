@@ -24,6 +24,24 @@ public class Edit extends javax.swing.JDialog {
     public void setControlador(Controlador controlador){
         this.controlador = controlador;
     }
+    public String getnombreeditorial(){
+        return jTextField1.getText();
+        
+        
+        
+    }
+public Integer gettelefonoeditorial(){
+        return Integer.parseInt(jTextField2.getText());
+                
+    }
+
+public String getdireccioneditorial(){
+        return jTextField3.getText();  
+    }
+
+public String getciudadeditoral(){
+        return jTextField4.getText();  
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,6 +86,12 @@ public class Edit extends javax.swing.JDialog {
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
             }
         });
 
@@ -203,6 +227,10 @@ public class Edit extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -244,21 +272,7 @@ public class Edit extends javax.swing.JDialog {
             }
         });
     }
-public String getnombreeditorial(){
-        return jTextField1.getText();  
-    }
-public Integer gettelefonoeditorial(){
-        return Integer.parseInt(jTextField1.getText());
-                
-    }
 
-public String getdireccioneditorial(){
-        return jTextField1.getText();  
-    }
-
-public String getciudadeditoral(){
-        return jTextField1.getText();  
-    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
