@@ -88,9 +88,8 @@ public class Controlador {
               catch(SQLException e){
                   JOptionPane.showMessageDialog(null,e);
               }
-            
-            
-     
+              
+              vnc.limpiar();
         }
     }
     /*EMMANUEL PROGRAMACION*/
