@@ -20,6 +20,7 @@ public class Controlador {
     private VNuVenta vnv;
     private VNuCliente vnc;
     private Edit edit;
+    private EditM editm;
     
    
     
@@ -30,6 +31,8 @@ public class Controlador {
         vnv = new VNuVenta(vp,true);
         vnc = new VNuCliente(vnv,true);
         edit=new Edit(vp,true);
+        editm = new EditM(null,true);
+      
        
     }
     
@@ -40,7 +43,7 @@ public class Controlador {
         vnv.setControlador(this);
         vnc.setControlador(this);
         edit.setControlador(this);
-        
+        editm.setControlador(this);
     }
     
     
@@ -184,7 +187,8 @@ catch(SQLException ex){
     
 public void buscar(String atri){
     if(atri.equals(edit.BTN_NUEVO_BUS)){
-     buscando(edit.jTextField5.getText());}
+     buscando(edit.jTextField5.getText());
+    edit.limpi();}
    
 }
     
@@ -244,4 +248,80 @@ catch(SQLException ex){
    
 }
     
+   public void consultar(String mod){
+     
+   if(mod.equals(edit.BTN_NUEVO_MOD))
+   {
+       
+   int fila = edit.tabla.getSelectedRow();
+   if(fila>=0){
+       editm.ide.setText(edit.tabla.getValueAt(fila, 0).toString());
+       editm.editxt.setText(edit.tabla.getValueAt(fila, 1).toString());
+       editm.telefonoxtxt.setText(edit.tabla.getValueAt(fila, 2).toString());
+       editm.diretxt.setText(edit.tabla.getValueAt(fila, 3).toString());
+       editm.ciutxt.setText(edit.tabla.getValueAt(fila, 4).toString());
+     editm.setVisible(true);
+   
+   
+   
+   
+   
+   
+   
+   
+   }
+   else{JOptionPane.showMessageDialog(null,"no se seleciono fila");
+   }
+   
+   }
+  
+   }
+   
+    /*
+        editm.editxt.setText(edit.tabla.getValueAt(fila, 1).toString());
+       editm.telefonoxtxt.setText(edit.tabla.getValueAt(fila, 2).toString());
+       editm.diretxt.setText(edit.tabla.getValueAt(fila, 3).toString());
+       editm.ciutxt.setText(edit.tabla.getValueAt(fila, 4).toString());
+   
+   
+       */
+   public void modi(String valor){
+if(valor.equals(editm.BTN_NUEVO_ACE)){
+    Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    
+    String n= editm.getedi(); 
+    if(n.equals(""))
+    { JOptionPane.showMessageDialog(null,"Debe tener un nombre editorial");}
+    else{
+        try{
+    int idEditorial        = editm.getide();
+    String nombre      = editm.getedi();
+    int telefono        = editm.gettel();
+    String direccion      = editm.getdirec();
+    String ciudad      = editm.getciu();
+    
+
+    PreparedStatement ppt= conn.prepareStatement("UPDATE editorial SET "
+    +"WHERE idEditorial='"+idEditorial+"',"
+    +"nombre='"+nombre+"',"
+    +"telefono='"+telefono+"',"
+    +"direccion='"+direccion+"',"
+    +"ciudad='"+ciudad+"',"
+    
+    );
+   
+    ppt.executeUpdate();
+    
+        }
+              catch(SQLException e){
+                  JOptionPane.showMessageDialog(null,e);
+                  JOptionPane.showMessageDialog(null,"Editorial Agregada");
+              }
+       JOptionPane.showMessageDialog(null,"Editorial Agregada");
+}
+     mostar();
+    
+        }
+}/*aqui termina el alta*/
 }

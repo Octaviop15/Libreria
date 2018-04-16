@@ -15,6 +15,7 @@ public class Edit extends javax.swing.JDialog {
     public static final String BTN_NUEVO_PRO = "NUEVO PRO";
     public static final String BTN_NUEVO_ACT = "NUEVO ACT";
     public static final String BTN_NUEVO_BUS = "NUEVO BUS";
+    public static final String BTN_NUEVO_MOD = "NUEVO MOD";
     /**
      * Creates new form Gestor
      */
@@ -26,17 +27,20 @@ public class Edit extends javax.swing.JDialog {
     public void setControlador(Controlador controlador){
         this.controlador = controlador;
     }
-    public String getnombreeditorial(){
-        return jTextField1.getText();
-        
-        
-        
-    }
+
     public void limp(){
         jTextField1.setText("");
         jTextField2.setText("");
         jTextField3.setText("");
         jTextField4.setText("");
+        
+    }
+     public void limpi(){
+        jTextField5.setText("");
+       }
+     
+         public String getnombreeditorial(){
+        return jTextField1.getText();
         
     }
 public Integer gettelefonoeditorial(){
@@ -74,10 +78,11 @@ public String getciudadeditoral(){
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         jToggleButton1 = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
+        Modificarboton = new javax.swing.JToggleButton();
         jTextField5 = new javax.swing.JTextField();
         jToggleButton3 = new javax.swing.JToggleButton();
         jToggleButton4 = new javax.swing.JToggleButton();
+        jToggleButton2 = new javax.swing.JToggleButton();
 
         jButton2.setText("jButton2");
 
@@ -158,10 +163,10 @@ public String getciudadeditoral(){
             }
         });
 
-        jToggleButton2.setText("Modficar Editorial");
-        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+        Modificarboton.setText("Modficar Editorial");
+        Modificarboton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2ActionPerformed(evt);
+                ModificarbotonActionPerformed(evt);
             }
         });
 
@@ -187,6 +192,13 @@ public String getciudadeditoral(){
         jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton4ActionPerformed(evt);
+            }
+        });
+
+        jToggleButton2.setText("Volver");
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2ActionPerformed(evt);
             }
         });
 
@@ -219,20 +231,23 @@ public String getciudadeditoral(){
                         .addGap(56, 56, 56)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jToggleButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jToggleButton2))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
                                 .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jToggleButton3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jToggleButton4))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jToggleButton1)
+                        .addGap(32, 32, 32)
+                        .addComponent(Modificarboton)
+                        .addGap(40, 40, 40)
+                        .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -259,14 +274,15 @@ public String getciudadeditoral(){
                     .addComponent(jLabel5))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jToggleButton3)
-                    .addComponent(jToggleButton4))
+                    .addComponent(jToggleButton4)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jToggleButton1)
+                    .addComponent(Modificarboton)
                     .addComponent(jToggleButton2))
                 .addContainerGap())
         );
@@ -290,9 +306,9 @@ public String getciudadeditoral(){
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
-    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton2ActionPerformed
+    private void ModificarbotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarbotonActionPerformed
+controlador.consultar(BTN_NUEVO_MOD);        // TODO add your handling code here:
+    }//GEN-LAST:event_ModificarbotonActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
@@ -353,6 +369,10 @@ controlador.buscar(BTN_NUEVO_BUS);        // TODO add your handling code here:
             evt.consume();
         }    // TODO add your handling code here:
     }//GEN-LAST:event_jTextField5KeyTyped
+
+    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+   this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton2ActionPerformed
     
 
     /**
@@ -400,6 +420,7 @@ controlador.buscar(BTN_NUEVO_BUS);        // TODO add your handling code here:
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JToggleButton Modificarboton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
