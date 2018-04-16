@@ -129,10 +129,11 @@ if(valor.equals(edit.BTN_NUEVO_PRO)){
               }
               catch(SQLException e){
                   JOptionPane.showMessageDialog(null,e);
-              } 
+              }
+       JOptionPane.showMessageDialog(null,"Editorial Agregada");
 }
-   JOptionPane.showMessageDialog(null,"Editorial Agregada");
-   mostar();
+     mostar();
+    edit.limp();  
         }
 }/*aqui termina el alta*/
 
@@ -174,13 +175,73 @@ catch(SQLException ex){
 
 
 
+
+}
+ 
+
+
+
+    
+public void buscar(String atri){
+    if(atri.equals(edit.BTN_NUEVO_BUS)){
+     buscando(edit.jTextField5.getText());}
+   
 }
     
     
     
+public void buscando(String value){
+Conexion conectar = new Conexion();
+Connection conn   = conectar.getConexion();
+
+DefaultTableModel modo = new DefaultTableModel();
+modo.addColumn("idEditorial");
+modo.addColumn("nombre");
+modo.addColumn("telefono");
+modo.addColumn("direccion");
+modo.addColumn("ciudad");
+
+edit.tabla.setModel(modo);
+
+String sql;
+if(value.equals("")){
+sql="SELECT * FROM EDITORIAL";
+}
+else{
+    sql="SELECT * FROM EDITORIAL WHERE idEditorial='"+value+"'";
+        }
+
+String datos[]= new String [6];
+try{
+    Statement st =conn.createStatement();
+    ResultSet rs = st.executeQuery(sql);
+    while(rs.next()){
+    datos[0]=rs.getString(1);
+    datos[1]=rs.getString(2);
+    datos[2]=rs.getString(3);
+    datos[3]=rs.getString(4);
+    datos[4]=rs.getString(5);
+        
+    modo.addRow(datos);
+    }
+    edit.tabla.setModel(modo);
+    }
+catch(SQLException ex){
+    JOptionPane.showMessageDialog(null,"no se puedo mostrar");
+}
+
+
+
+
+}
+    
    
     
 
+   public void sec(String atri){
+    if(atri.equals(edit.BTN_NUEVO_ACT)){
+     mostar();}
    
+}
     
 }
