@@ -94,6 +94,36 @@ public class Controlador {
               
               vnc.limpiar();
         }
+        
+        if(valor.equals(vnv.BTN_BUSCAR_CLIENTE)){
+            Conexion conectar = new Conexion();
+            Connection conn   = conectar.getConexion();
+            
+            String[] datos = new String[2];
+            int DNI = vnv.getDNI();
+            String SQL = "SELECT * FROM cliente WHERE DNI = '"+DNI+"'";
+            
+            try{
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(SQL);
+                while(rs.next()){
+                    datos[0] = rs.getString("nombre");
+                    datos[1] = rs.getString("apellido");
+                    
+                    vnv.setNombre(datos[0]);
+                    vnv.setApellido(datos[1]);
+                }
+            }
+             catch(SQLException e){
+                  JOptionPane.showMessageDialog(null,e);
+            
+                    
+           
+        }
+        }
+        
+    
+       
     }
     /*EMMANUEL PROGRAMACION*/
     public void proc(String valor){
@@ -301,16 +331,11 @@ if(valor.equals(editm.BTN_NUEVO_ACE)){
     String direccion      = editm.getdirec();
     String ciudad      = editm.getciu();
     
-
-    PreparedStatement ppt= conn.prepareStatement("UPDATE editorial SET "
-    +"WHERE idEditorial='"+idEditorial+"',"
-    +"nombre='"+nombre+"',"
-    +"telefono='"+telefono+"',"
-    +"direccion='"+direccion+"',"
-    +"ciudad='"+ciudad+"',"
+  
+    PreparedStatement ppt= conn.prepareStatement("UPDATE editorial SET nombre = '"+nombre+"' WHERE idEditorial = '"+idEditorial+"'");
     
-    );
-   
+    String roda = "RODA TE AMA";
+    
     ppt.executeUpdate();
     
         }
