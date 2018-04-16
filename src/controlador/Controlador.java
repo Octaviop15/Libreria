@@ -8,6 +8,7 @@ import modelo.*;
 import vista.*;
 import java.sql.*;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -35,7 +36,7 @@ public class Controlador {
     public void ejecutar(){
         vp.setControlador(this);
         vp.setVisible(true);
-        
+        mostar();
         vnv.setControlador(this);
         vnc.setControlador(this);
         edit.setControlador(this);
@@ -96,6 +97,7 @@ public class Controlador {
     public void proc(String valor){
     if(valor.equals(vp.BTN_NUEVO_EDITORIAL)){
             edit.setVisible(true);
+            
         }
     }
 public void alta(String valor){
@@ -130,7 +132,49 @@ if(valor.equals(edit.BTN_NUEVO_PRO)){
                   JOptionPane.showMessageDialog(null,e);
               } 
 }
+   JOptionPane.showMessageDialog(null,"Editorial Agregada");
+   mostar();
         }
+}/*aqui termina el alta*/
+
+/*mostar usuario en el jtable*/
+public void mostar(){
+    
+Conexion conectar = new Conexion();
+Connection conn   = conectar.getConexion();
+
+DefaultTableModel modo = new DefaultTableModel();
+modo.addColumn("idEditorial");
+modo.addColumn("nombre");
+modo.addColumn("telefono");
+modo.addColumn("direccion");
+modo.addColumn("ciudad");
+
+edit.tabla.setModel(modo);
+
+String sql="SELECT * FROM EDITORIAL";
+
+String datos[]= new String [6];
+try{
+    Statement st =conn.createStatement();
+    ResultSet rs = st.executeQuery(sql);
+    while(rs.next()){
+    datos[0]=rs.getString(1);
+    datos[1]=rs.getString(2);
+    datos[2]=rs.getString(3);
+    datos[3]=rs.getString(4);
+    datos[4]=rs.getString(5);
+        
+    modo.addRow(datos);
+    }
+    edit.tabla.setModel(modo);
+    }
+catch(SQLException ex){
+    JOptionPane.showMessageDialog(null,"no se puedo mostrar");
+}
+
+
+
 }
     
     
