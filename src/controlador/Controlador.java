@@ -19,6 +19,7 @@ public class Controlador {
     private VPrincipal vp;
     private VNuVenta vnv;
     private VNuCliente vnc;
+    private VLibro vl;
     private Edit edit;
     private EditM editm;
     
@@ -30,6 +31,7 @@ public class Controlador {
         vp = new VPrincipal();
         vnv = new VNuVenta(vp,true);
         vnc = new VNuCliente(vnv,true);
+        vl = new VLibro(vp, true);
         edit=new Edit(vp,true);
         editm = new EditM(null,true);
       
@@ -121,6 +123,8 @@ public class Controlador {
            
         }
         }
+        
+       //aaaaaaaaaaaaaaaaaaaaaaaaaaa
         
     
        
