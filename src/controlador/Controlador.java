@@ -22,6 +22,7 @@ public class Controlador {
     private VLibro vl;
     private Edit edit;
     private EditM editm;
+    private Vaut vaut;
     
    
     
@@ -34,6 +35,7 @@ public class Controlador {
         vl = new VLibro(vp, true);
         edit=new Edit(vp,true);
         editm = new EditM(null,true);
+         vaut= new Vaut(vp,true);
       
        
     }
@@ -46,6 +48,7 @@ public class Controlador {
         vnc.setControlador(this);
         edit.setControlador(this);
         editm.setControlador(this);
+          vaut.setControlador(this);
     }
     
     
@@ -353,4 +356,58 @@ if(valor.equals(editm.BTN_NUEVO_ACE)){
     
         }
 }/*aqui termina el alta*/
+   
+   
+     /* AUTOR*/
+    public void proce(String valor){
+    if(valor.equals(vp.BTN_NUEVO_AU)){
+            vaut.setVisible(true);
+            
+        }
+    }
+    
+    public void altaau(String valor){
+if(valor.equals(vaut.BTN_NUEVO_AUTOR)){
+    Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    
+    String n= vaut.getaunom();
+    String h= vaut.getauape();
+    
+    if(n.equals("") || h.equals(""))
+    { JOptionPane.showMessageDialog(null,"EL autor Debe Tener Nombre Y Apellido");}
+    else{
+   
+
+    
+    
+    String nombre      = vaut.getaunom();
+    String apellido        = vaut.getauape();
+    String pais      = vaut.getaupa();
+    String ciudad      = vaut.getauci();
+    String fecha      = vaut.getaufechanaci();
+    
+    String SQL = "INSERT INTO autor (nombre,apellido,pais,ciudad,fecha_nacimiento) "
+                      +    "VALUES ('"+nombre+"','"+apellido+"','"+pais+"','"+ciudad+"','"+fecha+"')";
+    
+    
+       try{  
+           
+                  Statement sentencia = conn.createStatement();
+                  sentencia.executeUpdate(SQL);
+                  
+              }
+              catch(SQLException e){
+                  JOptionPane.showMessageDialog(null,e);
+              }
+       JOptionPane.showMessageDialog(null,"Autor Agregado");
+}
+    
+        }
+}/*aqui termina el alta*/
+    
+    
+    
+    
+   
 }
