@@ -126,14 +126,10 @@ public Integer getide(){
             }
         });
 
+        ide.setEnabled(false);
         ide.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ideActionPerformed(evt);
-            }
-        });
-        ide.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                ideKeyTyped(evt);
             }
         });
 
@@ -159,13 +155,10 @@ public Integer getide(){
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))
                         .addGap(68, 68, 68))
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(telefonoxtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -225,12 +218,8 @@ controlador.modi(BTN_NUEVO_ACE);          // TODO add your handling code here:
     }//GEN-LAST:event_aceptActionPerformed
 
     private void ideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ideActionPerformed
-        // TODO add your handling code here:
+     // TODO add your handling code here:
     }//GEN-LAST:event_ideActionPerformed
-
-    private void ideKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ideKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ideKeyTyped
 
     private void editxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_editxtKeyTyped
        char c = evt.getKeyChar();

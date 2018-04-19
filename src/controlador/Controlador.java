@@ -298,7 +298,7 @@ catch(SQLException ex){
        editm.diretxt.setText(edit.tabla.getValueAt(fila, 3).toString());
        editm.ciutxt.setText(edit.tabla.getValueAt(fila, 4).toString());
      editm.setVisible(true);
-   
+     
    
    
    
