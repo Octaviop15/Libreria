@@ -83,10 +83,32 @@ public Integer getide(){
                 editxtActionPerformed(evt);
             }
         });
+        editxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                editxtKeyTyped(evt);
+            }
+        });
 
         telefonoxtxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 telefonoxtxtActionPerformed(evt);
+            }
+        });
+        telefonoxtxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                telefonoxtxtKeyTyped(evt);
+            }
+        });
+
+        diretxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                diretxtKeyTyped(evt);
+            }
+        });
+
+        ciutxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ciutxtKeyTyped(evt);
             }
         });
 
@@ -107,6 +129,11 @@ public Integer getide(){
         ide.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ideActionPerformed(evt);
+            }
+        });
+        ide.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ideKeyTyped(evt);
             }
         });
 
@@ -132,12 +159,13 @@ public Integer getide(){
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))
                         .addGap(68, 68, 68))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(telefonoxtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -200,6 +228,46 @@ controlador.modi(BTN_NUEVO_ACE);          // TODO add your handling code here:
         // TODO add your handling code here:
     }//GEN-LAST:event_ideActionPerformed
 
+    private void ideKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ideKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ideKeyTyped
+
+    private void editxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_editxtKeyTyped
+       char c = evt.getKeyChar();
+        
+        if(!Character.isLetter(c)){
+            getToolkit().beep();
+            evt.consume();
+        }     // TODO add your handling code here:
+    }//GEN-LAST:event_editxtKeyTyped
+
+    private void telefonoxtxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoxtxtKeyTyped
+        char c = evt.getKeyChar();
+        
+        if(!Character.isDigit(c)){
+            getToolkit().beep();
+            evt.consume();}  // TODO add your handling code here:
+    }//GEN-LAST:event_telefonoxtxtKeyTyped
+
+    private void ciutxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ciutxtKeyTyped
+      char c = evt.getKeyChar();
+        
+        if(!Character.isLetter(c)){
+            getToolkit().beep();
+            evt.consume();
+        }     // TODO add your handling code here:
+    }//GEN-LAST:event_ciutxtKeyTyped
+
+    private void diretxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_diretxtKeyTyped
+       char c = evt.getKeyChar();
+        
+        if(!Character.isLetter(c)){
+            getToolkit().beep();
+            evt.consume();
+        }    // TODO add your handling code here:
+    }//GEN-LAST:event_diretxtKeyTyped
+
+    
     /**
      * @param args the command line arguments
      */

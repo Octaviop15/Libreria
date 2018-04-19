@@ -12,10 +12,11 @@ import controlador.Controlador;
  */
 public class Edit extends javax.swing.JDialog {
     private Controlador controlador;
-    public static final String BTN_NUEVO_PRO = "NUEVO PRO";
+   public static final String BTN_NUEVO_PRO = "NUEVO PRO";
     public static final String BTN_NUEVO_ACT = "NUEVO ACT";
     public static final String BTN_NUEVO_BUS = "NUEVO BUS";
     public static final String BTN_NUEVO_MOD = "NUEVO MOD";
+    public static final String BTN_NUEVO_BORRA = "NUEVO BORRA";
     /**
      * Creates new form Gestor
      */
@@ -303,7 +304,7 @@ public String getciudadeditoral(){
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        // TODO add your handling code here:
+controlador.eliminar(BTN_NUEVO_BORRA);          // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void ModificarbotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarbotonActionPerformed
