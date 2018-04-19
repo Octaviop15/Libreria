@@ -9,6 +9,7 @@ import vista.*;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.DefaultEditorKit;
 
 /**
  *
@@ -41,12 +42,56 @@ public class Controlador {
     public void ejecutar(){
         vp.setControlador(this);
         vp.setVisible(true);
-        mostar();
         vnv.setControlador(this);
         vnc.setControlador(this);
+        vl.setControlador(this);
         edit.setControlador(this);
         editm.setControlador(this);
+        mostar();
+        
     }
+    
+    
+    
+     public void obtenerEditorialComboBox(){
+          Conexion conexion = new Conexion();
+          Connection conn   = conexion.getConexion();
+          
+          String SQL = "SELECT nombre FROM editorial";
+          vl.setComboBoxEditorial("Seleccione una editorial");
+          try {
+              Statement st = conn.createStatement();
+              ResultSet rs = st.executeQuery(SQL);
+              while(rs.next()){
+                  String nombre = rs.getString("nombre");
+                  int idEditorial = rs.getInt(0);
+                  vl.setComboBoxEditorial(nombre);
+                  vl.setIdEditorial(idEditorial);
+                  
+              }   
+          } catch (Exception e) {
+          }
+     }
+     
+     public void obtenerAutorComboBox(){
+          Conexion conexion = new Conexion();
+          Connection conn   = conexion.getConexion();
+          
+          String SQL = "SELECT nombre FROM autor";
+          vl.setComboBoxAutor("Seleccione un autor");
+          try {
+              Statement st = conn.createStatement();
+              ResultSet rs = st.executeQuery(SQL);
+              while(rs.next()){
+                  String nombre = rs.getString("nombre");
+                  vl.setComboBoxAutor(nombre);
+                  
+              }   
+          } catch (Exception e) {
+          }
+     }
+         
+     
     
     
     public void procesar(String valor){
@@ -118,17 +163,75 @@ public class Controlador {
             }
              catch(SQLException e){
                   JOptionPane.showMessageDialog(null,e);
+               
+        }
+        }
+        
+        if(valor.equals(vp.BTN_LIBRO)){
+            vl.limpiarComboBox();
+            obtenerEditorialComboBox();
+            vl.setVisible(true);
             
+        }
+        
+        if(valor.equals(vl.BTN_AGREGAR_LIBRO)){
+            Conexion conectar = new Conexion();
+            Connection conn   = conectar.getConexion();
+            
+            int ISBN = vl.getISBN();
+            String titulo = vl.getTitulo();
+            int paginas = vl.getPaginas();
+            String fecha = vl.getFecha();
+            String descripcion = vl.getDescripcion();
+            double precio = vl.getPrecio();
+            int stock = vl.getStock();
+            int idEditorial = vl.getIdEditorial();
+            int  idAutor = vl.getIdAutor();
+     
+            
+            
+            
+            /*
+            String SQL1 = "SELECT * FROM editorial where nombre = '"+vl.getComboBoxEditorial()+"'";
+            String SQL2 = "SELECT * FROM autor where nombre = '"+vl.getComboBoxAutor()+"'";
+            
+            try {
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(SQL1);
+                while(rs.next()){
+                   int e = rs.getInt(1);
                     
-           
+                }
+                
+            } catch (Exception e) {
+            }
+            
+            try {
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(SQL2);
+                while(rs.next()){
+                    idAutor = rs.getInt(1);
+                }
+                
+            } catch (Exception e) {
+            }
+            
+            */
+            
+            
+            String SQL = "INSERT INTO libro VALUES(ISNB,titulo,fecha_lanzamiento,paginas,descripcion,precio,stock,idAutor,idEditorial) "
+                       + "VALUES ('"+ISBN+"','"+titulo+"','"+fecha+"','"+paginas+"','"+descripcion+"','"+precio+"','"+stock+"','"+idAutor+"','"+idEditorial+"')";
         }
         }
-        
-       //aaaaaaaaaaaaaaaaaaaaaaaaaaa
-        
+
+   
+ 
     
-       
-    }
+
+
+
+
+
     /*EMMANUEL PROGRAMACION*/
     public void proc(String valor){
     if(valor.equals(vp.BTN_NUEVO_EDITORIAL)){
