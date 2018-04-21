@@ -24,6 +24,17 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
      * Creates new form Vaut
      */
 
+     public void limpiautor(){
+        aunomtxt.setText("");
+        auapetxt.setText("");
+        aucitxt.setText("");
+        aupatxt.setText("");
+        
+    }
+     public void limpiautorbusqueda(){
+        busqautorid.setText("");
+       }
+    
  public void setControlador(Controlador controlador){
         this.controlador = controlador;
     }
@@ -45,6 +56,7 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         auagre = new javax.swing.JButton();
         aunomtxt = new javax.swing.JTextField();
         auapetxt = new javax.swing.JTextField();
@@ -57,8 +69,18 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
         aufechanaci = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaautor = new javax.swing.JTable();
+        busquedaautor = new javax.swing.JButton();
+        busqautorid = new javax.swing.JTextField();
+        actualizarautor = new javax.swing.JButton();
+        modiautor = new javax.swing.JButton();
+        Borraautor = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
+
+        jLabel8.setText("jLabel8");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -112,6 +134,62 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
         jLabel7.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel7.setText("AUTOR");
 
+        tablaautor.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tablaautor);
+
+        busquedaautor.setText("Busca Id Autor");
+        busquedaautor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                busquedaautorActionPerformed(evt);
+            }
+        });
+
+        busqautorid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                busqautoridActionPerformed(evt);
+            }
+        });
+        busqautorid.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                busqautoridKeyTyped(evt);
+            }
+        });
+
+        actualizarautor.setText("Actualizar Tabla");
+        actualizarautor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                actualizarautorActionPerformed(evt);
+            }
+        });
+
+        modiautor.setText("Modificar Autor");
+        modiautor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modiautorActionPerformed(evt);
+            }
+        });
+
+        Borraautor.setText("Borrar Autor");
+        Borraautor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BorraautorActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Volver");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -126,7 +204,7 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(aufechanaci, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(22, 22, 22)
@@ -144,12 +222,31 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(aunomtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(auagre)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(167, 167, 167)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(167, 167, 167)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(busqautorid, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
+                        .addComponent(busquedaautor, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(actualizarautor, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(modiautor, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(Borraautor, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -183,7 +280,19 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(aufechanaci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(busquedaautor)
+                    .addComponent(actualizarautor)
+                    .addComponent(busqautorid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(modiautor)
+                    .addComponent(Borraautor)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -228,6 +337,39 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
     private void auagreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_auagreActionPerformed
 controlador.altaau(BTN_NUEVO_AUTOR);        // TODO add your handling code here:
     }//GEN-LAST:event_auagreActionPerformed
+
+    private void busquedaautorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busquedaautorActionPerformed
+controlador.buscarautor(BTN_NUEVO_BUSQUEDA);         // TODO add your handling code here:
+    }//GEN-LAST:event_busquedaautorActionPerformed
+
+    private void busqautoridKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_busqautoridKeyTyped
+ char c = evt.getKeyChar();
+        
+        if(!Character.isDigit(c)){
+            getToolkit().beep();
+            evt.consume();
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_busqautoridKeyTyped
+
+    private void busqautoridActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busqautoridActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_busqautoridActionPerformed
+
+    private void modiautorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modiautorActionPerformed
+controlador.consultarautor(BTN_NUEVO_MODIDICAR);          // TODO add your handling code here:
+    }//GEN-LAST:event_modiautorActionPerformed
+
+    private void actualizarautorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarautorActionPerformed
+   controlador.actualizartablaautor(BTN_NUEVO_BUSQUEDA);        // TODO add your handling code here:
+    }//GEN-LAST:event_actualizarautorActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+ this.dispose();             // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void BorraautorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorraautorActionPerformed
+     controlador.eliminarautor(BTN_NUEVO_BORRAR);     // TODO add your handling code here:
+    }//GEN-LAST:event_BorraautorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -294,12 +436,17 @@ public String getaufechanaci(){
        return aufechanaci.getText(); 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Borraautor;
+    private javax.swing.JButton actualizarautor;
     private javax.swing.JButton auagre;
     private javax.swing.JTextField auapetxt;
     private javax.swing.JTextField aucitxt;
     private javax.swing.JTextField aufechanaci;
     private javax.swing.JTextField aunomtxt;
     private javax.swing.JTextField aupatxt;
+    public static javax.swing.JTextField busqautorid;
+    private javax.swing.JButton busquedaautor;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -307,5 +454,9 @@ public String getaufechanaci(){
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton modiautor;
+    public static javax.swing.JTable tablaautor;
     // End of variables declaration//GEN-END:variables
 }
