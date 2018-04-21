@@ -327,7 +327,8 @@ public class Controlador {
         
         
         if(valor.equals(VLibro.BTN_MODIFICAR_LIBRO)){
-            vl.limpiarComboBox();  
+            vml.limpiarComboBox();  
+            vml.limpiarComboBox();
             
             //llamamos a los metodos para que se carguen previamente los autores y las editoriales en el combo box
             obtenerEditorialComboBox();
@@ -733,5 +734,226 @@ if(valor.equals(vaut.BTN_NUEVO_AUTOR)){
     
     
     
+    public void mostrar(){
+    
+Conexion conectar = new Conexion();
+Connection conn   = conectar.getConexion();
+
+DefaultTableModel nodo = new DefaultTableModel();
+nodo.addColumn("idAutor");
+nodo.addColumn("nombre");
+nodo.addColumn("Apellido");
+nodo.addColumn("pais");
+nodo.addColumn("ciudad");
+nodo.addColumn("Fecha Nacimiento");
+
+vaut.tablaautor.setModel(nodo);
+
+String sql="SELECT * FROM autor";
+
+String datos[]= new String [6];
+try{
+    Statement st =conn.createStatement();
+    ResultSet rs = st.executeQuery(sql);
+    while(rs.next()){
+    datos[0]=rs.getString(1);
+    datos[1]=rs.getString(2);
+    datos[2]=rs.getString(3);
+    datos[3]=rs.getString(4);
+    datos[4]=rs.getString(5);
+    datos[5]=rs.getString(6);
+        
+    nodo.addRow(datos);
+    }
+    vaut.tablaautor.setModel(nodo);
+    }
+catch(SQLException ex){
+    JOptionPane.showMessageDialog(null,"no se puedo mostrar");
+}
+
+
+
+
+}
+ 
+    
+    public void buscarautor(String atri){
+    if(atri.equals(vaut.BTN_NUEVO_BUSQUEDA)){
+     buscandoautor(vaut.busqautorid.getText());
+    vaut.limpiautorbusqueda();}
    
+}
+    
+    public void buscandoautor(String value){
+Conexion conectar = new Conexion();
+Connection conn   = conectar.getConexion();
+
+DefaultTableModel nodo = new DefaultTableModel();
+nodo.addColumn("idAutor");
+nodo.addColumn("nombre");
+nodo.addColumn("Apellido");
+nodo.addColumn("pais");
+nodo.addColumn("ciudad");
+nodo.addColumn("Fecha Nacimiento");
+
+vaut.tablaautor.setModel(nodo);
+
+String sql;
+if(value.equals("")){
+sql="SELECT * FROM autor";
+}
+else{
+    sql="SELECT * FROM autor WHERE idAutor='"+value+"'";
+        }
+
+String datos[]= new String [6];
+try{
+    Statement st =conn.createStatement();
+    ResultSet rs = st.executeQuery(sql);
+    while(rs.next()){
+    datos[0]=rs.getString(1);
+    datos[1]=rs.getString(2);
+    datos[2]=rs.getString(3);
+    datos[3]=rs.getString(4);
+    datos[4]=rs.getString(5);
+    datos[5]=rs.getString(6);
+        
+    nodo.addRow(datos);
+    }
+vaut.tablaautor.setModel(nodo);
+    }
+catch(SQLException ex){
+    JOptionPane.showMessageDialog(null,"no se puedo mostrar");
+}
+
+
+
+
+}
+    
+
+       public void consultarautor(String mod){
+     
+   if(mod.equals(vaut.BTN_NUEVO_MODIDICAR))
+   {
+       
+   int fil = vaut.tablaautor.getSelectedRow();
+   if(fil>=0){
+       
+       vautorm.n.setText(vaut.tablaautor.getValueAt(fil, 1).toString());
+       vautorm.a.setText(vaut.tablaautor.getValueAt(fil, 2).toString());
+       vautorm.p.setText(vaut.tablaautor.getValueAt(fil, 3).toString());
+       vautorm.c.setText(vaut.tablaautor.getValueAt(fil, 4).toString());
+       vautorm.f.setText(vaut.tablaautor.getValueAt(fil, 5).toString());
+       vautorm.i.setText(vaut.tablaautor.getValueAt(fil, 0).toString());
+       
+     vautorm.setVisible(true);
+     
+   
+   
+   
+   
+   
+   
+   
+   }
+   else{JOptionPane.showMessageDialog(null,"no se seleciono fila");
+   }
+   
+   }
+  
+   }
+    
+    
+public void actualizartablaautor(String atri){
+    if(atri.equals(vaut.BTN_NUEVO_BUSQUEDA)){
+     mostrar();}
+   
+}
+    
+       public void modiautor(String valor){
+if(valor.equals(vautorm.BTN_NUEVO_ACEPTAR)){
+    Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    
+      String f= vautorm.getn();
+    String h= vautorm.geta();
+    
+    if(f.equals("") || h.equals(""))
+    { JOptionPane.showMessageDialog(null,"EL autor Debe Tener Nombre Y Apellido");}
+    else
+    {
+        try{
+     int idAutor= vautorm.geti();
+     String nombre      = vautorm.getn();
+    String apellido        = vautorm.geta();
+    String pais      = vautorm.getp();
+    String ciudad      = vautorm.getc();
+    String fecha      = vautorm.getf();
+    
+
+    String Ssql = "UPDATE autor SET nombre=?, apellido=?, pais=?, ciudad=?, fecha_nacimiento=? "
+                    + "WHERE idAutor=?";
+    
+    PreparedStatement prest = conn.prepareStatement(Ssql);
+    
+        prest.setString(1,nombre);
+        prest.setString(2, apellido);
+        prest.setString(3, pais);
+        prest.setString(4, ciudad);
+        prest.setString(5, fecha);
+         prest.setInt(6, idAutor);
+          
+    prest.executeUpdate();
+   
+    
+    
+        }
+              catch(SQLException e){
+                  JOptionPane.showMessageDialog(null,e);
+              }
+       JOptionPane.showMessageDialog(null,"Autor Modificado");
+       
+}
+    vautorm.setVisible(false);
+     mostrar();
+      vaut.limpiautor();
+   
+         }
+
+
+}
+
+
+     public void eliminarautor(String local){
+        Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    if(local.equals(vaut.BTN_NUEVO_BORRAR))
+   {
+   int fila = vaut.tablaautor.getSelectedRow();
+   if(fila>=0){
+     String id=vaut.tablaautor.getValueAt(fila, 0).toString();
+     try{
+         
+     PreparedStatement ppt = conn.prepareStatement("DELETE FROM autor WHERE idAutor='"+id+"'");
+     ppt.executeUpdate();
+     JOptionPane.showMessageDialog(null,"Usuario Eliminado");
+     mostrar();
+     }
+     catch(SQLException e){JOptionPane.showMessageDialog(null,"No se pudo Eliminar");}
+ 
+   }
+   else{JOptionPane.showMessageDialog(null,"no se seleciono fila");
+   }
+    
+}
+
+    }
+
+
+
+}
+
+    
+  
 }
