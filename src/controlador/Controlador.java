@@ -21,8 +21,10 @@ public class Controlador {
     private VNuVenta vnv;
     private VNuCliente vnc;
     private VLibro vl;
+    private VModLibro vml;
     private Edit edit;
     private EditM editm;
+    private Vaut vaut;
     
    
     
@@ -33,8 +35,11 @@ public class Controlador {
         vnv = new VNuVenta(vp,true);
         vnc = new VNuCliente(vnv,true);
         vl = new VLibro(vp, true);
+        vml = new VModLibro(vp, true);
+        
         edit=new Edit(vp,true);
         editm = new EditM(null,true);
+         vaut= new Vaut(vp,true);
       
        
     }
@@ -45,46 +50,114 @@ public class Controlador {
         vnv.setControlador(this);
         vnc.setControlador(this);
         vl.setControlador(this);
+        vml.setControlador(this);
         edit.setControlador(this);
         editm.setControlador(this);
         mostar();
         
+          vaut.setControlador(this);
     }
     
     
     
+    
+    //OCTAVIO PROGRAMACION
+    
+    //metodo para cargar los libros en el jTable de la ventana libros
+    public void cargarLibros(){
+        Conexion conectar = new Conexion();
+        Connection conn = conectar.getConexion();
+        
+        Object[] datos = new Object[6];
+        String SQL = "SELECT * FROM libro";
+        
+        
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(SQL);
+            while(rs.next()){
+                datos[0] = rs.getString("ISBN");
+                datos[1] = rs.getString("titulo");
+                datos[3] = rs.getString("Edicion");
+                datos[5] = rs.getString("precio");
+                
+                //para mostrar en el jTable el nombre de autor y editorial primero obtenemos su respectivos id
+                //obtenemos el idAutor y el idEditorial de la tabla libros 
+                String idAutor = rs.getString("idAutor");
+                String idEditorial = rs.getString("idEditorial");
+                
+                   //de acuerdo al idAutor obtenido anteriormente nos vamos a la tabla autor y obtenemos el nombre
+                   String SQL1 = "SELECT nombre FROM autor where idAutor = '"+idAutor+"'";
+                   Statement st1 = conn.createStatement();
+                   ResultSet rs1 = st1.executeQuery(SQL1);
+                   while(rs1.next()){
+                       datos[2] = rs1.getString("nombre");
+                   }
+                   
+                   //de acuerdo al idEditorial obtenido anteriormente nos vamos a la tabla editorial y obtenemos el nombre
+                   String SQL2 = "SELECT nombre FROM editorial where idEditorial = '"+idEditorial+"'";
+                   Statement st2 = conn.createStatement();
+                   ResultSet rs2 = st2.executeQuery(SQL1);
+                   while(rs2.next()){
+                       datos[4] = rs2.getString("nombre");
+                   
+                   }
+                   
+                   //ya teniendo todos los datos que queremos mostrar en la tabla los agregamos
+                   vl.insertarFila(datos);
+          
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        
+        }
+
+    }
+    
+  
+    
+    //metodo para pasar las editoriales al jComboBox de la ventana libro
      public void obtenerEditorialComboBox(){
           Conexion conexion = new Conexion();
           Connection conn   = conexion.getConexion();
           
-          String SQL = "SELECT nombre FROM editorial";
+          String SQL = "SELECT idEditorial,nombre FROM editorial";
           vl.setComboBoxEditorial("Seleccione una editorial");
+          vml.setComboBoxEditorial("Seleccione una editorial");
           try {
               Statement st = conn.createStatement();
               ResultSet rs = st.executeQuery(SQL);
               while(rs.next()){
                   String nombre = rs.getString("nombre");
-                  int idEditorial = rs.getInt(0);
+                  String idEditorial = rs.getString("idEditorial");
                   vl.setComboBoxEditorial(nombre);
+                  vml.setComboBoxEditorial(nombre);
                   vl.setIdEditorial(idEditorial);
+                  vml.setIdEditorial(idEditorial);
                   
               }   
           } catch (Exception e) {
           }
      }
      
+     //metodo para pasar los autores al jComboBox de la ventana libro
      public void obtenerAutorComboBox(){
           Conexion conexion = new Conexion();
           Connection conn   = conexion.getConexion();
           
-          String SQL = "SELECT nombre FROM autor";
+          String SQL = "SELECT idAutor,nombre FROM autor";
           vl.setComboBoxAutor("Seleccione un autor");
+          vml.setComboBoxAutor("Seleccione un autor");
           try {
               Statement st = conn.createStatement();
               ResultSet rs = st.executeQuery(SQL);
-              while(rs.next()){
+              while(rs.next()){                  
                   String nombre = rs.getString("nombre");
+                  String idAutor = rs.getString("idAutor");
                   vl.setComboBoxAutor(nombre);
+                  vml.setComboBoxAutor(nombre);
+                  vl.setIdAutor(idAutor);
+                  vml.setIdAutor(idAutor);
                   
               }   
           } catch (Exception e) {
@@ -95,7 +168,7 @@ public class Controlador {
     
     
     public void procesar(String valor){
-        if(valor.equals(vp.BTN_NUEVA_VENTA)){
+        if(valor.equals(vp.BTN_VENTA)){
             vnv.setVisible(true);
         }
         
@@ -119,7 +192,6 @@ public class Controlador {
             String correo      = vnc.getCorreo();
             
             
-            
              String SQL = "INSERT INTO cliente (nombre,apellido,dni,fecha_nacimiento,tel_fijo,tel_movil,ciudad,direccion,correo) "
                       +    "VALUES ('"+nombre+"','"+apellido+"','"+dni+"','"+fechaNac+"','"+telFijo+"','"+celular+"','"+ciudad+"','"+direccion+"','"+correo+"')";
               
@@ -141,6 +213,7 @@ public class Controlador {
               
               vnc.limpiar();
         }
+        
         
         if(valor.equals(vnv.BTN_BUSCAR_CLIENTE)){
             Conexion conectar = new Conexion();
@@ -168,8 +241,13 @@ public class Controlador {
         }
         
         if(valor.equals(vp.BTN_LIBRO)){
-            vl.limpiarComboBox();
+            vl.limpiarComboBox();    
+            vl.limpiarTabla();
+             //llamamos a los metodos para que se carguen previamente los autores y las editoriales en el combo box 
             obtenerEditorialComboBox();
+            obtenerAutorComboBox();
+            //llamamos al metodo para que se carguen los libros en el jTable
+            cargarLibros();
             vl.setVisible(true);
             
         }
@@ -183,58 +261,166 @@ public class Controlador {
             int paginas = vl.getPaginas();
             String fecha = vl.getFecha();
             String descripcion = vl.getDescripcion();
+            String edicion = vl.getEdicion();
             double precio = vl.getPrecio();
             int stock = vl.getStock();
+            
+            
+            String nombreAutor = vl.getComboBoxAutor();
+            String nombreEditorial = vl.getComboBoxEditorial();
             int idEditorial = vl.getIdEditorial();
-            int  idAutor = vl.getIdAutor();
-     
+            int idAutor = vl.getIdAutor();
             
             
+            Object[] datos = new Object[7];
+            datos[0]       = ISBN;
+            datos[1]       = titulo;
+            datos[2]       = nombreAutor;
+            datos[3]       = edicion;
+            datos[4]       = nombreEditorial;
+            datos[5]       = precio;
+            datos[6]       = stock;
+             
             
-            /*
-            String SQL1 = "SELECT * FROM editorial where nombre = '"+vl.getComboBoxEditorial()+"'";
-            String SQL2 = "SELECT * FROM autor where nombre = '"+vl.getComboBoxAutor()+"'";
             
-            try {
-                Statement st = conn.createStatement();
-                ResultSet rs = st.executeQuery(SQL1);
-                while(rs.next()){
-                   int e = rs.getInt(1);
+            String SQL = "INSERT INTO libro (ISBN,titulo,fecha_lanzamiento,paginas,descripcion,edicion,precio,stock,idAutor,idEditorial,idCategoria) "
+                       + "VALUES ('"+ISBN+"','"+titulo+"','"+fecha+"','"+paginas+"','"+descripcion+"','"+edicion+"','"+precio+"','"+stock+"','"+idAutor+"','"+idEditorial+"','"+1+"')";
+       
+        try {
+             Statement sentencia = conn.createStatement();
+             sentencia.executeUpdate(SQL);
+             vl.insertarFila(datos);
+             vl.limpiar();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        }
+        
+        
+        
+        
+        
+        if(valor.equals(vl.BTN_ELIMINAR_LIBRO)){
+            Conexion conectar = new Conexion();
+            Connection conn   = conectar.getConexion();
+            
+            int fila = vl.getFila();
+            if(fila >= 0){
+                if (JOptionPane.showConfirmDialog(null,"Se eliminta la fila seleccionada") == JOptionPane.YES_OPTION){
+                    
+                    int ISBN = vl.getISBN_tabla();
+                    String SQL = "DELETE FROM libro WHERE ISBN = '"+ISBN+"'";
+                    
+                    try {
+                        Statement st = conn.createStatement();
+                        st.executeUpdate(SQL);
+                        vl.eliminarFila(fila);
+                        
+                    } catch (Exception e) {
+                    }
+                    
                     
                 }
-                
-            } catch (Exception e) {
-            }
+            }  
+        }
+        
+        
+        if(valor.equals(VLibro.BTN_MODIFICAR_LIBRO)){
+            vl.limpiarComboBox();  
             
-            try {
+            //llamamos a los metodos para que se carguen previamente los autores y las editoriales en el combo box
+            obtenerEditorialComboBox();
+            obtenerAutorComboBox();
+            
+            Conexion conectar = new Conexion();
+            Connection conn   = conectar.getConexion();
+            
+            int fila = vl.getFila();
+            if(fila>= 0){
+            
+            int ISBN = vl.getISBN_tabla();
+           
+            String SQL = "SELECT * FROM libro WHERE ISBN = '"+ISBN+"'";
+            
+            try{
                 Statement st = conn.createStatement();
-                ResultSet rs = st.executeQuery(SQL2);
+                ResultSet rs = st.executeQuery(SQL);
                 while(rs.next()){
-                    idAutor = rs.getInt(1);
+                    //establecemos los valores en los jTextField de la ventana modLibro
+                    vml.setISBN(rs.getString("ISBN"));
+                    vml.setTitulo(rs.getString("Titulo"));
+                    vml.setEdicion(rs.getString("Edicion"));
+                    vml.setFecha(rs.getString("fecha_lanzamiento"));
+                    vml.setPaginas(rs.getString("paginas"));
+                    vml.setPrecio(rs.getString("precio"));
+                    vml.setStock(rs.getString("stock"));
+                    vml.setDescripcion(rs.getString("descripcion"));
                 }
-                
-            } catch (Exception e) {
+            }
+             catch(SQLException e){
+                  JOptionPane.showMessageDialog(null,e);
+             }
+         
+             vml.setVisible(true);   
             }
             
-            */
-            
-            
-            String SQL = "INSERT INTO libro VALUES(ISNB,titulo,fecha_lanzamiento,paginas,descripcion,precio,stock,idAutor,idEditorial) "
-                       + "VALUES ('"+ISBN+"','"+titulo+"','"+fecha+"','"+paginas+"','"+descripcion+"','"+precio+"','"+stock+"','"+idAutor+"','"+idEditorial+"')";
+              else{
+                JOptionPane.showMessageDialog(null,"Seleccione una fila");
+            }
         }
-        }
-
+             
+             
+             if(valor.equals(vml.BTN_ACEPTAR_MODIFICACION)){
+            Conexion conectar = new Conexion();
+            Connection conn   = conectar.getConexion();
+             
+                       
+            Object[] datos = new Object[7];
+            datos[0]       = vml.getISBN();
+            datos[1]       = vml.getTitulo();
+            datos[2]       = vml.getComboBoxAutor();
+            datos[3]       = vml.getEdicion();
+            datos[4]       = vml.getComboBoxEditorial();
+            datos[5]       = vml.getPrecio();
+            datos[6]       = vml.getStock();
+            
+           
+                
+            String fecha         = vml.getFecha();
+            int paginas          = vml.getPaginas();
+            String descripcion   = vml.getDescripcion();
+            int idEditorial      = vml.getIdEditorial();
+            int idAutor          = vml.getIdAutor();
+            
+            int ISBN = vl.getISBN_tabla();
+        
+        
+            String SQL = "UPDATE libro SET ISBN = '"+datos[0]+"', titulo='"+datos[1]+"', idAutor='"+idAutor+"', edicion='"+datos[3]+"', fecha_lanzamiento='"+fecha+"', paginas='"+paginas+"', idEditorial='"+idEditorial+"', precio = '"+datos[5]+"', stock= '"+datos[6]+"', descripcion='"+descripcion+"', idCategoria='"+1+"' WHERE ISBN = '"+ISBN+"'";
+            
+                try {
+                    Statement st = conn.createStatement();
+                    st.executeUpdate(SQL); 
+                    vl.modificarFila(datos);
+                    vml.limpiar();
+                    
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e);
+                }
+            }
+          
+     
    
- 
+    }
     
 
 
-
+ //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
     /*EMMANUEL PROGRAMACION*/
     public void proc(String valor){
-    if(valor.equals(vp.BTN_NUEVO_EDITORIAL)){
+    if(valor.equals(vp.BTN_EDITORIAL)){
             edit.setVisible(true);
             
         }
@@ -398,7 +584,7 @@ catch(SQLException ex){
        editm.diretxt.setText(edit.tabla.getValueAt(fila, 3).toString());
        editm.ciutxt.setText(edit.tabla.getValueAt(fila, 4).toString());
      editm.setVisible(true);
-   
+     
    
    
    
@@ -422,7 +608,7 @@ catch(SQLException ex){
    
    
        */
-   public void modi(String valor){
+       public void modi(String valor){
 if(valor.equals(editm.BTN_NUEVO_ACE)){
     Conexion conectar = new Conexion();
     Connection conn   = conectar.getConexion();
@@ -438,22 +624,114 @@ if(valor.equals(editm.BTN_NUEVO_ACE)){
     String direccion      = editm.getdirec();
     String ciudad      = editm.getciu();
     
-  
-    PreparedStatement ppt= conn.prepareStatement("UPDATE editorial SET nombre = '"+nombre+"' WHERE idEditorial = '"+idEditorial+"'");
+
+    String Ssql = "UPDATE editorial SET nombre=?, telefono=?, direccion=?, ciudad=? "
+                    + "WHERE idEditorial=?";
     
-    String roda = "RODA TE AMA";
+    PreparedStatement prest = conn.prepareStatement(Ssql);
     
-    ppt.executeUpdate();
+    prest.setString(1,nombre);
+        prest.setInt(2, telefono);
+        prest.setString(3, direccion);
+        prest.setString(4, ciudad);
+        prest.setInt(5, idEditorial);
+          
+    prest.executeUpdate();
+   
+    
     
         }
               catch(SQLException e){
                   JOptionPane.showMessageDialog(null,e);
-                  JOptionPane.showMessageDialog(null,"Editorial Agregada");
               }
-       JOptionPane.showMessageDialog(null,"Editorial Agregada");
+       JOptionPane.showMessageDialog(null,"Editorial Modificada");
+       
 }
+    editm.setVisible(false);
      mostar();
+     edit.limp(); 
+   
+         }
+
+
+}
+   
+   
+     /* AUTOR*/
+    public void proce(String valor){
+    if(valor.equals(vp.BTN_AUTOR)){
+            vaut.setVisible(true);
+            
+        }
+    }
+    
+     public void eliminar(String loca){
+        Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    if(loca.equals(edit.BTN_NUEVO_BORRA))
+   {
+   int fila = edit.tabla.getSelectedRow();
+   if(fila>=0){
+     String id=edit.tabla.getValueAt(fila, 0).toString();
+     try{
+         
+     PreparedStatement ppt = conn.prepareStatement("DELETE FROM Editorial WHERE idEditorial='"+id+"'");
+     ppt.executeUpdate();
+     JOptionPane.showMessageDialog(null,"Usuario Eliminado");
+     mostar();
+     }
+     catch(SQLException e){JOptionPane.showMessageDialog(null,"No se pudo Eliminar");}
+ 
+   }
+   else{JOptionPane.showMessageDialog(null,"no se seleciono fila");
+   }
+    
+}
+
+    }
+    
+    public void altaau(String valor){
+if(valor.equals(vaut.BTN_NUEVO_AUTOR)){
+    Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    
+    String n= vaut.getaunom();
+    String h= vaut.getauape();
+    
+    if(n.equals("") || h.equals(""))
+    { JOptionPane.showMessageDialog(null,"EL autor Debe Tener Nombre Y Apellido");}
+    else{
+   
+
+    
+    
+    String nombre      = vaut.getaunom();
+    String apellido        = vaut.getauape();
+    String pais      = vaut.getaupa();
+    String ciudad      = vaut.getauci();
+    String fecha      = vaut.getaufechanaci();
+    
+    String SQL = "INSERT INTO autor (nombre,apellido,pais,ciudad,fecha_nacimiento) "
+                      +    "VALUES ('"+nombre+"','"+apellido+"','"+pais+"','"+ciudad+"','"+fecha+"')";
+    
+    
+       try{  
+           
+                  Statement sentencia = conn.createStatement();
+                  sentencia.executeUpdate(SQL);
+                  
+              }
+              catch(SQLException e){
+                  JOptionPane.showMessageDialog(null,e);
+              }
+       JOptionPane.showMessageDialog(null,"Autor Agregado");
+}
     
         }
 }/*aqui termina el alta*/
+    
+    
+    
+    
+   
 }

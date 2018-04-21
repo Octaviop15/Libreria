@@ -26,9 +26,9 @@ public class VNuCliente extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         requerido1.setVisible(false);
-        Requerido2.setVisible(false);
-        Requerido3.setVisible(false);
-        Requerido4.setVisible(false);
+        requerido2.setVisible(false);
+        requerido3.setVisible(false);
+        requerido4.setVisible(false);
         
     }
     
@@ -44,27 +44,27 @@ public class VNuCliente extends javax.swing.JDialog {
             requerido1.setVisible(false);
         }
         if(txtApellido.getText().equals("")){
-            Requerido2.setVisible(true);
+            requerido2.setVisible(true);
             cont++;
         }
         else{
-            Requerido2.setVisible(false);
+            requerido2.setVisible(false);
         }
         
         if(txtDNI.getText().equals("")){
-            Requerido3.setVisible(true);
+            requerido3.setVisible(true);
             cont++;
         }
         else{
-            Requerido3.setVisible(false);
+            requerido3.setVisible(false);
         }
         
         if(txtFecNac.getText().equals("")){
-            Requerido4.setVisible(true);
+            requerido4.setVisible(true);
             cont++;
         }
         else{
-            Requerido4.setVisible(false);
+            requerido4.setVisible(false);
         }
         
     }
@@ -152,9 +152,9 @@ public class VNuCliente extends javax.swing.JDialog {
         txtCelular = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         requerido1 = new javax.swing.JLabel();
-        Requerido2 = new javax.swing.JLabel();
-        Requerido3 = new javax.swing.JLabel();
-        Requerido4 = new javax.swing.JLabel();
+        requerido2 = new javax.swing.JLabel();
+        requerido3 = new javax.swing.JLabel();
+        requerido4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(643, 342));
@@ -256,11 +256,11 @@ public class VNuCliente extends javax.swing.JDialog {
 
         requerido1.setText("Requerido");
 
-        Requerido2.setText("Requerido");
+        requerido2.setText("Requerido");
 
-        Requerido3.setText("Requerido");
+        requerido3.setText("Requerido");
 
-        Requerido4.setText("Requerido");
+        requerido4.setText("Requerido");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -316,9 +316,9 @@ public class VNuCliente extends javax.swing.JDialog {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(requerido1)
-                    .addComponent(Requerido2)
-                    .addComponent(Requerido3)
-                    .addComponent(Requerido4))
+                    .addComponent(requerido2)
+                    .addComponent(requerido3)
+                    .addComponent(requerido4))
                 .addGap(251, 251, 251))
         );
         layout.setVerticalGroup(
@@ -334,7 +334,7 @@ public class VNuCliente extends javax.swing.JDialog {
                     .addComponent(jLabel2)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Requerido2)))
+                        .addComponent(requerido2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -344,12 +344,12 @@ public class VNuCliente extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Requerido3))
+                            .addComponent(requerido3))
                         .addGap(11, 11, 11)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(txtFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Requerido4))))
+                            .addComponent(requerido4))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -487,9 +487,6 @@ public class VNuCliente extends javax.swing.JDialog {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Requerido2;
-    private javax.swing.JLabel Requerido3;
-    private javax.swing.JLabel Requerido4;
     private javax.swing.JButton botonAceptar;
     private javax.swing.JButton botonCancelar;
     private javax.swing.JLabel jLabel1;
@@ -504,6 +501,9 @@ public class VNuCliente extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel requerido1;
+    private javax.swing.JLabel requerido2;
+    private javax.swing.JLabel requerido3;
+    private javax.swing.JLabel requerido4;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtCiudad;

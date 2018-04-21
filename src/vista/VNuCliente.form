@@ -99,9 +99,9 @@
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="requerido1" min="-2" max="-2" attributes="0"/>
-                  <Component id="Requerido2" min="-2" max="-2" attributes="0"/>
-                  <Component id="Requerido3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Requerido4" min="-2" max="-2" attributes="0"/>
+                  <Component id="requerido2" min="-2" max="-2" attributes="0"/>
+                  <Component id="requerido3" min="-2" max="-2" attributes="0"/>
+                  <Component id="requerido4" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="251" max="-2" attributes="0"/>
           </Group>
@@ -121,7 +121,7 @@
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtApellido" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="Requerido2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="requerido2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -133,13 +133,13 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtDNI" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Requerido3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="requerido3" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtFecNac" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Requerido4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="requerido4" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -292,17 +292,17 @@
         <Property name="text" type="java.lang.String" value="Requerido"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="Requerido2">
+    <Component class="javax.swing.JLabel" name="requerido2">
       <Properties>
         <Property name="text" type="java.lang.String" value="Requerido"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="Requerido3">
+    <Component class="javax.swing.JLabel" name="requerido3">
       <Properties>
         <Property name="text" type="java.lang.String" value="Requerido"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="Requerido4">
+    <Component class="javax.swing.JLabel" name="requerido4">
       <Properties>
         <Property name="text" type="java.lang.String" value="Requerido"/>
       </Properties>
