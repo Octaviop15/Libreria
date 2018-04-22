@@ -25,7 +25,7 @@ public class Controlador {
     private Edit edit;
     private EditM editm;
     private Vaut vaut;
-    
+    private VautorM vautorm;
    
     
     
@@ -40,7 +40,7 @@ public class Controlador {
         edit=new Edit(vp,true);
         editm = new EditM(null,true);
          vaut= new Vaut(vp,true);
-      
+      vautorm= new VautorM(null,true);
        
     }
     
@@ -54,7 +54,8 @@ public class Controlador {
         edit.setControlador(this);
         editm.setControlador(this);
         mostar();
-        
+        mostrar();
+        vautorm.setControlador(this);
           vaut.setControlador(this);
     }
     
@@ -956,4 +957,3 @@ if(valor.equals(vautorm.BTN_NUEVO_ACEPTAR)){
 
     
   
-}
