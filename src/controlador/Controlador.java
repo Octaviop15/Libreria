@@ -26,7 +26,7 @@ public class Controlador {
     private EditM editm;
     private Vaut vaut;
     private VautorM vautorm;
-   
+   private Vcategoria vcategoria;
     
     
     
@@ -41,6 +41,7 @@ public class Controlador {
         editm = new EditM(null,true);
          vaut= new Vaut(vp,true);
       vautorm= new VautorM(null,true);
+      vcategoria = new Vcategoria(vp,true);
        
     }
     
@@ -55,8 +56,11 @@ public class Controlador {
         editm.setControlador(this);
         mostar();
         mostrar();
+        motacho();
         vautorm.setControlador(this);
           vaut.setControlador(this);
+          vcategoria.setControlador(this);
+          
     }
     
     
@@ -328,8 +332,7 @@ public class Controlador {
         
         
         if(valor.equals(VLibro.BTN_MODIFICAR_LIBRO)){
-            vml.limpiarComboBox();  
-            vml.limpiarComboBox();
+       
             
             //llamamos a los metodos para que se carguen previamente los autores y las editoriales en el combo box
             obtenerEditorialComboBox();
@@ -953,6 +956,119 @@ if(valor.equals(vautorm.BTN_NUEVO_ACEPTAR)){
 
 
 
+     /*CATEGORIA*/
+      public void p(String valor){
+    if(valor.equals(vp.BTN_CATEGORIA)){
+            vcategoria.setVisible(true);
+            
+        }
+    }
+     
+      
+      
+      public void a(String valor){
+if(valor.equals(vcategoria.BTN_NUEVO_AGREC)){
+    Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    
+    String n= vcategoria.getnombrecategoria();
+    if(n.equals(""))
+    { JOptionPane.showMessageDialog(null,"Debe tener un nombre Categoria");}
+    else{
+   
+
+    
+    
+    String nombre      = vcategoria.getnombrecategoria();
+ 
+    
+    String SQL = "INSERT INTO categoria (nombre) "
+                      +    "VALUES ('"+nombre+"')";
+    
+    
+       try{  
+           
+                  Statement sentencia = conn.createStatement();
+                  sentencia.executeUpdate(SQL);
+                  
+              }
+              catch(SQLException e){
+                  JOptionPane.showMessageDialog(null,e);
+              }
+       JOptionPane.showMessageDialog(null,"Categoria Agregada");
+}
+   
+        }
+motacho();
+vcategoria.lit();
+}
+      
+      
+     public void motacho(){
+    
+Conexion conectar = new Conexion();
+Connection conn   = conectar.getConexion();
+
+DefaultTableModel nodo = new DefaultTableModel();
+nodo.addColumn("idCategoria");
+nodo.addColumn("nombre");
+
+
+vcategoria.tablacategoria.setModel(nodo);
+
+String sql="SELECT * FROM categoria";
+
+String datos[]= new String [2];
+try{
+    Statement st =conn.createStatement();
+    ResultSet rs = st.executeQuery(sql);
+    while(rs.next()){
+    datos[0]=rs.getString(1);
+    datos[1]=rs.getString(2);
+
+        
+    nodo.addRow(datos);
+    }
+    vcategoria.tablacategoria.setModel(nodo);
+    }
+catch(SQLException ex){
+    JOptionPane.showMessageDialog(null,"no se puedo mostrar");
+}
+
+
+
+
+}
+     
+     
+     
+     
+      public void e(String local){
+        Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    if(local.equals(vcategoria.BTN_NUEVO_BORC))
+   {
+   int fila = vcategoria.tablacategoria.getSelectedRow();
+   if(fila>=0){
+     String id=vcategoria.tablacategoria.getValueAt(fila, 0).toString();
+     try{
+         
+     PreparedStatement ppt = conn.prepareStatement("DELETE FROM categoria WHERE idCategoria='"+id+"'");
+     ppt.executeUpdate();
+     JOptionPane.showMessageDialog(null,"Categoria Eliminada");
+     motacho();
+     
+     }
+     catch(SQLException e){JOptionPane.showMessageDialog(null,"No se pudo Eliminar");}
+ 
+   }
+   else{JOptionPane.showMessageDialog(null,"no se seleciono fila");
+   }
+    
+}
+
+    }
+     
 }
 
     
