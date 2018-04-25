@@ -32,6 +32,8 @@ public class VPrincipal extends javax.swing.JFrame {
         btnAutor = new javax.swing.JButton();
         btnLibro = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        bBuscar = new javax.swing.JButton();
+        bAltaEmpleado = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,6 +72,10 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
 
+        bBuscar.setText("Buscar Empleado");
+
+        bAltaEmpleado.setText("Agregar Empleado");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,15 +83,19 @@ public class VPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnVenta)
-                    .addComponent(btnAutor))
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnLibro)
-                        .addGap(33, 33, 33)
-                        .addComponent(jButton1))
-                    .addComponent(btnEditorial))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnVenta)
+                            .addComponent(btnAutor))
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnLibro)
+                                .addGap(33, 33, 33)
+                                .addComponent(jButton1))
+                            .addComponent(btnEditorial)))
+                    .addComponent(bBuscar)
+                    .addComponent(bAltaEmpleado))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -100,7 +110,11 @@ public class VPrincipal extends javax.swing.JFrame {
                     .addComponent(btnAutor)
                     .addComponent(btnLibro)
                     .addComponent(jButton1))
-                .addContainerGap(217, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(bBuscar)
+                .addGap(18, 18, 18)
+                .addComponent(bAltaEmpleado)
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         pack();
@@ -129,6 +143,8 @@ controlador.p(BTN_CATEGORIA);        // TODO add your handling code here:
 
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bAltaEmpleado;
+    private javax.swing.JButton bBuscar;
     private javax.swing.JButton btnAutor;
     private javax.swing.JButton btnEditorial;
     private javax.swing.JButton btnLibro;
