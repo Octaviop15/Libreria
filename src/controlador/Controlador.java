@@ -26,7 +26,7 @@ public class Controlador {
     private EditM editm;
     private Vaut vaut;
     private VautorM vautorm;
-   
+   private Vcategoria vcategoria;
     
     
     
@@ -41,6 +41,7 @@ public class Controlador {
         editm = new EditM(null,true);
          vaut= new Vaut(vp,true);
       vautorm= new VautorM(null,true);
+      vcategoria = new Vcategoria(vp,true);
        
     }
     
@@ -55,8 +56,11 @@ public class Controlador {
         editm.setControlador(this);
         mostar();
         mostrar();
+        motacho();
         vautorm.setControlador(this);
           vaut.setControlador(this);
+          vcategoria.setControlador(this);
+          
     }
     
     
@@ -221,7 +225,7 @@ public class Controlador {
             Conexion conectar = new Conexion();
             Connection conn   = conectar.getConexion();
             
-            String[] datos = new String[2];
+            String[] datos = new String[3];
             int DNI = vnv.getDNI();
             String SQL = "SELECT * FROM cliente WHERE DNI = '"+DNI+"'";
             
@@ -230,17 +234,130 @@ public class Controlador {
                 ResultSet rs = st.executeQuery(SQL);
                 while(rs.next()){
                     datos[0] = rs.getString("nombre");
-                    datos[1] = rs.getString("apellido");
-                    
-                    vnv.setNombre(datos[0]);
-                    vnv.setApellido(datos[1]);
+                    datos[1] = rs.getString("apellido");               
+                    datos[2] = rs.getString("direccion");                                      
                 }
+                
+                vnv.setNombre(datos[0]);
+                vnv.setApellido(datos[1]);
+                vnv.setDireccion(datos[3]);
             }
              catch(SQLException e){
                   JOptionPane.showMessageDialog(null,e);
                
         }
         }
+        
+          if(valor.equals(vnv.BTN_BUSCAR_LIBRO)){
+            Conexion conectar = new Conexion();
+            Connection conn   = conectar.getConexion();
+            
+            String[] datos = new String[3];
+            int ISBN = vnv.getISBN();
+            String SQL = "SELECT * FROM libro WHERE ISBN = '"+ISBN+"'";
+            
+            try{
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(SQL);
+                while(rs.next()){
+                    datos[0] = rs.getString("titulo");
+                    datos[1]  =rs.getString("precio");
+                    datos[2] = rs.getString("stock");        
+                }
+                
+                  vnv.setTitulo(datos[0]);
+                  vnv.setPrecio(datos[1]);
+                  vnv.setStock(datos[2]);
+                  vnv.visibilidadCantidad();
+                
+                
+            }
+             catch(SQLException e){
+                  JOptionPane.showMessageDialog(null,e);
+               
+        }
+            
+          
+            
+        }
+        
+             if(valor.equals(VNuVenta.BTN_AGREGAR_DETALLE_VENTA)){
+                
+                 
+                 if(vnv.getCantidad() <= vnv.getStock()){
+                 
+                 Object[] datos = new Object[5];
+                 int ISBN = vnv.getISBN();
+                 
+                 datos[0] = vnv.getISBN();
+                 datos[1] = vnv.getTitulo();
+                 datos[2] = vnv.getCantidad();
+                 datos[3] = vnv.getPrecio();               
+                 datos[4] = vnv.getSubtotal();
+                 
+                 vnv.insertarFila(datos);
+                 vnv.limpiar();
+                 }
+                 
+                 else{
+                         JOptionPane.showMessageDialog(null,"Stock insuficiente");
+                 }
+    }
+             
+             
+           if(valor.equals(vnv.BTN_ELIMINAR_DETALLE_VENTA)){
+               int fila = vnv.getFila();
+               if(fila >= 0){
+               vnv.eliminarFila(fila);
+               }
+               else{
+                   JOptionPane.showMessageDialog(null,"Seleccione una fila");
+               }
+               
+           }  
+           
+           
+           if(valor.equals(vnv.BTN_FINALIZAR_CARGA)){
+               
+               vnv.setTotal(vnv.getTotal());
+               
+           }
+           
+           
+           if(valor.equals(vnv.BTN_GENERAR_VENTA)){
+                Conexion conectar = new Conexion();
+                Connection conn   = conectar.getConexion();
+                
+                int cantFilas = vnv.getCantFilasTabla();
+                int stock;
+                
+                for(int i=0;i<cantFilas;i++){
+                    int ISBN = vnv.getISBN_tabla(i);
+                    String SQL1 = "SELECT stock from libro WHERE ISBN ='"+ISBN+"'";
+                    
+                    try {
+                        Statement st1 = conn.createStatement();
+                        ResultSet rs = st1.executeQuery(SQL1);
+                        while(rs.next()){
+                            stock = rs.getInt("stock");
+                            stock = stock - 1;
+                            String SQL2 = "UPADATE libro SET stock = '"+stock+"' where ISBN='"+ISBN+"'";
+                            Statement st2  =conn.createStatement();
+                            st2.executeUpdate(SQL2);
+                        }
+                        
+                        JOptionPane.showMessageDialog(null,"Venta generada con exito");
+                        JOptionPane.showMessageDialog(null,"Stock actualizado");
+                     
+                    } catch (Exception e) {
+                          JOptionPane.showMessageDialog(null, e);
+                    }
+                }
+                
+               
+           }
+        
+      
         
         if(valor.equals(vp.BTN_LIBRO)){
             vl.limpiarComboBox();    
@@ -329,9 +446,13 @@ public class Controlador {
         
         
         if(valor.equals(VLibro.BTN_MODIFICAR_LIBRO)){
+
             vl.limpiarComboBox();
             vml.limpiarComboBox();  
             
+
+       
+
             
             //llamamos a los metodos para que se carguen previamente los autores y las editoriales en el combo box
             obtenerEditorialComboBox();
@@ -414,59 +535,17 @@ public class Controlador {
             }
              
              
-             if(valor.equals(VNuVenta.BTN_AGREGAR_DETALLE_VENTA)){
-                 Conexion conectar = new Conexion();
-                 Connection conn   = conectar.getConexion();
-                 
-                 Object[] datos = new Object[7];
-                 int ISBN = vnv.getISNB();
-                 
-                 
-                 String SQL = "SELECT * FROM libro WHERE ISBN = '"+ISBN+"'";
-                 
-                 try {
-                     Statement st = conn.createStatement();
-                     ResultSet rs = st.executeQuery(SQL);
-                     while(rs.next()){
-                         datos[0]  = rs.getString("ISBN");
-                         datos[1]  = rs.getString("titulo");
-                         datos[3]  = rs.getString("edicion");
-                         datos[5]  = rs.getString("precio");
-                         datos[6]  = rs.getString("stock");
-                         
-                //para mostrar en el jTable el nombre de autor y editorial primero obtenemos su respectivos id
-                //obtenemos el idAutor y el idEditorial de la tabla libros 
-                String idAutor = rs.getString("idAutor");
-                String idEditorial = rs.getString("idEditorial");
-                
-                   //de acuerdo al idAutor obtenido anteriormente nos vamos a la tabla autor y obtenemos el nombre
-                   String SQL1 = "SELECT nombre FROM autor where idAutor = '"+idAutor+"'";
-                   Statement st1 = conn.createStatement();
-                   ResultSet rs1 = st1.executeQuery(SQL1);
-                   while(rs1.next()){
-                       datos[2] = rs1.getString("nombre");
-                   }
-                   
-                   //de acuerdo al idEditorial obtenido anteriormente nos vamos a la tabla editorial y obtenemos el nombre
-                   String SQL2 = "SELECT nombre FROM editorial where idEditorial = '"+idEditorial+"'";
-                   Statement st2 = conn.createStatement();
-                   ResultSet rs2 = st2.executeQuery(SQL1);
-                   while(rs2.next()){
-                       datos[4] = rs2.getString("nombre");
-                         
-                     }
-                   vnv.insertarFila(datos);
-                            
-                 } 
-                 }catch (Exception e) {
-                     JOptionPane.showMessageDialog(null, e);
-                 }
-                 
-                 
-             }
-          
-     
-   
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
     }
     
     
@@ -1010,6 +1089,119 @@ if(valor.equals(vautorm.BTN_NUEVO_ACEPTAR)){
 
 
 
+     /*CATEGORIA*/
+      public void p(String valor){
+    if(valor.equals(vp.BTN_CATEGORIA)){
+            vcategoria.setVisible(true);
+            
+        }
+    }
+     
+      
+      
+      public void a(String valor){
+if(valor.equals(vcategoria.BTN_NUEVO_AGREC)){
+    Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    
+    String n= vcategoria.getnombrecategoria();
+    if(n.equals(""))
+    { JOptionPane.showMessageDialog(null,"Debe tener un nombre Categoria");}
+    else{
+   
+
+    
+    
+    String nombre      = vcategoria.getnombrecategoria();
+ 
+    
+    String SQL = "INSERT INTO categoria (nombre) "
+                      +    "VALUES ('"+nombre+"')";
+    
+    
+       try{  
+           
+                  Statement sentencia = conn.createStatement();
+                  sentencia.executeUpdate(SQL);
+                  
+              }
+              catch(SQLException e){
+                  JOptionPane.showMessageDialog(null,e);
+              }
+       JOptionPane.showMessageDialog(null,"Categoria Agregada");
+}
+   
+        }
+motacho();
+vcategoria.lit();
+}
+      
+      
+     public void motacho(){
+    
+Conexion conectar = new Conexion();
+Connection conn   = conectar.getConexion();
+
+DefaultTableModel nodo = new DefaultTableModel();
+nodo.addColumn("idCategoria");
+nodo.addColumn("nombre");
+
+
+vcategoria.tablacategoria.setModel(nodo);
+
+String sql="SELECT * FROM categoria";
+
+String datos[]= new String [2];
+try{
+    Statement st =conn.createStatement();
+    ResultSet rs = st.executeQuery(sql);
+    while(rs.next()){
+    datos[0]=rs.getString(1);
+    datos[1]=rs.getString(2);
+
+        
+    nodo.addRow(datos);
+    }
+    vcategoria.tablacategoria.setModel(nodo);
+    }
+catch(SQLException ex){
+    JOptionPane.showMessageDialog(null,"no se puedo mostrar");
+}
+
+
+
+
+}
+     
+     
+     
+     
+      public void e(String local){
+        Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    if(local.equals(vcategoria.BTN_NUEVO_BORC))
+   {
+   int fila = vcategoria.tablacategoria.getSelectedRow();
+   if(fila>=0){
+     String id=vcategoria.tablacategoria.getValueAt(fila, 0).toString();
+     try{
+         
+     PreparedStatement ppt = conn.prepareStatement("DELETE FROM categoria WHERE idCategoria='"+id+"'");
+     ppt.executeUpdate();
+     JOptionPane.showMessageDialog(null,"Categoria Eliminada");
+     motacho();
+     
+     }
+     catch(SQLException e){JOptionPane.showMessageDialog(null,"No se pudo Eliminar");}
+ 
+   }
+   else{JOptionPane.showMessageDialog(null,"no se seleciono fila");
+   }
+    
+}
+
+    }
+     
 }
 
     
