@@ -116,11 +116,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Buscar Empleado"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bBuscarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="bAltaEmpleado">
       <Properties>
         <Property name="text" type="java.lang.String" value="Agregar Empleado"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAltaEmpleadoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

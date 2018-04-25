@@ -26,7 +26,9 @@ public class Controlador {
     private EditM editm;
     private Vaut vaut;
     private VautorM vautorm;
-   private Vcategoria vcategoria;
+    private Vcategoria vcategoria;
+    private VbuscarEmpleado vbEmple;
+    private ValtaEmpleado valtaEmple;
     
     
     
@@ -36,6 +38,11 @@ public class Controlador {
         vnc = new VNuCliente(vnv,true);
         vl = new VLibro(vp, true);
         vml = new VModLibro(vp, true);
+        valtaEmple = new ValtaEmpleado(vp, true);
+        vbEmple = new VbuscarEmpleado(vp, true);
+        
+        
+        
         
         edit=new Edit(vp,true);
         editm = new EditM(null,true);
@@ -54,6 +61,8 @@ public class Controlador {
         vml.setControlador(this);
         edit.setControlador(this);
         editm.setControlador(this);
+        valtaEmple.setControlador(this);
+        vbEmple.setControlador(this);
         mostar();
         mostrar();
         motacho();
@@ -170,7 +179,18 @@ public class Controlador {
      }
          
      
-    
+    // ACCESOS A LA VISTA DE EMPLEADO
+     public void pasarAvistaBuscarEmpleado(String valor) {
+        if(valor.equals(vp.BTN_BUSCAR_EMPLEADO)){
+            vbEmple.setVisible(true);
+        }
+    }
+
+    public void pasarAvistaAgregarEmpleado(String valor) {
+        if(valor.equals(vp.BTN_AGREGAR_EMPLEADO)){
+            valtaEmple.setVisible(true);
+        }
+    }
     
     public void procesar(String valor){
         if(valor.equals(vp.BTN_VENTA)){
@@ -1068,6 +1088,8 @@ catch(SQLException ex){
 }
 
     }
+
+    
      
 }
 

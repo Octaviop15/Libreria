@@ -10,6 +10,9 @@ public class VPrincipal extends javax.swing.JFrame {
     public static final String BTN_AUTOR = "AUTOR";
     public static final String BTN_LIBRO = "LIBRO";
     public static final String BTN_CATEGORIA = "CATEGORIA";
+    public static final String BTN_BUSCAR_EMPLEADO = "BUSCAR EMPLEADO";
+    public static final String BTN_AGREGAR_EMPLEADO = "AGREGAR EMPLEADO";
+    
     private Controlador controlador;
 
    
@@ -73,8 +76,18 @@ public class VPrincipal extends javax.swing.JFrame {
         });
 
         bBuscar.setText("Buscar Empleado");
+        bBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBuscarActionPerformed(evt);
+            }
+        });
 
         bAltaEmpleado.setText("Agregar Empleado");
+        bAltaEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAltaEmpleadoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -138,8 +151,16 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAutorActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-controlador.p(BTN_CATEGORIA);        // TODO add your handling code here:
+        controlador.p(BTN_CATEGORIA);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
+        controlador.pasarAvistaBuscarEmpleado(BTN_BUSCAR_EMPLEADO);
+    }//GEN-LAST:event_bBuscarActionPerformed
+
+    private void bAltaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAltaEmpleadoActionPerformed
+        controlador.pasarAvistaAgregarEmpleado(BTN_AGREGAR_EMPLEADO);
+    }//GEN-LAST:event_bAltaEmpleadoActionPerformed
 
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
