@@ -69,7 +69,7 @@ public class Controlador {
         Conexion conectar = new Conexion();
         Connection conn = conectar.getConexion();
         
-        Object[] datos = new Object[6];
+        Object[] datos = new Object[7];
         String SQL = "SELECT * FROM libro";
         
         
@@ -81,6 +81,7 @@ public class Controlador {
                 datos[1] = rs.getString("titulo");
                 datos[3] = rs.getString("Edicion");
                 datos[5] = rs.getString("precio");
+                datos[6] = rs.getString("stock");
                 
                 //para mostrar en el jTable el nombre de autor y editorial primero obtenemos su respectivos id
                 //obtenemos el idAutor y el idEditorial de la tabla libros 
@@ -328,8 +329,9 @@ public class Controlador {
         
         
         if(valor.equals(VLibro.BTN_MODIFICAR_LIBRO)){
+            vl.limpiarComboBox();
             vml.limpiarComboBox();  
-            vml.limpiarComboBox();
+            
             
             //llamamos a los metodos para que se carguen previamente los autores y las editoriales en el combo box
             obtenerEditorialComboBox();
@@ -410,10 +412,65 @@ public class Controlador {
                     JOptionPane.showMessageDialog(null, e);
                 }
             }
+             
+             
+             if(valor.equals(VNuVenta.BTN_AGREGAR_DETALLE_VENTA)){
+                 Conexion conectar = new Conexion();
+                 Connection conn   = conectar.getConexion();
+                 
+                 Object[] datos = new Object[7];
+                 int ISBN = vnv.getISNB();
+                 
+                 
+                 String SQL = "SELECT * FROM libro WHERE ISBN = '"+ISBN+"'";
+                 
+                 try {
+                     Statement st = conn.createStatement();
+                     ResultSet rs = st.executeQuery(SQL);
+                     while(rs.next()){
+                         datos[0]  = rs.getString("ISBN");
+                         datos[1]  = rs.getString("titulo");
+                         datos[3]  = rs.getString("edicion");
+                         datos[5]  = rs.getString("precio");
+                         datos[6]  = rs.getString("stock");
+                         
+                //para mostrar en el jTable el nombre de autor y editorial primero obtenemos su respectivos id
+                //obtenemos el idAutor y el idEditorial de la tabla libros 
+                String idAutor = rs.getString("idAutor");
+                String idEditorial = rs.getString("idEditorial");
+                
+                   //de acuerdo al idAutor obtenido anteriormente nos vamos a la tabla autor y obtenemos el nombre
+                   String SQL1 = "SELECT nombre FROM autor where idAutor = '"+idAutor+"'";
+                   Statement st1 = conn.createStatement();
+                   ResultSet rs1 = st1.executeQuery(SQL1);
+                   while(rs1.next()){
+                       datos[2] = rs1.getString("nombre");
+                   }
+                   
+                   //de acuerdo al idEditorial obtenido anteriormente nos vamos a la tabla editorial y obtenemos el nombre
+                   String SQL2 = "SELECT nombre FROM editorial where idEditorial = '"+idEditorial+"'";
+                   Statement st2 = conn.createStatement();
+                   ResultSet rs2 = st2.executeQuery(SQL1);
+                   while(rs2.next()){
+                       datos[4] = rs2.getString("nombre");
+                         
+                     }
+                   vnv.insertarFila(datos);
+                            
+                 } 
+                 }catch (Exception e) {
+                     JOptionPane.showMessageDialog(null, e);
+                 }
+                 
+                 
+             }
           
      
    
     }
+    
+    
+    
     
 
 

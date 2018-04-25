@@ -49,10 +49,13 @@ public class VModLibro extends javax.swing.JDialog {
          txtPrecio.setText("");
          txtStock.setText("");
          txtareaDescripcion.setText("");
-         
-                 
-         
+           
      }
+       
+         public void limpiarComboBox(){
+        cmbAutor.removeAllItems();
+        cmbEditorial.removeAllItems();
+    }
  
     public String getISBN(){
         return txtISBN.getText();
