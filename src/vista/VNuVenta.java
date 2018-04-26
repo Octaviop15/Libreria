@@ -6,7 +6,7 @@
 package vista;
 import controlador.Controlador;
 import javax.swing.table.DefaultTableModel;
-import sun.swing.table.DefaultTableCellHeaderRenderer;
+
 
 /**
  *

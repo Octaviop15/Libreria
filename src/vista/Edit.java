@@ -334,12 +334,7 @@ char c = evt.getKeyChar();
     }//GEN-LAST:event_jTextField2KeyTyped
 
     private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
-       char c = evt.getKeyChar();
-        
-        if(!Character.isLetter(c)){
-            getToolkit().beep();
-            evt.consume();
-        }        // TODO add // TODO add your handling code here:
+         // TODO add // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3KeyTyped
 
     private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
