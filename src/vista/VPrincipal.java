@@ -10,6 +10,9 @@ public class VPrincipal extends javax.swing.JFrame {
     public static final String BTN_AUTOR = "AUTOR";
     public static final String BTN_LIBRO = "LIBRO";
     public static final String BTN_CATEGORIA = "CATEGORIA";
+    public static final String BTN_BUSCAR_EMPLEADO = "BUSCAR EMPLEADO";
+    public static final String BTN_AGREGAR_EMPLEADO = "AGREGAR EMPLEADO";
+    
     private Controlador controlador;
 
    
@@ -32,6 +35,8 @@ public class VPrincipal extends javax.swing.JFrame {
         btnAutor = new javax.swing.JButton();
         btnLibro = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        bBuscar = new javax.swing.JButton();
+        bAltaEmpleado = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,6 +75,20 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
 
+        bBuscar.setText("Buscar Empleado");
+        bBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBuscarActionPerformed(evt);
+            }
+        });
+
+        bAltaEmpleado.setText("Agregar Empleado");
+        bAltaEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAltaEmpleadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,15 +96,19 @@ public class VPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnVenta)
-                    .addComponent(btnAutor))
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnLibro)
-                        .addGap(33, 33, 33)
-                        .addComponent(jButton1))
-                    .addComponent(btnEditorial))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnVenta)
+                            .addComponent(btnAutor))
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnLibro)
+                                .addGap(33, 33, 33)
+                                .addComponent(jButton1))
+                            .addComponent(btnEditorial)))
+                    .addComponent(bBuscar)
+                    .addComponent(bAltaEmpleado))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -100,7 +123,11 @@ public class VPrincipal extends javax.swing.JFrame {
                     .addComponent(btnAutor)
                     .addComponent(btnLibro)
                     .addComponent(jButton1))
-                .addContainerGap(217, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(bBuscar)
+                .addGap(18, 18, 18)
+                .addComponent(bAltaEmpleado)
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         pack();
@@ -124,11 +151,21 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAutorActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-controlador.p(BTN_CATEGORIA);        // TODO add your handling code here:
+        controlador.p(BTN_CATEGORIA);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
+        controlador.pasarAvistaBuscarEmpleado(BTN_BUSCAR_EMPLEADO);
+    }//GEN-LAST:event_bBuscarActionPerformed
+
+    private void bAltaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAltaEmpleadoActionPerformed
+        controlador.pasarAvistaAgregarEmpleado(BTN_AGREGAR_EMPLEADO);
+    }//GEN-LAST:event_bAltaEmpleadoActionPerformed
 
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bAltaEmpleado;
+    private javax.swing.JButton bBuscar;
     private javax.swing.JButton btnAutor;
     private javax.swing.JButton btnEditorial;
     private javax.swing.JButton btnLibro;
