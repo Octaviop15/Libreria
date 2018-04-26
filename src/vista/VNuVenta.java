@@ -67,8 +67,13 @@ public class VNuVenta extends javax.swing.JDialog {
         txtDireccion.setEnabled(false);            
     }
     
-    public void visibilidadCantidad(){
+    public void visibilidadCantOn(){
         txtCant.setEnabled(true);
+    }
+    
+    public void visibilidadCantOff(){
+        txtCant.setEnabled(false);
+        
     }
     public void setControlador(Controlador controlador){
         this.controlador = controlador;
@@ -222,8 +227,19 @@ public class VNuVenta extends javax.swing.JDialog {
                 txtDNIActionPerformed(evt);
             }
         });
+        txtDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDNIKeyTyped(evt);
+            }
+        });
 
         jLabel1.setText("DNI del cliente:");
+
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
+            }
+        });
 
         btnBuscarC.setText("Buscar");
         btnBuscarC.addActionListener(new java.awt.event.ActionListener() {
@@ -259,10 +275,28 @@ public class VNuVenta extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tablaVentaLibros);
 
+        txtCant.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantKeyTyped(evt);
+            }
+        });
+
         btnBuscarL.setText("Buscar");
         btnBuscarL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarLActionPerformed(evt);
+            }
+        });
+
+        txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioKeyTyped(evt);
+            }
+        });
+
+        txtStock.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtStockKeyTyped(evt);
             }
         });
 
@@ -305,47 +339,46 @@ public class VNuVenta extends javax.swing.JDialog {
 
         jLabel11.setText("Dirrecion:");
 
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
+
         jButton6.setText("Factura");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBuscarC, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel8))
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtDireccion)
-                                .addGap(79, 79, 79))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(23, 23, 23)
-                                .addComponent(jLabel9)
-                                .addGap(18, 18, 18)))))
-                .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(180, 180, 180))
+                        .addComponent(jLabel1)
+                        .addGap(0, 519, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscarC, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addContainerGap(271, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel11))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                            .addComponent(txtDireccion))
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addGroup(layout.createSequentialGroup()
@@ -449,7 +482,7 @@ public class VNuVenta extends javax.swing.JDialog {
                 .addGap(45, 45, 45))
         );
 
-        pack();
+        setBounds(0, 0, 620, 701);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -490,6 +523,49 @@ public class VNuVenta extends javax.swing.JDialog {
     private void btnGenerarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarVentaActionPerformed
         controlador.procesar(BTN_GENERAR_VENTA);
     }//GEN-LAST:event_btnGenerarVentaActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+   
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+     
+    }//GEN-LAST:event_txtApellidoKeyTyped
+
+    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
+     
+    }//GEN-LAST:event_txtPrecioKeyTyped
+
+    private void txtStockKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStockKeyTyped
+     
+    }//GEN-LAST:event_txtStockKeyTyped
+
+    private void txtDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDNIKeyTyped
+         char c = evt.getKeyChar();
+         int cant = txtDNI.getText().length();
+        
+        if(!Character.isDigit(c)){
+            getToolkit().beep();
+            evt.consume();
+        }
+        
+        if(cant>=8){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDNIKeyTyped
+
+    private void txtCantKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantKeyTyped
+        char c = evt.getKeyChar();
+         
+        
+        if(!Character.isDigit(c)){
+            getToolkit().beep();
+            evt.consume();
+        }
+      
+        
+    }//GEN-LAST:event_txtCantKeyTyped
 
    
 

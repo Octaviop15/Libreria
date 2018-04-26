@@ -240,7 +240,7 @@ public class Controlador {
                 
                 vnv.setNombre(datos[0]);
                 vnv.setApellido(datos[1]);
-                vnv.setDireccion(datos[3]);
+                vnv.setDireccion(datos[2]);
             }
              catch(SQLException e){
                   JOptionPane.showMessageDialog(null,e);
@@ -268,7 +268,7 @@ public class Controlador {
                   vnv.setTitulo(datos[0]);
                   vnv.setPrecio(datos[1]);
                   vnv.setStock(datos[2]);
-                  vnv.visibilidadCantidad();
+                  vnv.visibilidadCantOn();
                 
                 
             }
@@ -283,8 +283,14 @@ public class Controlador {
         
              if(valor.equals(VNuVenta.BTN_AGREGAR_DETALLE_VENTA)){
                 
-                 
-                 if(vnv.getCantidad() <= vnv.getStock()){
+                 boolean b = false;
+                   for(int i=0;i<vnv.getCantFilasTabla();i++){
+                     if(vnv.getISBN() == vnv.getISBN_tabla(i)){
+                         b = true;
+                     }
+                   }
+                 if(vnv.getCantidad() <= vnv.getStock()){ 
+                   if(b==false){
                  
                  Object[] datos = new Object[5];
                  int ISBN = vnv.getISBN();
@@ -297,11 +303,17 @@ public class Controlador {
                  
                  vnv.insertarFila(datos);
                  vnv.limpiar();
+                 vnv.visibilidadCantOff();
+                 }
+                   else{
+                       JOptionPane.showMessageDialog(null,"Libro con ISBN ya ingresado");
+                   }
                  }
                  
                  else{
                          JOptionPane.showMessageDialog(null,"Stock insuficiente");
                  }
+                 
     }
              
              
@@ -330,7 +342,7 @@ public class Controlador {
                 
                 int cantFilas = vnv.getCantFilasTabla();
                 int stock;
-                
+                              
                 for(int i=0;i<cantFilas;i++){
                     int ISBN = vnv.getISBN_tabla(i);
                     String SQL1 = "SELECT stock from libro WHERE ISBN ='"+ISBN+"'";
@@ -341,7 +353,7 @@ public class Controlador {
                         while(rs.next()){
                             stock = rs.getInt("stock");
                             stock = stock - 1;
-                            String SQL2 = "UPADATE libro SET stock = '"+stock+"' where ISBN='"+ISBN+"'";
+                            String SQL2 = "UPDATE libro SET stock = '"+stock+"' where ISBN='"+ISBN+"'";
                             Statement st2  =conn.createStatement();
                             st2.executeUpdate(SQL2);
                         }
@@ -532,24 +544,19 @@ public class Controlador {
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e);
                 }
-            }
-             
-             
-             
-             
-             
-             
-             
-             
+             }   
+         
              
              
              
              
              
     }
-    
-    
-    
+             
+             
+             
+             
+
     
 
 
