@@ -20,5 +20,26 @@ public class Empleado {
     private int tel_fijo;
     private int tel_movil;
     private String correo;
+
+    public Empleado() {
+    }
+
+    
+    
+    public Empleado(int id, String nombre, String apellido, int dni, String fechaNacimiento, String ciudad, String domicilio, int tel_fijo, int tel_movil, String correo) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.fechaNacimiento = fechaNacimiento;
+        this.ciudad = ciudad;
+        this.domicilio = domicilio;
+        this.tel_fijo = tel_fijo;
+        this.tel_movil = tel_movil;
+        this.correo = correo;
+    }
+     
+    
+    
     
 }

@@ -246,7 +246,7 @@ public class Controlador {
             String nombre      = vnc.getNombre();      
             String apellido    = vnc.getApellido();
             int dni            = vnc.getDNI();
-            String fechaNac    =  vnc.getFechaNac();
+            String fechaNac    = vnc.getFechaNac();
             String ciudad      = vnc.getCiudad();
             String direccion   = vnc.getDireccion();
             int telFijo        = vnc.getTelFijo();
@@ -805,7 +805,7 @@ String sql="SELECT * FROM EDITORIAL";
 String datos[]= new String [6];
 try{
     
-    Statement st =conn.createStatement();
+    Statement st = conn.createStatement();
     ResultSet rs = st.executeQuery(sql);
   
     while(rs.next()){
@@ -1415,6 +1415,91 @@ catch(SQLException ex){
     
 }
 
+    }
+
+    public void cargarEmpleado(String valor) {
+        if(valor.equals(valtaEmple.BTN_AGREGAR_EMPLEADO)){
+    Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    
+    String apellido= valtaEmple.getApellido();
+    String nombre = valtaEmple.getNombre();
+    String ciudad = valtaEmple.getCiudad();
+    String domicilio = valtaEmple.getDomicilio();
+    String correo = valtaEmple.getCorreo();
+    int fecha = valtaEmple.getDia() + valtaEmple.getMes() + valtaEmple.getAnio();
+    int dni = valtaEmple.getDni();
+    int telfijo = valtaEmple.getTelFijo();
+    int telmovil = valtaEmple.getTelMovil();
+    
+    
+    
+    if(apellido.equals("") || nombre.equals("") || domicilio.equals("")
+                           || ciudad.equals("") || correo.equals(""))
+    { JOptionPane.showMessageDialog(null,"Complete los campos!");}
+    else{
+   
+
+    
+    
+    
+    String SQL = "INSERT INTO empleado (apellido,nombre,dni, domicilio,ciudad,fecha_nacimiento, tel_fijo, tel_movil, correo) "
+                      +    "VALUES"
+                      + " ('"+apellido+"','"+nombre+"','"+dni+"',"
+                      + " '"+domicilio+"','"+ciudad+"','"+fecha+"',"
+                      + " '"+telfijo+"', '"+telmovil+"')";
+    
+    
+       try{  
+           
+                  Statement sentencia = conn.createStatement();
+                  sentencia.executeUpdate(SQL);
+                  
+              }
+              catch(SQLException e){
+                  JOptionPane.showMessageDialog(null,e);
+              }
+       JOptionPane.showMessageDialog(null,"Empleado Agregado");
+}
+    
+        }
+    }
+
+    public void buscarEmpleado(String valor) {
+       if(valor.equals(vbEmple.BTN_BUSCAR_EMPLEADO)){
+            Conexion conectar = new Conexion();
+            Connection conn   = conectar.getConexion();
+            
+            String[] datos = new String[3];
+            int dni = vbEmple.getBuscarDni();
+            String SQL = "SELECT * FROM empleado WHERE dni = '"+dni+"'";
+            
+            try{
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(SQL);
+                while(rs.next()){
+                    datos[0] = rs.getString("Apellido");
+                    datos[1]  =rs.getString("Nombre");
+                    datos[2] = rs.getString("Dni");
+                    datos[3] = rs.getString("Liquidacion");
+                }
+                
+                  vbEmple.setApellido(datos[0]);
+                  vbEmple.setNombre(datos[1]);
+                  vbEmple.setDni(datos[2]);
+                  vbEmple.setLiquidacion(datos[3]);
+                  
+                
+                
+            }
+             catch(SQLException e){
+                  JOptionPane.showMessageDialog(null,e);
+               
+        }
+            
+          
+            
+        }
     }
 
     

@@ -6,13 +6,18 @@
 package vista;
 
 import controlador.Controlador;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Tony
  */
 public class VbuscarEmpleado extends javax.swing.JDialog {
-private Controlador controlador;
+    private Controlador controlador;
+    private ValtaEmpleado altaempleado;
+    public static final String BTN_BUSCAR_EMPLEADO = "BUSCAR EMPLEADO";
+    DefaultTableModel modelo;
+    
     /**
      * Creates new form VbuscarEmpleado
      */
@@ -22,6 +27,7 @@ public void setControlador(Controlador controlador){
     public VbuscarEmpleado(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        cargarTablaEmpleado();
     }
     
 
@@ -48,6 +54,12 @@ public void setControlador(Controlador controlador){
         jLabel2.setText("Id o DNI");
 
         bBuscar.setText("BUSCAR");
+
+        campoBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoBuscarActionPerformed(evt);
+            }
+        });
 
         tablaBusquedaEmpleado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -78,24 +90,25 @@ public void setControlador(Controlador controlador){
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(31, 31, 31)
-                .addComponent(campoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(bBuscar)
-                .addGap(106, 106, 106))
-            .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(bModificar)
-                .addGap(18, 18, 18)
-                .addComponent(bEliminar)
-                .addGap(18, 18, 18)
-                .addComponent(bVolver)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(31, 31, 31)
+                        .addComponent(campoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addComponent(bBuscar)
+                        .addGap(106, 106, 106))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bModificar)
+                        .addGap(18, 18, 18)
+                        .addComponent(bEliminar)
+                        .addGap(18, 18, 18)
+                        .addComponent(bVolver)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,6 +134,10 @@ public void setControlador(Controlador controlador){
     private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
         this.dispose();
     }//GEN-LAST:event_bVolverActionPerformed
+
+    private void campoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBuscarActionPerformed
+        controlador.buscarEmpleado(BTN_BUSCAR_EMPLEADO);
+    }//GEN-LAST:event_campoBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,5 +192,35 @@ public void setControlador(Controlador controlador){
     private javax.swing.JTable tablaBusquedaEmpleado;
     // End of variables declaration//GEN-END:variables
 
+    private void cargarTablaEmpleado() {
+         String[] titulos = {"Apellido","Nombre","DNI","Liquidacion"};
+        modelo = new DefaultTableModel(null,titulos);
+        tablaBusquedaEmpleado.setModel(modelo);
+    }
+    public int getBuscarDni(){
+    return Integer.parseInt(campoBuscar.getText());
+    
+    }
+    public String setApellido(String apellido){
+        altaempleado.getApellido();
+        
+
+    }
+    
+    public String setNombre(String nombre){
+        
+        
+
+    }
+    public int setDni(String dni){
+        campoBuscar.setText(dni);
+        
+
+    }
+    public double setLiquidacion(String liquidacion){
+        
+        
+
+    }
     
 }

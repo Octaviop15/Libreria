@@ -1,18 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package vista;
+
+
 
 import controlador.Controlador;
 
-/**
- *
- * @author Tony
- */
 public class ValtaEmpleado extends javax.swing.JDialog {
 private Controlador controlador;
+    public static final String BTN_AGREGAR_EMPLEADO = "AGREGAR EMPLEADO";
+    
     /**
      * Creates new form ValtaEmpleado
      */
@@ -23,7 +19,12 @@ private Controlador controlador;
     public ValtaEmpleado(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+      //  cargarTabla();
+        visibilidad();
+        getFechaNacimiento();
+       
     }
+    
    
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,6 +84,11 @@ private Controlador controlador;
         jLabel10.setText("CORREO");
 
         bAgregar.setText("AGREGAR");
+        bAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAgregarActionPerformed(evt);
+            }
+        });
 
         campoMes.setText("mes");
 
@@ -229,6 +235,42 @@ private Controlador controlador;
         this.dispose();
     }//GEN-LAST:event_bCancelarActionPerformed
 
+    private void bAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarActionPerformed
+            controlador.cargarEmpleado(BTN_AGREGAR_EMPLEADO);
+    }//GEN-LAST:event_bAgregarActionPerformed
+public String getApellido(){
+        return campoApellido.getText();
+    }
+public String getNombre(){
+        return campoNombre.getText();
+    }
+public int getDni(){
+        return Integer.parseInt(campoDni.getText());
+    }
+public int getDia(){
+        return Integer.parseInt(campoDia.getText());
+    }
+public int getMes(){
+        return Integer.parseInt(campoMes.getText());
+    }
+public int getAnio(){
+        return Integer.parseInt(campoAnio.getText());
+    }
+public String getDomicilio(){
+        return campoDomicilio.getText();
+    }
+public String getCiudad(){
+        return campoCiudad.getText();
+    }
+public String getCorreo(){
+        return campoCorreo.getText();
+    }
+public int getTelMovil(){
+        return Integer.parseInt(campoTelMovil.getText());
+    }
+public int getTelFijo(){
+        return Integer.parseInt(campoTelFijo.getText());
+    }
     /**
      * @param args the command line arguments
      */
@@ -298,6 +340,65 @@ private Controlador controlador;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     // End of variables declaration//GEN-END:variables
+
+    //private void cargarTabla() {
+       // String[] titulos = {"ISBN","Titulo","Cantidad","Precio","Subtotal"};
+      //   modelo = new DefaultTableModel(null,titulos);
+        //tablaVentaLibros.setModel(model);
+
+    //}
+
+    private void visibilidad() {
+        campoApellido.setEnabled(false);
+        campoNombre.setEnabled(false);
+        campoAnio.setEnabled(false);
+        campoCiudad.setEnabled(false);
+        campoCorreo.setEnabled(false);
+        campoDia.setEnabled(false);
+        campoDni.setEnabled(false);
+        campoDomicilio.setEnabled(false);
+        campoMes.setEnabled(false);
+        campoNombre.setEnabled(false);
+        campoTelFijo.setEnabled(false);
+        campoTelMovil.setEnabled(false); 
+                 
+    }
+
+    private void getFechaNacimiento() {
+     
+        String fecha;
+        fecha = campoDia.getText() + "/" + campoMes.getText() + "/" + campoAnio.getText() ;
+                campoDia.setText(fecha);   
+    }
+    public void limpiar(){
+        campoApellido.setText("");
+        campoNombre.setText("");
+        campoAnio.setText("");
+        campoCiudad.setText("");
+        campoCorreo.setText("");
+        campoDia.setText("");
+        campoDni.setText("");
+        campoDomicilio.setText("");
+        campoMes.setText("");
+        campoNombre.setText("");
+        campoTelFijo.setText("");
+        campoTelMovil.setText(""); 
+                
+    }
+    private void campoDniKeyTyped(java.awt.event.KeyEvent evt) {                                
+         char c = evt.getKeyChar();
+         int cant = campoDni.getText().length();
+        
+        if(!Character.isDigit(c)){
+            getToolkit().beep();
+            evt.consume();
+        }
+        
+        if(cant>=8){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }
 
    
 }
