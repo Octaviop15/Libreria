@@ -33,7 +33,11 @@ public class Controlador {
     private VbuscarEmpleado vbEmple;
     private ValtaEmpleado valtaEmple;
     
-    
+    /*Variables de ayuda*/
+    String f;
+    String o;
+    String i;
+    /*-------------------*/
     
     public Controlador(){
         vp = new VPrincipal();
@@ -715,8 +719,7 @@ public class Controlador {
 
  //------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-    /*EMMANUEL PROGRAMACION*/
+   /*EMMANUEL PROGRAMACION*/
     public void proc(String valor){
     if(valor.equals(vp.BTN_EDITORIAL)){
             edit.setVisible(true);
@@ -741,16 +744,37 @@ if(valor.equals(edit.BTN_NUEVO_PRO)){
     String direccion      = edit.getdireccioneditorial();
     String ciudad      = edit.getciudadeditoral();
     
-    String SQL = "INSERT INTO editorial (nombre,telefono,direccion,ciudad) "
-                      +    "VALUES ('"+nombre+"','"+telefono+"','"+direccion+"','"+ciudad+"')";
+    String SQL = "INSERT INTO editorial (nombre,telefono,ciudad) "
+                      +    "VALUES ('"+nombre+"','"+telefono+"','"+ciudad+"')";
+    
+    
+     String edi = "SELECT idEditorial FROM editorial WHERE nombre='"+nombre+"' ";
+                      
+    
+      
+       
     
     
        try{  
            
                   Statement sentencia = conn.createStatement();
                   sentencia.executeUpdate(SQL);
+                 
                   
+                  Statement lm = conn.createStatement();
+                  ResultSet rs=lm.executeQuery(edi);
+                  
+                  
+                  while(rs.next()){
+    f=rs.getString("idEditorial");
+   String flit = "INSERT INTO domicilio (direccion,Editorial_idEditorial) "
+                      +    "VALUES ('"+direccion+"','"+f+"')";
+                
+   
+                  Statement gs = conn.createStatement();
+                  gs.executeUpdate(flit);
               }
+       }
               catch(SQLException e){
                   JOptionPane.showMessageDialog(null,e);
               }
@@ -771,8 +795,8 @@ DefaultTableModel modo = new DefaultTableModel();
 modo.addColumn("idEditorial");
 modo.addColumn("nombre");
 modo.addColumn("telefono");
-modo.addColumn("direccion");
 modo.addColumn("ciudad");
+modo.addColumn("direccion");
 
 edit.tabla.setModel(modo);
 
@@ -780,17 +804,32 @@ String sql="SELECT * FROM EDITORIAL";
 
 String datos[]= new String [6];
 try{
+    
     Statement st =conn.createStatement();
     ResultSet rs = st.executeQuery(sql);
+  
     while(rs.next()){
     datos[0]=rs.getString(1);
     datos[1]=rs.getString(2);
     datos[2]=rs.getString(3);
     datos[3]=rs.getString(4);
-    datos[4]=rs.getString(5);
-        
+    
+     
+    
+    String edi = "SELECT direccion FROM domicilio WHERE Editorial_idEditorial='"+rs.getString(1)+"' ";
+    
+     Statement lm = conn.createStatement();
+     ResultSet ns=lm.executeQuery(edi);
+    
+     while(ns.next()){
+         i=ns.getString("direccion");
+     }
+     datos[4]=i;
     modo.addRow(datos);
     }
+    
+   
+    
     edit.tabla.setModel(modo);
     }
 catch(SQLException ex){
@@ -823,18 +862,19 @@ DefaultTableModel modo = new DefaultTableModel();
 modo.addColumn("idEditorial");
 modo.addColumn("nombre");
 modo.addColumn("telefono");
-modo.addColumn("direccion");
 modo.addColumn("ciudad");
+modo.addColumn("direccion");
 
 edit.tabla.setModel(modo);
 
 String sql;
 if(value.equals("")){
-sql="SELECT * FROM EDITORIAL";
+ JOptionPane.showMessageDialog(null,"Ingrese una ID para buscar");
+ mostar();
 }
 else{
-    sql="SELECT * FROM EDITORIAL WHERE idEditorial='"+value+"'";
-        }
+   
+ sql="SELECT * FROM EDITORIAL WHERE idEditorial='"+value+"'";        
 
 String datos[]= new String [6];
 try{
@@ -845,8 +885,16 @@ try{
     datos[1]=rs.getString(2);
     datos[2]=rs.getString(3);
     datos[3]=rs.getString(4);
-    datos[4]=rs.getString(5);
-        
+    
+         String edi = "SELECT direccion FROM domicilio WHERE Editorial_idEditorial='"+rs.getString(1)+"' ";
+    
+     Statement lm = conn.createStatement();
+     ResultSet ns=lm.executeQuery(edi);
+    
+     while(ns.next()){
+         o=ns.getString("direccion");
+     }
+     datos[4]=o;
     modo.addRow(datos);
     }
     edit.tabla.setModel(modo);
@@ -855,7 +903,7 @@ catch(SQLException ex){
     JOptionPane.showMessageDialog(null,"no se puedo mostrar");
 }
 
-
+}
 
 
 }
@@ -879,8 +927,8 @@ catch(SQLException ex){
        editm.ide.setText(edit.tabla.getValueAt(fila, 0).toString());
        editm.editxt.setText(edit.tabla.getValueAt(fila, 1).toString());
        editm.telefonoxtxt.setText(edit.tabla.getValueAt(fila, 2).toString());
-       editm.diretxt.setText(edit.tabla.getValueAt(fila, 3).toString());
-       editm.ciutxt.setText(edit.tabla.getValueAt(fila, 4).toString());
+       editm.diretxt.setText(edit.tabla.getValueAt(fila, 4).toString());
+       editm.ciutxt.setText(edit.tabla.getValueAt(fila, 3).toString());
      editm.setVisible(true);
      
    
@@ -923,17 +971,24 @@ if(valor.equals(editm.BTN_NUEVO_ACE)){
     String ciudad      = editm.getciu();
     
 
-    String Ssql = "UPDATE editorial SET nombre=?, telefono=?, direccion=?, ciudad=? "
+    String Ssql = "UPDATE editorial SET nombre=?, telefono=?, ciudad=? "
                     + "WHERE idEditorial=?";
     
+    String sql = "UPDATE domicilio SET direccion=? "
+                    + "WHERE Editorial_idEditorial=?";
+    
     PreparedStatement prest = conn.prepareStatement(Ssql);
+    PreparedStatement tic = conn.prepareStatement(sql);
     
     prest.setString(1,nombre);
         prest.setInt(2, telefono);
-        prest.setString(3, direccion);
-        prest.setString(4, ciudad);
-        prest.setInt(5, idEditorial);
-          
+      tic.setString(1, direccion);
+        prest.setString(3, ciudad);
+        prest.setInt(4, idEditorial);
+     tic.setInt(2, idEditorial);
+        
+        
+         tic.executeUpdate();
     prest.executeUpdate();
    
     
