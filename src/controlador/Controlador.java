@@ -7,6 +7,8 @@ package controlador;
 import modelo.*;
 import vista.*;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Optional;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultEditorKit;
@@ -22,6 +24,7 @@ public class Controlador {
     private VNuCliente vnc;
     private VLibro vl;
     private VModLibro vml;
+    private VCompra vc;
     private Edit edit;
     private EditM editm;
     private Vaut vaut;
@@ -38,6 +41,7 @@ public class Controlador {
         vnc = new VNuCliente(vnv,true);
         vl = new VLibro(vp, true);
         vml = new VModLibro(vp, true);
+        vc = new VCompra(vp, true);
         valtaEmple = new ValtaEmpleado(vp, true);
         vbEmple = new VbuscarEmpleado(vp, true);
         
@@ -59,6 +63,7 @@ public class Controlador {
         vnc.setControlador(this);
         vl.setControlador(this);
         vml.setControlador(this);
+        vc.setControlador(this);
         edit.setControlador(this);
         editm.setControlador(this);
         valtaEmple.setControlador(this);
@@ -136,6 +141,8 @@ public class Controlador {
           Conexion conexion = new Conexion();
           Connection conn   = conexion.getConexion();
           
+          
+          
           String SQL = "SELECT idEditorial,nombre FROM editorial";
           vl.setComboBoxEditorial("Seleccione una editorial");
           vml.setComboBoxEditorial("Seleccione una editorial");
@@ -144,15 +151,39 @@ public class Controlador {
               ResultSet rs = st.executeQuery(SQL);
               while(rs.next()){
                   String nombre = rs.getString("nombre");
-                  String idEditorial = rs.getString("idEditorial");
+                  int idEditorial = rs.getInt("idEditorial");
                   vl.setComboBoxEditorial(nombre);
                   vml.setComboBoxEditorial(nombre);
-                  vl.setIdEditorial(idEditorial);
-                  vml.setIdEditorial(idEditorial);
+                  vl.addIdEditorial(idEditorial);
+                 
+                  
                   
               }   
           } catch (Exception e) {
           }
+     }
+     
+     //metodo para pasar las editoriales al JComboBox de la ventana compra
+     public void obtenerEditorialComboBoxCompra(){
+          Conexion conexion = new Conexion();
+          Connection conn   = conexion.getConexion();
+          
+          String SQL = "SELECT idEditorial,nombre FROM editorial";
+          vc.setComboBoxEditorial("Seleccione una editorial");
+          try {
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(SQL);
+             while(rs.next()){
+                 String nombre = rs.getString("nombre");
+                 int idEditorial = rs.getInt("idEditorial");
+                 vc.setComboBoxEditorial(nombre);
+                 vc.addIdEditorial(idEditorial);
+                 
+                 
+             }
+         } catch (Exception e) {
+         }
+         
      }
      
      //metodo para pasar los autores al jComboBox de la ventana libro
@@ -168,11 +199,12 @@ public class Controlador {
               ResultSet rs = st.executeQuery(SQL);
               while(rs.next()){                  
                   String nombre = rs.getString("nombre");
-                  String idAutor = rs.getString("idAutor");
+                  int idAutor = rs.getInt("idAutor");
                   vl.setComboBoxAutor(nombre);
                   vml.setComboBoxAutor(nombre);
-                  vl.setIdAutor(idAutor);
-                  vml.setIdAutor(idAutor);
+                  vl.addIdAutor(idAutor);
+                  
+                  
                   
               }   
           } catch (Exception e) {
@@ -240,7 +272,7 @@ public class Controlador {
               vnc.limpiar();
         }
         
-        
+        //VENTANA VENTA
         if(valor.equals(vnv.BTN_BUSCAR_CLIENTE)){
             Conexion conectar = new Conexion();
             Connection conn   = conectar.getConexion();
@@ -268,6 +300,7 @@ public class Controlador {
         }
         }
         
+          //VENTANA VENTA
           if(valor.equals(vnv.BTN_BUSCAR_LIBRO)){
             Conexion conectar = new Conexion();
             Connection conn   = conectar.getConexion();
@@ -300,7 +333,7 @@ public class Controlador {
           
             
         }
-        
+             //VENTANA VENTA 
              if(valor.equals(VNuVenta.BTN_AGREGAR_DETALLE_VENTA)){
                 
                  boolean b = false;
@@ -336,7 +369,7 @@ public class Controlador {
                  
     }
              
-             
+           //VENTANA VENTA
            if(valor.equals(vnv.BTN_ELIMINAR_DETALLE_VENTA)){
                int fila = vnv.getFila();
                if(fila >= 0){
@@ -355,7 +388,7 @@ public class Controlador {
                
            }
            
-           
+           //VENTANA VENTA
            if(valor.equals(vnv.BTN_GENERAR_VENTA)){
                 Conexion conectar = new Conexion();
                 Connection conn   = conectar.getConexion();
@@ -378,6 +411,13 @@ public class Controlador {
                             st2.executeUpdate(SQL2);
                         }
                         
+                        String fecha = vnv.getFecha();
+                        String hora = vnv.getHora();
+                        int total = vnv.getTotalf();
+                        
+                        
+                        String SQL3 = "INSERT INTO venta (fechaHora,total) VALUES ('"+fecha+ " " +hora+"','"+total+"')"; 
+                        
                         JOptionPane.showMessageDialog(null,"Venta generada con exito");
                         JOptionPane.showMessageDialog(null,"Stock actualizado");
                      
@@ -390,7 +430,7 @@ public class Controlador {
            }
         
       
-        
+        //VENTANA LIBRO
         if(valor.equals(vp.BTN_LIBRO)){
             vl.limpiarComboBox();    
             vl.limpiarTabla();
@@ -403,6 +443,7 @@ public class Controlador {
             
         }
         
+        //VENTANA LIBRO
         if(valor.equals(vl.BTN_AGREGAR_LIBRO)){
             Conexion conectar = new Conexion();
             Connection conn   = conectar.getConexion();
@@ -417,18 +458,22 @@ public class Controlador {
             int stock = vl.getStock();
             
             
-            String nombreAutor = vl.getComboBoxAutor();
-            String nombreEditorial = vl.getComboBoxEditorial();
-            int idEditorial = vl.getIdEditorial();
-            int idAutor = vl.getIdAutor();
+        //  String nombreAutor = vl.getComboBoxAutor1();
+        //  String nombreEditorial = vl.getComboBoxEditorial1();
+           
+            int ed = vl.getComboBoxEditorial2();
+            int a = vl.getComboBoxAutor2();
+            
+             int idEditorial = vl.getidEditorial(ed);
+            int idAutor      = vl.getidAutor(a);
             
             
             Object[] datos = new Object[7];
             datos[0]       = ISBN;
             datos[1]       = titulo;
-            datos[2]       = nombreAutor;
+            
             datos[3]       = edicion;
-            datos[4]       = nombreEditorial;
+           
             datos[5]       = precio;
             datos[6]       = stock;
              
@@ -451,7 +496,7 @@ public class Controlador {
         
         
         
-        
+        //VENTANA LIBRO
         if(valor.equals(vl.BTN_ELIMINAR_LIBRO)){
             Conexion conectar = new Conexion();
             Connection conn   = conectar.getConexion();
@@ -476,15 +521,12 @@ public class Controlador {
             }  
         }
         
-        
+        //VENTANA MODIFICAR LIBRO
         if(valor.equals(VLibro.BTN_MODIFICAR_LIBRO)){
 
             vl.limpiarComboBox();
             vml.limpiarComboBox();  
-            
-
-       
-
+             
             
             //llamamos a los metodos para que se carguen previamente los autores y las editoriales en el combo box
             obtenerEditorialComboBox();
@@ -527,7 +569,7 @@ public class Controlador {
             }
         }
              
-             
+             //VENTANA MODIFICAR LIBRO
              if(valor.equals(vml.BTN_ACEPTAR_MODIFICACION)){
             Conexion conectar = new Conexion();
             Connection conn   = conectar.getConexion();
@@ -542,8 +584,7 @@ public class Controlador {
             datos[5]       = vml.getPrecio();
             datos[6]       = vml.getStock();
             
-           
-                
+            
             String fecha         = vml.getFecha();
             int paginas          = vml.getPaginas();
             String descripcion   = vml.getDescripcion();
@@ -567,11 +608,103 @@ public class Controlador {
              }   
          
              
+            //VENTANA COMPRA     
+            if(valor.equals(vp.BTN_COMPRA)){
+                vc.limpiarComboBox();
+                obtenerEditorialComboBoxCompra();
+                vc.setVisible(true);
+            }
              
-             
+            //VENTANA COMPRA
+            if(valor.equals(vc.BTN_BUSCAR_LIBRO_COMPRA)){               
+                Conexion conectar = new Conexion();
+                Connection conn   = conectar.getConexion();
+                                         
+                Object[] datos = new Object[3];
+                    
+                int idEditorial = vc.getidEditorial(vc.getComboBoxEditorial());
+                int ISBN = vc.getISBN();
+                   
+                String SQL = "SELECT * FROM libro WHERE ISBN ='"+ISBN+"' and idEditorial= '"+idEditorial+"' ";
+                
+                try {
+                    
+                    Statement st = conn.createStatement();
+                    ResultSet rs = st.executeQuery(SQL);
+                    if(rs.next()){                                 
+                                          
+                        datos[0] = rs.getString("titulo");
+                        datos[1] = rs.getInt("precio");
+                        datos[2] = rs.getInt("stock");                                                      
+                         
+                    
+                        vc.setTitulo(datos[0]);
+                        vc.setPrecio(datos[1]);
+                        vc.setStock(datos[2]);
+                    }           
+                     else{
+                        JOptionPane.showMessageDialog(null,"No se encontro libro con la editorial especificada");
+                    }
+                         
+                    } catch (Exception e) {
+                         JOptionPane.showMessageDialog(null,e);  
+                     }
+                 }
+            
+            //VENTANA COMPRA
+            if(valor.equals(vc.BTN_AGREGAR_DETALLE_COMPRA)){
+                
+                boolean b = false;
+                for(int i=0;i<vc.getCantFilas();i++){
+                    if(vc.getISBN() == vc.getISBN_tabla(i)){
+                        b = true;
+                    }}
+                
+                if(b==false){
+                Object[] datos = new Object[5];
+                datos[0] = vc.getISBN();
+                datos[1] = vc.getTitulo();
+                datos[2] = vc.getPrecio();
+                datos[3] = vc.getCant();
+                datos[4] = vc.getSubtotal();
+                vc.insertarFila(datos);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"Libro con ISBN ya ingresado");
+                }
+                
+
+            }   
+            
+            
+            
+            //VENTANA COMPRA
+            if(valor.equals(vc.BTN_ELIMINAR_DETALLE_COMPRA)){
+                int fila = vc.getFila();
+                if(fila >= 0){
+                     if (JOptionPane.showConfirmDialog(null,"Se eliminta la fila seleccionada") == JOptionPane.YES_OPTION){
+                         vc.eliminarFila(fila);
+                     }
+                     
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"Seleccione una fila");
+                }
+                
+            }
+            
+            
+            //VENTANA COMPRA
+            if(valor.equals(vc.BTN_OBTENER_TOTAL)){
+                double total = vc.getTotal();
+                vc.setTotal(total);
+            }
              
              
     }
+    
+    
+
              
              
              

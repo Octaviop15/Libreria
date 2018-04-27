@@ -2,6 +2,7 @@
 package vista;
 
 import controlador.Controlador;
+import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -12,9 +13,12 @@ public class VLibro extends javax.swing.JDialog {
     public static final String BTN_MODIFICAR_LIBRO = "MODIFICAR LIBRO";
     private DefaultTableModel model;
     private Controlador controlador;
-    private String idEditorial;
-    private String idAutor;
+   
+    
     private int contt;
+    ArrayList<Integer> idEditorial = new ArrayList<Integer>();
+    ArrayList<Integer> idAutor = new ArrayList<Integer>();
+         
     
     
     
@@ -79,6 +83,27 @@ public class VLibro extends javax.swing.JDialog {
          
      }
      
+     public void addIdEditorial(int id){
+         idEditorial.add(id);
+         
+         
+     } 
+     
+     public void addIdAutor(int id){
+         idEditorial.add(id);
+         
+         
+     }
+     
+     public int getidAutor(int i){
+         return idEditorial.get(i);
+     }
+     
+     
+     public int getidEditorial(int i){
+         return idEditorial.get(i);
+     }
+     
     
     
     public int getISBN(){
@@ -114,12 +139,20 @@ public class VLibro extends javax.swing.JDialog {
     
     }
     
-    public String getComboBoxEditorial(){
-        return cmbAutor.getSelectedItem().toString();
+    public String getComboBoxEditorial1(){
+        return cmbEditorial.getSelectedItem().toString();
     }
     
-    public String getComboBoxAutor(){
-        return cmbEditorial.getSelectedItem().toString();
+    public String getComboBoxAutor1(){
+        return cmbAutor.getSelectedItem().toString(); 
+    }
+    
+    public int getComboBoxEditorial2(){
+        return cmbEditorial.getSelectedIndex();
+    }
+    
+    public int getComboBoxAutor2(){
+        return cmbEditorial.getSelectedIndex();
     }
     
     
@@ -136,22 +169,11 @@ public class VLibro extends javax.swing.JDialog {
         cmbEditorial.removeAllItems();
     }
     
-    public void setIdEditorial(String id){
-        this.idEditorial = id;
-        
-    }
+  
+  
     
-    public int getIdEditorial(){
-        return Integer.parseInt(idEditorial);
-    }
-    
-    public void setIdAutor(String id){
-        this.idAutor = id;
-    }
-    
-    public int getIdAutor(){
-        return Integer.parseInt(idAutor);
-    }
+   
+  
     
     public void insertarFila(Object[] libro){
         model.addRow(libro);

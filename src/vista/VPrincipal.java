@@ -12,6 +12,7 @@ public class VPrincipal extends javax.swing.JFrame {
     public static final String BTN_CATEGORIA = "CATEGORIA";
     public static final String BTN_BUSCAR_EMPLEADO = "BUSCAR EMPLEADO";
     public static final String BTN_AGREGAR_EMPLEADO = "AGREGAR EMPLEADO";
+    public static final String BTN_COMPRA = "COMPRA";
     
     private Controlador controlador;
 
@@ -37,6 +38,7 @@ public class VPrincipal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         bBuscar = new javax.swing.JButton();
         bAltaEmpleado = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,6 +91,13 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Compra");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,11 +111,13 @@ public class VPrincipal extends javax.swing.JFrame {
                             .addComponent(btnAutor))
                         .addGap(40, 40, 40)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnEditorial)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnLibro)
                                 .addGap(33, 33, 33)
-                                .addComponent(jButton1))
-                            .addComponent(btnEditorial)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton2)
+                                    .addComponent(jButton1)))))
                     .addComponent(bBuscar)
                     .addComponent(bAltaEmpleado))
                 .addContainerGap(60, Short.MAX_VALUE))
@@ -124,7 +135,9 @@ public class VPrincipal extends javax.swing.JFrame {
                     .addComponent(btnLibro)
                     .addComponent(jButton1))
                 .addGap(28, 28, 28)
-                .addComponent(bBuscar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bBuscar)
+                    .addComponent(jButton2))
                 .addGap(18, 18, 18)
                 .addComponent(bAltaEmpleado)
                 .addContainerGap(125, Short.MAX_VALUE))
@@ -162,6 +175,10 @@ public class VPrincipal extends javax.swing.JFrame {
         controlador.pasarAvistaAgregarEmpleado(BTN_AGREGAR_EMPLEADO);
     }//GEN-LAST:event_bAltaEmpleadoActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        controlador.procesar(BTN_COMPRA);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAltaEmpleado;
@@ -171,5 +188,6 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnLibro;
     private javax.swing.JButton btnVenta;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     // End of variables declaration//GEN-END:variables
 }
