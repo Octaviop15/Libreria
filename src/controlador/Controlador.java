@@ -30,7 +30,7 @@ public class Controlador {
     private Vaut vaut;
     private VautorM vautorm;
     private Vcategoria vcategoria;
-    private VbuscarEmpleado vbEmple;
+   
     private ValtaEmpleado valtaEmple;
     
     /*Variables de ayuda*/
@@ -47,7 +47,7 @@ public class Controlador {
         vml = new VModLibro(vp, true);
         vc = new VCompra(vp, true);
         valtaEmple = new ValtaEmpleado(vp, true);
-        vbEmple = new VbuscarEmpleado(vp, true);
+   
         
         
         
@@ -71,7 +71,7 @@ public class Controlador {
         edit.setControlador(this);
         editm.setControlador(this);
         valtaEmple.setControlador(this);
-        vbEmple.setControlador(this);
+   
         mostar();
         mostrar();
         motacho();
@@ -217,14 +217,10 @@ public class Controlador {
          
      
     // ACCESOS A LA VISTA DE EMPLEADO
-     public void pasarAvistaBuscarEmpleado(String valor) {
-        if(valor.equals(vp.BTN_BUSCAR_EMPLEADO)){
-            vbEmple.setVisible(true);
-        }
-    }
+     
 
     public void pasarAvistaAgregarEmpleado(String valor) {
-        if(valor.equals(vp.BTN_AGREGAR_EMPLEADO)){
+        if(valor.equals(vp.BTN_ALTA_EMPLEADO)){
             valtaEmple.setVisible(true);
         }
     }
@@ -740,7 +736,7 @@ if(valor.equals(edit.BTN_NUEVO_PRO)){
     
     
     String nombre      = edit.getnombreeditorial();
-      int telefono        = edit.gettelefonoeditorial();
+    int telefono        = edit.gettelefonoeditorial();
     String direccion      = edit.getdireccioneditorial();
     String ciudad      = edit.getciudadeditoral();
     
@@ -1420,8 +1416,8 @@ catch(SQLException ex){
     public void cargarEmpleado(String valor) {
         if(valor.equals(valtaEmple.BTN_AGREGAR_EMPLEADO)){
     Conexion conectar = new Conexion();
-    Connection conn   = conectar.getConexion();
-    
+    Connection conn   = conectar.getConexion(); 
+        
     String apellido= valtaEmple.getApellido();
     String nombre = valtaEmple.getNombre();
     String ciudad = valtaEmple.getCiudad();
@@ -1430,24 +1426,14 @@ catch(SQLException ex){
     int fecha = valtaEmple.getDia() + valtaEmple.getMes() + valtaEmple.getAnio();
     int dni = valtaEmple.getDni();
     int telfijo = valtaEmple.getTelFijo();
-    int telmovil = valtaEmple.getTelMovil();
-    
-    
-    
-    if(apellido.equals("") || nombre.equals("") || domicilio.equals("")
-                           || ciudad.equals("") || correo.equals(""))
-    { JOptionPane.showMessageDialog(null,"Complete los campos!");}
-    else{
-   
-
-    
+    int telmovil = valtaEmple.getTelMovil();   
     
     
     String SQL = "INSERT INTO empleado (apellido,nombre,dni, domicilio,ciudad,fecha_nacimiento, tel_fijo, tel_movil, correo) "
                       +    "VALUES"
                       + " ('"+apellido+"','"+nombre+"','"+dni+"',"
                       + " '"+domicilio+"','"+ciudad+"','"+fecha+"',"
-                      + " '"+telfijo+"', '"+telmovil+"')";
+                      + " '"+telfijo+"', '"+telmovil+"','"+correo+"')";
     
     
        try{  
@@ -1460,18 +1446,18 @@ catch(SQLException ex){
                   JOptionPane.showMessageDialog(null,e);
               }
        JOptionPane.showMessageDialog(null,"Empleado Agregado");
-}
+
     
         }
     }
 
     public void buscarEmpleado(String valor) {
-       if(valor.equals(vbEmple.BTN_BUSCAR_EMPLEADO)){
+       if(valor.equals(valtaEmple.BTN_BUSCAR_EMPLEADO)){
             Conexion conectar = new Conexion();
             Connection conn   = conectar.getConexion();
             
             String[] datos = new String[3];
-            int dni = vbEmple.getBuscarDni();
+            int dni = valtaEmple.getBucarDni();
             String SQL = "SELECT * FROM empleado WHERE dni = '"+dni+"'";
             
             try{
@@ -1484,10 +1470,10 @@ catch(SQLException ex){
                     datos[3] = rs.getString("Liquidacion");
                 }
                 
-                  vbEmple.setApellido(datos[0]);
-                  vbEmple.setNombre(datos[1]);
-                  vbEmple.setDni(datos[2]);
-                  vbEmple.setLiquidacion(datos[3]);
+                  valtaEmple.setApellido(datos[0]);
+                  valtaEmple.setNombre(datos[1]);
+                  valtaEmple.setDni(datos[2]);
+                  valtaEmple.setLiquidacion(datos[3]);
                   
                 
                 

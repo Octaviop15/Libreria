@@ -9,9 +9,8 @@ public class VPrincipal extends javax.swing.JFrame {
     public static final String BTN_EDITORIAL = "EDITORIAL";
     public static final String BTN_AUTOR = "AUTOR";
     public static final String BTN_LIBRO = "LIBRO";
-    public static final String BTN_CATEGORIA = "CATEGORIA";
-    public static final String BTN_BUSCAR_EMPLEADO = "BUSCAR EMPLEADO";
-    public static final String BTN_AGREGAR_EMPLEADO = "AGREGAR EMPLEADO";
+    public static final String BTN_CATEGORIA = "CATEGORIA";    
+    public static final String BTN_ALTA_EMPLEADO = "AGREGAR EMPLEADO";
     public static final String BTN_COMPRA = "COMPRA";
     
     private Controlador controlador;
@@ -36,7 +35,6 @@ public class VPrincipal extends javax.swing.JFrame {
         btnAutor = new javax.swing.JButton();
         btnLibro = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        bBuscar = new javax.swing.JButton();
         bAltaEmpleado = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -77,13 +75,6 @@ public class VPrincipal extends javax.swing.JFrame {
             }
         });
 
-        bBuscar.setText("Buscar Empleado");
-        bBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bBuscarActionPerformed(evt);
-            }
-        });
-
         bAltaEmpleado.setText("Agregar Empleado");
         bAltaEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,24 +94,25 @@ public class VPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnVenta)
                             .addComponent(btnAutor))
                         .addGap(40, 40, 40)
+                        .addComponent(btnEditorial))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEditorial)
+                            .addComponent(btnLibro)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnLibro)
-                                .addGap(33, 33, 33)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton2)
-                                    .addComponent(jButton1)))))
-                    .addComponent(bBuscar)
-                    .addComponent(bAltaEmpleado))
-                .addContainerGap(60, Short.MAX_VALUE))
+                                .addContainerGap()
+                                .addComponent(bAltaEmpleado)))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2)
+                            .addComponent(jButton1))))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,11 +128,9 @@ public class VPrincipal extends javax.swing.JFrame {
                     .addComponent(jButton1))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bBuscar)
-                    .addComponent(jButton2))
-                .addGap(18, 18, 18)
-                .addComponent(bAltaEmpleado)
-                .addContainerGap(125, Short.MAX_VALUE))
+                    .addComponent(jButton2)
+                    .addComponent(bAltaEmpleado))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
 
         pack();
@@ -167,12 +157,8 @@ public class VPrincipal extends javax.swing.JFrame {
         controlador.p(BTN_CATEGORIA);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
-        controlador.pasarAvistaBuscarEmpleado(BTN_BUSCAR_EMPLEADO);
-    }//GEN-LAST:event_bBuscarActionPerformed
-
     private void bAltaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAltaEmpleadoActionPerformed
-        controlador.pasarAvistaAgregarEmpleado(BTN_AGREGAR_EMPLEADO);
+        controlador.pasarAvistaAgregarEmpleado(BTN_ALTA_EMPLEADO);
     }//GEN-LAST:event_bAltaEmpleadoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -182,7 +168,6 @@ public class VPrincipal extends javax.swing.JFrame {
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAltaEmpleado;
-    private javax.swing.JButton bBuscar;
     private javax.swing.JButton btnAutor;
     private javax.swing.JButton btnEditorial;
     private javax.swing.JButton btnLibro;
