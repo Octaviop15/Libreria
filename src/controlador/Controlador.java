@@ -1417,23 +1417,30 @@ catch(SQLException ex){
         if(valor.equals(valtaEmple.BTN_AGREGAR_EMPLEADO)){
     Conexion conectar = new Conexion();
     Connection conn   = conectar.getConexion(); 
-        
-    String apellido= valtaEmple.getApellido();
-    String nombre = valtaEmple.getNombre();
-    String ciudad = valtaEmple.getCiudad();
-    String domicilio = valtaEmple.getDomicilio();
-    String correo = valtaEmple.getCorreo();
-    int fecha = valtaEmple.getDia() + valtaEmple.getMes() + valtaEmple.getAnio();
-    int dni = valtaEmple.getDni();
-    int telfijo = valtaEmple.getTelFijo();
-    int telmovil = valtaEmple.getTelMovil();   
+    
+    Object[] datos = new Object[5];
+    Object[] datos2 = new Object[6];
     
     
-    String SQL = "INSERT INTO empleado (apellido,nombre,dni, domicilio,ciudad,fecha_nacimiento, tel_fijo, tel_movil, correo) "
+    
+    datos[0] = valtaEmple.getApellido();
+    datos[1]  = valtaEmple.getNombre();
+    datos[2]  = valtaEmple.getDni();
+    valtaEmple.insertarFila(datos);
+    
+    datos2[0]  = valtaEmple.getDomicilio();
+    datos2[1]  = valtaEmple.getCiudad();   
+    datos2[2]  = valtaEmple.getFechaNacimiento();
+    datos2[3]  = valtaEmple.getTelFijo();
+    datos2[4]  = valtaEmple.getTelMovil();   
+    datos2[5]  = valtaEmple.getCorreo();
+    
+    String SQL = "INSERT INTO empleado (idTurno, apellido,nombre,dni, "
+            + "domicilio,ciudad,fecha_nacimiento, tel_fijo, tel_movil, correo) "
                       +    "VALUES"
-                      + " ('"+apellido+"','"+nombre+"','"+dni+"',"
-                      + " '"+domicilio+"','"+ciudad+"','"+fecha+"',"
-                      + " '"+telfijo+"', '"+telmovil+"','"+correo+"')";
+                      + " ('"+2+"','"+datos[0]+"','"+datos[1]+"','"+datos[2]+"',"
+                      + " '"+datos2[0]+"','"+datos2[1]+"','"+datos2[2]+"',"
+                      + " '"+datos2[3]+"', '"+datos2[4]+"','"+datos2[5]+"')";
     
     
        try{  
@@ -1441,8 +1448,11 @@ catch(SQLException ex){
                   Statement sentencia = conn.createStatement();
                   sentencia.executeUpdate(SQL);
                   
+                  
+                  
               }
               catch(SQLException e){
+                  
                   JOptionPane.showMessageDialog(null,e);
               }
        JOptionPane.showMessageDialog(null,"Empleado Agregado");
@@ -1456,7 +1466,7 @@ catch(SQLException ex){
             Conexion conectar = new Conexion();
             Connection conn   = conectar.getConexion();
             
-            String[] datos = new String[3];
+            String[] datos = new String[4];
             int dni = valtaEmple.getBucarDni();
             String SQL = "SELECT * FROM empleado WHERE dni = '"+dni+"'";
             
@@ -1465,17 +1475,17 @@ catch(SQLException ex){
                 ResultSet rs = st.executeQuery(SQL);
                 while(rs.next()){
                     datos[0] = rs.getString("Apellido");
-                    datos[1]  =rs.getString("Nombre");
+                    datos[1] = rs.getString("Nombre");
                     datos[2] = rs.getString("Dni");
-                    datos[3] = rs.getString("Liquidacion");
+                    //datos[3] = rs.getString("Liquidacion");
                 }
                 
-                  valtaEmple.setApellido(datos[0]);
-                  valtaEmple.setNombre(datos[1]);
-                  valtaEmple.setDni(datos[2]);
-                  valtaEmple.setLiquidacion(datos[3]);
+                  //valtaEmple.setApellido(datos[0]);
+                  //valtaEmple.setNombre(datos[1]);
+                  //valtaEmple.setDni(datos[2]);
+                  //valtaEmple.setLiquidacion(datos[3]);
                   
-                
+                valtaEmple.insertarFila(datos);
                 
             }
              catch(SQLException e){

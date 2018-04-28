@@ -23,8 +23,8 @@ private Controlador controlador;
         super(parent, modal);
         initComponents();
          cargarTabla();
-        //visibilidad();
-        getFechaNacimiento();
+        
+        
        
     }
     
@@ -51,17 +51,13 @@ private Controlador controlador;
         bAgregar = new javax.swing.JButton();
         campoApellido = new javax.swing.JTextField();
         campoNombre = new javax.swing.JTextField();
-        campoMes = new javax.swing.JTextField();
-        campoAnio = new javax.swing.JTextField();
-        campoDia = new javax.swing.JTextField();
+        campoFechaNacimiento = new javax.swing.JTextField();
         campoDni = new javax.swing.JTextField();
         campoDomicilio = new javax.swing.JTextField();
         campoCiudad = new javax.swing.JTextField();
         campoTelFijo = new javax.swing.JTextField();
         campoTelMovil = new javax.swing.JTextField();
         campoCorreo = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         bCancelar = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         campoBuscarDni = new javax.swing.JTextField();
@@ -100,14 +96,9 @@ private Controlador controlador;
             }
         });
 
-        campoMes.setText("mes");
-
-        campoAnio.setText("año");
-
-        campoDia.setText("dia");
-        campoDia.addActionListener(new java.awt.event.ActionListener() {
+        campoFechaNacimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoDiaActionPerformed(evt);
+                campoFechaNacimientoActionPerformed(evt);
             }
         });
 
@@ -116,10 +107,6 @@ private Controlador controlador;
                 campoCorreoActionPerformed(evt);
             }
         });
-
-        jLabel11.setText("/");
-
-        jLabel12.setText("/");
 
         bCancelar.setText("CANCELAR");
         bCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -137,16 +124,21 @@ private Controlador controlador;
         });
 
         jButton1.setText("BUSCAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         tablaEmpleado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "APELLIDO", "NOMBRE", "DNI", "LIQUIDACION"
+
             }
         ));
         jScrollPane1.setViewportView(tablaEmpleado);
@@ -191,15 +183,7 @@ private Controlador controlador;
                         .addContainerGap()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(campoDia, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(campoMes, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(campoAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(campoFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,19 +242,10 @@ private Controlador controlador;
                     .addComponent(jLabel3)
                     .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(campoDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11))
-                        .addGap(12, 12, 12))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(campoMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12)
-                            .addComponent(campoAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(campoFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(campoDomicilio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -308,16 +283,20 @@ private Controlador controlador;
 
     private void bAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarActionPerformed
     controlador.cargarEmpleado(BTN_AGREGAR_EMPLEADO);
-    limpiar();
+    
     }//GEN-LAST:event_bAgregarActionPerformed
 
     private void campoBuscarDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBuscarDniActionPerformed
-    controlador.buscarEmpleado(BTN_BUSCAR_EMPLEADO);
+    
     }//GEN-LAST:event_campoBuscarDniActionPerformed
 
-    private void campoDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDiaActionPerformed
+    private void campoFechaNacimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoFechaNacimientoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_campoDiaActionPerformed
+    }//GEN-LAST:event_campoFechaNacimientoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        controlador.buscarEmpleado(BTN_BUSCAR_EMPLEADO);
+    }//GEN-LAST:event_jButton1ActionPerformed
     public String getApellido(){
         return campoApellido.getText();
     }
@@ -331,15 +310,10 @@ private Controlador controlador;
         return  Integer.parseInt(campoBuscarDni.getText());
 
     }
-    public int getDia(){
-        return Integer.parseInt(campoDia.getText());
+    public String getFechaNacimiento(){
+       return campoFechaNacimiento.getText();
     }
-    public int getMes(){
-        return Integer.parseInt(campoMes.getText());
-    }
-    public int getAnio(){
-        return Integer.parseInt(campoAnio.getText());
-    }
+    
     public String getDomicilio(){
         return campoDomicilio.getText();
     }
@@ -402,23 +376,19 @@ private Controlador controlador;
     private javax.swing.JButton bBorrar;
     private javax.swing.JButton bCancelar;
     private javax.swing.JButton bModificar;
-    private javax.swing.JTextField campoAnio;
     private javax.swing.JTextField campoApellido;
     private javax.swing.JTextField campoBuscarDni;
     private javax.swing.JTextField campoCiudad;
     private javax.swing.JTextField campoCorreo;
-    private javax.swing.JTextField campoDia;
     private javax.swing.JTextField campoDni;
     private javax.swing.JTextField campoDomicilio;
-    private javax.swing.JTextField campoMes;
+    private javax.swing.JTextField campoFechaNacimiento;
     private javax.swing.JTextField campoNombre;
     private javax.swing.JTextField campoTelFijo;
     private javax.swing.JTextField campoTelMovil;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -436,35 +406,26 @@ private Controlador controlador;
     private void visibilidad() {
         campoApellido.setEnabled(false);
         campoNombre.setEnabled(false);
-        campoAnio.setEnabled(false);
         campoCiudad.setEnabled(false);
         campoCorreo.setEnabled(false);
-        campoDia.setEnabled(false);
+        campoFechaNacimiento.setEnabled(false);
         campoDni.setEnabled(false);
         campoDomicilio.setEnabled(false);
-        campoMes.setEnabled(false);
         campoNombre.setEnabled(false);
         campoTelFijo.setEnabled(false);
         campoTelMovil.setEnabled(false); 
                  
     }
 
-    private void getFechaNacimiento() {
-     
-        String fecha;
-        fecha = campoDia.getText() + "/" + campoMes.getText() + "/" + campoAnio.getText() ;
-                campoDia.setText(fecha);   
-    }
+    
     public void limpiar(){
         campoApellido.setText("");
         campoNombre.setText("");
-        campoAnio.setText("");
         campoCiudad.setText("");
         campoCorreo.setText("");
-        campoDia.setText("");
+        campoFechaNacimiento.setText("");
         campoDni.setText("");
         campoDomicilio.setText("");
-        campoMes.setText("");
         campoNombre.setText("");
         campoTelFijo.setText("");
         campoTelMovil.setText(""); 
@@ -508,6 +469,13 @@ private Controlador controlador;
         modelo = new DefaultTableModel(null,titulos);
         tablaEmpleado.setModel(modelo);
     }
+    
+    public void insertarFila(Object[] datos){
+    modelo.addRow(datos);
+    
+    
+    }
+    
 
    
 }
