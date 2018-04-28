@@ -1419,7 +1419,7 @@ catch(SQLException ex){
     Connection conn   = conectar.getConexion(); 
     
     Object[] datos = new Object[5];
-    Object[] datos2 = new Object[6];
+    Object[] datos2 = new Object[7];
     
     
     
@@ -1434,11 +1434,12 @@ catch(SQLException ex){
     datos2[3]  = valtaEmple.getTelFijo();
     datos2[4]  = valtaEmple.getTelMovil();   
     datos2[5]  = valtaEmple.getCorreo();
+    datos2[6]  = valtaEmple.getTurno();
     
     String SQL = "INSERT INTO empleado (idTurno, apellido,nombre,dni, "
             + "domicilio,ciudad,fecha_nacimiento, tel_fijo, tel_movil, correo) "
                       +    "VALUES"
-                      + " ('"+2+"','"+datos[0]+"','"+datos[1]+"','"+datos[2]+"',"
+                      + " ('"+datos2[6]+"','"+datos[0]+"','"+datos[1]+"','"+datos[2]+"',"
                       + " '"+datos2[0]+"','"+datos2[1]+"','"+datos2[2]+"',"
                       + " '"+datos2[3]+"', '"+datos2[4]+"','"+datos2[5]+"')";
     
