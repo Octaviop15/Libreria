@@ -41,6 +41,7 @@ public class Controlador {
     String i;
     int bnb;
     int tkl;
+    int iden;
     /*-------------------*/
     
     public Controlador(){
@@ -1040,17 +1041,7 @@ if(valor.equals(editm.BTN_NUEVO_ACE)){
 
 
 }
-   
-   
-     /* AUTOR*/
-    public void proce(String valor){
-    if(valor.equals(vp.BTN_AUTOR)){
-            vaut.setVisible(true);
-            
-        }
-    }
-    
-     public void eliminar(String loca){
+        public void eliminar(String loca){
         Conexion conectar = new Conexion();
     Connection conn   = conectar.getConexion();
     if(loca.equals(edit.BTN_NUEVO_BORRA))
@@ -1059,10 +1050,11 @@ if(valor.equals(editm.BTN_NUEVO_ACE)){
    if(fila>=0){
      String id=edit.tabla.getValueAt(fila, 0).toString();
      try{
-         
+         PreparedStatement sst = conn.prepareStatement("DELETE FROM domicilio WHERE Editorial_idEditorial='"+id+"'");
+         sst.executeUpdate();
      PreparedStatement ppt = conn.prepareStatement("DELETE FROM Editorial WHERE idEditorial='"+id+"'");
      ppt.executeUpdate();
-     JOptionPane.showMessageDialog(null,"Usuario Eliminado");
+     JOptionPane.showMessageDialog(null,"Editorial Eliminada");
      mostar();
      }
      catch(SQLException e){JOptionPane.showMessageDialog(null,"No se pudo Eliminar");}
@@ -1074,6 +1066,16 @@ if(valor.equals(editm.BTN_NUEVO_ACE)){
 }
 
     }
+   
+     /* AUTOR*/
+    public void proce(String valor){
+    if(valor.equals(vp.BTN_AUTOR)){
+            vaut.setVisible(true);
+            
+        }
+    }
+    
+
     
     public void altaau(String valor){
 if(valor.equals(vaut.BTN_NUEVO_AUTOR)){
@@ -1629,7 +1631,43 @@ if(valor.equals(vmodificacioncliente.BTN_NUEVO_MODICLIENTE)){
 
 }
 
+        public void elicli(String loca){
+        Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    if(loca.equals(vmodcliente.BTN_NUEVO_ELICLI))
+   {
+   int fila = vmodcliente.modcliente.getSelectedRow();
+   if(fila>=0){
+     String direc=vmodcliente.modcliente.getValueAt(fila, 9).toString();
+     try{
+         
+      
+         String edi = "SELECT idDomicilio FROM domicilio WHERE direccion='"+direc+"' ";
+           Statement lm = conn.createStatement();
+           ResultSet rs=lm.executeQuery(edi);
+           while(rs.next()){
+    iden=rs.getInt("idDomicilio");
+              }
+           
+                  
+         PreparedStatement sst = conn.prepareStatement("DELETE FROM cliente WHERE Domicilio_idDomicilio='"+iden+"'");
+         sst.executeUpdate();
+           
+         PreparedStatement ppt = conn.prepareStatement("DELETE FROM domicilio WHERE direccion='"+direc+"'");
+         ppt.executeUpdate();
 
+     JOptionPane.showMessageDialog(null,"Cliente Eliminado");
+     
+     }
+     catch(SQLException e){JOptionPane.showMessageDialog(null,"No se pudo Eliminar");}
+ 
+   }
+   else{JOptionPane.showMessageDialog(null,"no se seleciono fila");
+   }
+    
+}
+
+    }
 
       
       /*TONY PROGRAMACION*/

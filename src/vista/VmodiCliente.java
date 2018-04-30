@@ -70,6 +70,11 @@ public class VmodiCliente extends javax.swing.JDialog {
         });
 
         elicli.setText("Eliminar");
+        elicli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                elicliActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Volver");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -124,6 +129,10 @@ public class VmodiCliente extends javax.swing.JDialog {
     private void modicliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modicliActionPerformed
 controlador.modicli(BTN_NUEVO_MODICLI);          // TODO add your handling code here:
     }//GEN-LAST:event_modicliActionPerformed
+
+    private void elicliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elicliActionPerformed
+controlador.elicli(BTN_NUEVO_ELICLI);       // TODO add your handling code here:
+    }//GEN-LAST:event_elicliActionPerformed
 
     /**
      * @param args the command line arguments
