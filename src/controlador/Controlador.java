@@ -30,6 +30,8 @@ public class Controlador {
     private Vaut vaut;
     private VautorM vautorm;
     private Vcategoria vcategoria;
+    private VmodiCliente vmodcliente;
+    private Vmodificacioncliente vmodificacioncliente;
    
     private ValtaEmpleado valtaEmple;
     
@@ -37,6 +39,8 @@ public class Controlador {
     String f;
     String o;
     String i;
+    int bnb;
+    int tkl;
     /*-------------------*/
     
     public Controlador(){
@@ -57,7 +61,8 @@ public class Controlador {
          vaut= new Vaut(vp,true);
       vautorm= new VautorM(null,true);
       vcategoria = new Vcategoria(vp,true);
-       
+       vmodcliente=new VmodiCliente(null,true);
+       vmodificacioncliente=new Vmodificacioncliente(null,true);
     }
     
     public void ejecutar(){
@@ -78,7 +83,8 @@ public class Controlador {
         vautorm.setControlador(this);
           vaut.setControlador(this);
           vcategoria.setControlador(this);
-          
+          vmodcliente.setControlador(this);
+          vmodificacioncliente.setControlador(this);
     }
     
     
@@ -250,25 +256,42 @@ public class Controlador {
             String correo      = vnc.getCorreo();
             
             
-             String SQL = "INSERT INTO cliente (nombre,apellido,dni,fecha_nacimiento,tel_fijo,tel_movil,ciudad,direccion,correo) "
-                      +    "VALUES ('"+nombre+"','"+apellido+"','"+dni+"','"+fechaNac+"','"+telFijo+"','"+celular+"','"+ciudad+"','"+direccion+"','"+correo+"')";
+            
               
-              
-              // cliente = new Cliente(nombre,apellido,DNI,fechaNac,Ciudad,direccion,telFijo,celular,correo);
-              
-              /* String SQL = "INSERT INTO cliente (idCliente,nombre,apellido,dni,fecha_nacimiento,tel_fijo,tel_movil,ciudad,direccion,correo) "
-                      +    "VALUES ('"+vnc.getNombre()+"','"+vnc.getApellido()+"','"+vnc.getDNI()+"','"+vnc.getFechaNac()+"','"+vnc.getTelFijo()+"','"+vnc.getCelular()+"','"+vnc.getCiudad()+"','"+vnc.getDireccion()+"','"+vnc.getCorreo()+"')"; */
-              
-              
+             String tin = "INSERT INTO domicilio (direccion) "
+                      +    "VALUES ('"+direccion+"')";
+             
+             String edi = "SELECT idDomicilio FROM domicilio WHERE direccion='"+direccion+"' ";
+             
               try{
-                  Statement sentencia = conn.createStatement();
-                  sentencia.executeUpdate(SQL);
+               
+                
+                  Statement chi = conn.createStatement();
+                  chi.executeUpdate(tin);
+                 
+                  Statement lm = conn.createStatement();
+                  ResultSet rs=lm.executeQuery(edi);
+                  
+                  
+                                while(rs.next()){
+    bnb=rs.getInt("idDomicilio");
+   
+    
+   String flit = "INSERT INTO cliente (nombre,apellido,DNI,fecha_nacimiento,tel_fijo,tel_movil,ciudad,correo,Domicilio_idDomicilio) "
+                      +    "VALUES ('"+nombre+"','"+apellido+"','"+dni+"','"+fechaNac+"','"+telFijo+"','"+celular+"','"+ciudad+"','"+correo+"','"+bnb+"')";
+                
+   
+                  Statement gs = conn.createStatement();
+                  gs.executeUpdate(flit);
+              }
+                    
+     
                   
               }
               catch(SQLException e){
                   JOptionPane.showMessageDialog(null,e);
               }
-              
+              JOptionPane.showMessageDialog(null,"Cliente agregado");
               vnc.limpiar();
         }
         
@@ -276,28 +299,41 @@ public class Controlador {
         if(valor.equals(vnv.BTN_BUSCAR_CLIENTE)){
             Conexion conectar = new Conexion();
             Connection conn   = conectar.getConexion();
+            int velot=0;
             
             String[] datos = new String[3];
             int DNI = vnv.getDNI();
-            String SQL = "SELECT * FROM cliente WHERE DNI = '"+DNI+"'";
+            
+            String SQL = "SELECT nombre,apellido,Domicilio_idDomicilio FROM cliente WHERE DNI = '"+DNI+"'";
             
             try{
                 Statement st = conn.createStatement();
                 ResultSet rs = st.executeQuery(SQL);
                 while(rs.next()){
+                    velot=rs.getInt("Domicilio_idDomicilio");
                     datos[0] = rs.getString("nombre");
                     datos[1] = rs.getString("apellido");               
-                    datos[2] = rs.getString("direccion");                                      
+                                                     
                 }
-                
+               
+             String dn = "SELECT direccion FROM domicilio WHERE idDomicilio = '"+velot+"'";
+             
+                Statement hp = conn.createStatement();
+                ResultSet rz = hp.executeQuery(dn);
+                while(rz.next()){
+                                 
+                    
+                    vnv.setDireccion(rz.getString("direccion"));
+                }
                 vnv.setNombre(datos[0]);
                 vnv.setApellido(datos[1]);
-                vnv.setDireccion(datos[2]);
+                
             }
              catch(SQLException e){
                   JOptionPane.showMessageDialog(null,e);
                
         }
+         
         }
         
           //VENTANA VENTA
@@ -1410,8 +1446,194 @@ catch(SQLException ex){
    }
     
 }
-
     }
+    public void mostrarclientes(String valor){
+    if(valor.equals(vnc.BTN_AGREGAR_MODC)){
+        mostarclientes();
+            vmodcliente.setVisible(true);
+            
+        }
+    }
+      
+public void mostarclientes(){
+
+Conexion conectar = new Conexion();
+Connection conn   = conectar.getConexion();
+
+DefaultTableModel modo = new DefaultTableModel();
+modo.addColumn("idCliente");
+modo.addColumn("Nombre");
+modo.addColumn("Apellido");
+modo.addColumn("DNI");
+modo.addColumn("Fecha de Nacimiento");
+modo.addColumn("Telefono Fijo");
+modo.addColumn("Telefono Movil");
+modo.addColumn("Ciudad");
+modo.addColumn("Correo");
+modo.addColumn("direccion");
+
+vmodcliente.modcliente.setModel(modo);
+
+String sql="SELECT * FROM cliente";
+
+String datos[]= new String [10];
+try{
+   int tu=0; 
+    Statement st = conn.createStatement();
+    ResultSet rs = st.executeQuery(sql);
+  
+    while(rs.next()){
+    datos[0]=rs.getString(1);
+    datos[1]=rs.getString(2);
+    datos[2]=rs.getString(3);
+    datos[3]=rs.getString(4);
+    datos[4]=rs.getString(5);
+    datos[5]=rs.getString(6);
+    datos[6]=rs.getString(7);
+    datos[7]=rs.getString(8);
+    datos[8]=rs.getString(9);
+    tu=rs.getInt(10);
+     
+   
+          String edi = "SELECT direccion FROM domicilio WHERE idDomicilio ='"+tu+"' ";
+     Statement lm = conn.createStatement();
+     ResultSet ns=lm.executeQuery(edi);
+    
+   
+     while(ns.next()){
+         datos[9]=ns.getString("direccion");
+     }
+     
+    modo.addRow(datos);
+    vmodcliente.modcliente.setModel(modo);
+    }
+    
+   
+    
+    
+    }
+catch(SQLException ex){
+    JOptionPane.showMessageDialog(null,"no se puedo mostrar");
+}
+}
+
+   public void modicli(String valor){
+     
+   if(valor.equals(vmodcliente.BTN_NUEVO_MODICLI))
+   {
+       
+   int fila = vmodcliente.modcliente.getSelectedRow();
+   if(fila>=0){
+       vmodificacioncliente.idtxt.setText(vmodcliente.modcliente.getValueAt(fila, 0).toString());
+       vmodificacioncliente.nomtxt.setText(vmodcliente.modcliente.getValueAt(fila, 1).toString());
+       vmodificacioncliente.apetxt.setText(vmodcliente.modcliente.getValueAt(fila, 2).toString());
+       vmodificacioncliente.dnitxt.setText(vmodcliente.modcliente.getValueAt(fila, 3).toString());
+       vmodificacioncliente.nacitxt.setText(vmodcliente.modcliente.getValueAt(fila, 4).toString());
+       vmodificacioncliente.fijotxt.setText(vmodcliente.modcliente.getValueAt(fila, 5).toString());
+       vmodificacioncliente.moviltxt.setText(vmodcliente.modcliente.getValueAt(fila, 6).toString());
+       vmodificacioncliente.ciutxt.setText(vmodcliente.modcliente.getValueAt(fila, 7).toString());
+       vmodificacioncliente.cotxt.setText(vmodcliente.modcliente.getValueAt(fila, 8).toString());
+       vmodificacioncliente.diretxt.setText(vmodcliente.modcliente.getValueAt(fila, 9).toString());
+    
+       vmodificacioncliente.setVisible(true);
+     
+   
+   
+   
+   
+   
+   
+   
+   }
+   else{JOptionPane.showMessageDialog(null,"no se seleciono fila");
+   }
+   
+   }
+  
+   }
+
+public void confirmar(String valor){
+if(valor.equals(vmodificacioncliente.BTN_NUEVO_MODICLIENTE)){
+    
+    Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+        try{
+     int idcliente        = vmodificacioncliente.getidcli();
+     String nom        = vmodificacioncliente.getnombrecli();
+     String ape        = vmodificacioncliente.getapellidocli();
+     int dni        = vmodificacioncliente.getDNIcli();
+     String fecha        = vmodificacioncliente.getnacicli();
+     int fijo        = vmodificacioncliente.getfijocli();
+     int movil        = vmodificacioncliente.getmovicli();
+     String ciu        = vmodificacioncliente.getcicli();
+     String correo        = vmodificacioncliente.getcocli();
+     String direcc        = vmodificacioncliente.getdirecli();
+             
+
+    
+    String edi = "SELECT idDomicilio FROM domicilio WHERE direccion='"+direcc+"' ";
+     
+     Statement lm = conn.createStatement();
+     ResultSet rs=lm.executeQuery(edi);
+         
+         while(rs.next()){
+    tkl=rs.getInt("idDomicilio");
+              }
+    String Ssql = "UPDATE cliente SET idCliente=?, nombre=?, apellido=?, DNI=?, fecha_nacimiento=?, tel_fijo=?, tel_movil=?, ciudad=?, correo=?"
+                    + "WHERE Domicilio_idDomicilio=?";
+    
+    String sql = "UPDATE domicilio SET direccion=? "
+                    + "WHERE idDomicilio=?";
+    PreparedStatement prest = conn.prepareStatement(Ssql);
+    PreparedStatement tic = conn.prepareStatement(sql);
+
+     
+    
+    
+    
+     prest.setInt(1,idcliente);
+     prest.setString(2, nom);
+     prest.setString(3, ape);
+     prest.setInt(4, dni);
+     prest.setString(5, fecha);
+     prest.setInt(6, fijo);
+     prest.setInt(7, movil);
+     prest.setString(8, ciu);
+     prest.setString(9, correo);
+     prest.setInt(10, tkl);
+     tic.setString(1, direcc);
+     tic.setInt(2, tkl);
+    
+    
+        
+        
+     tic.executeUpdate();
+     prest.executeUpdate();
+    
+    
+    
+        }
+              catch(SQLException e){
+                  JOptionPane.showMessageDialog(null,e);
+              }
+       JOptionPane.showMessageDialog(null,"Editorial Modificada");
+       
+
+   
+     mostarclientes();
+    
+   vmodificacioncliente.setVisible(false);
+   
+         }
+
+
+}
+
+
+
+      
+      /*TONY PROGRAMACION*/
+   
 
     public void cargarEmpleado(String valor) {
         if(valor.equals(valtaEmple.BTN_AGREGAR_EMPLEADO)){
