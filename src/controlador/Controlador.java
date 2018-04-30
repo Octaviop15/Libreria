@@ -37,6 +37,7 @@ public class Controlador {
     String f;
     String o;
     String i;
+          
     /*-------------------*/
     
     public Controlador(){
@@ -698,6 +699,57 @@ public class Controlador {
             if(valor.equals(vc.BTN_OBTENER_TOTAL)){
                 double total = vc.getTotal();
                 vc.setTotal(total);
+            }
+            
+            
+            //VENTANA COMPRA
+            if(valor.equals(vc.BTN_GENERAR_COMPRA)){
+                Conexion conectar = new Conexion();
+                Connection conn   = conectar.getConexion();
+             
+                int cantFilas = vc.getCantFilas();
+                int stock;
+                int idEditorial; 
+                
+                String fecha = vc.getFecha();
+                for(int i=0;i<cantFilas;i++){
+                    int ISBN = vc.getISBN_tabla(i);
+                    int cant = vc.getCant_tabla(i);
+                    double  subtotal = vc.getSubTotal_tabla(i);
+                    double total = vc.getTotal();
+                    
+                    String SQL1 = "SELECT stock,idEditorial from libro WHERE ISBN ='"+ISBN+"'";
+                   // String SQL2 = "SELECT idUsuario FROM usuario where nombre= '"+nombre+"'";
+              
+                    try {
+                        Statement st1 = conn.createStatement();
+                        ResultSet rs = st1.executeQuery(SQL1);
+                        if(rs.next()){
+                            stock = rs.getInt("stock");
+                            idEditorial = rs.getInt("idEditorial");
+                            stock = stock + cant;
+                            String SQL2 = "UPDATE libro SET stock = '"+stock+"' where ISBN='"+ISBN+"'";
+                            Statement st2  =conn.createStatement();
+                            st2.executeUpdate(SQL2);
+                        }
+                    }
+                            
+                          catch (Exception e) {
+                                  JOptionPane.showMessageDialog(null,e);  
+                          }
+                    
+                    String SQL2 = "INSERT INTO pedidos (fechaPedido,total,idEditorial,idUsuario) VALUES ('"+fecha+"','"+total+"','"+idEditorial+"','"+idUsuario+"')";
+                    
+                    String SQL3 = "INSERT INTO detallepedido(cantidad,subtotal,idPedido,idLibro) VALUES ('"+cant+"','"+subtotal+"''"+idPedido+"','"+ISBN+"'";
+                    
+                    
+                                   
+                                  
+                         
+                     }
+                
+                
+                
             }
              
              
@@ -1384,9 +1436,11 @@ catch(SQLException ex){
 
 }
      
+     //---------------------------------------------------------------------------------------------------------------------------------------
      
      
      
+     //TONY PROGRAMACION 
       public void e(String local){
         Conexion conectar = new Conexion();
     Connection conn   = conectar.getConexion();

@@ -26,6 +26,7 @@ public class VLibro extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         cargarTabla();
+        
         requerido1.setVisible(false);
         requerido2.setVisible(false);
      
@@ -96,6 +97,7 @@ public class VLibro extends javax.swing.JDialog {
      }
      
      public int getidAutor(int i){
+      
          return idEditorial.get(i);
      }
      
@@ -168,12 +170,6 @@ public class VLibro extends javax.swing.JDialog {
         cmbAutor.removeAllItems();
         cmbEditorial.removeAllItems();
     }
-    
-  
-  
-    
-   
-  
     
     public void insertarFila(Object[] libro){
         model.addRow(libro);

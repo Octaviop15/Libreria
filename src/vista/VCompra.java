@@ -7,6 +7,7 @@ package vista;
 
 import controlador.Controlador;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,6 +19,7 @@ public class VCompra extends javax.swing.JDialog {
     public static final String BTN_AGREGAR_DETALLE_COMPRA= "AGREGAR DETALLE COMPRA";
     public static final String BTN_ELIMINAR_DETALLE_COMPRA = "ELIMINAR DETALL COMPRA";
     public static final String BTN_OBTENER_TOTAL = "OBTENER TOTAL";
+    public static final String BTN_GENERAR_COMPRA = "GENERAR COMPRA";
     private Controlador controlador;
     private DefaultTableModel model;
     ArrayList<Integer> idEditorial = new ArrayList<Integer>();
@@ -29,10 +31,21 @@ public class VCompra extends javax.swing.JDialog {
         initComponents();
         desactivar();
         cargarTabla();
+        setFechaHora();
     }
     
      public void setControlador(Controlador controlador){
         this.controlador = controlador;
+        
+    }
+     
+     public void setFechaHora(){
+        Calendar cal = Calendar.getInstance();
+        String fecha,hora;
+        fecha = cal.get(Calendar.DATE) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR);
+        hora = cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND);
+        txtFecha.setText(fecha);
+        txtHora.setText(hora);
         
     }
      
@@ -107,6 +120,14 @@ public class VCompra extends javax.swing.JDialog {
          txtStock.setText(String.valueOf(stock));
      }
      
+     public String getFecha(){
+        return txtFecha.getText();
+    }
+    
+    public String getHora(){
+        return txtHora.getText();
+    }
+     
      public void insertarFila(Object[] datos){
          model.addRow(datos);
      }
@@ -122,6 +143,9 @@ public class VCompra extends javax.swing.JDialog {
      public int getCantFilas(){
          return tablaDetalleCompra.getRowCount();
      }
+     
+     
+     
      
      public double getSubtotal(){
          double subtotal = getPrecio()*getCant();
@@ -149,6 +173,16 @@ public class VCompra extends javax.swing.JDialog {
     public int getISBN_tabla(int i){
         return Integer.parseInt(tablaDetalleCompra.getValueAt(i,0).toString());
     }
+    
+    public int getCant_tabla(int i){
+        return Integer.parseInt(tablaDetalleCompra.getValueAt(i, 3).toString());
+    }
+    
+    public Double getSubTotal_tabla(int i){
+        return Double.parseDouble(tablaDetalleCompra.getValueAt(i, 4).toString());
+    }
+    
+    
      
      
      
@@ -183,7 +217,7 @@ public class VCompra extends javax.swing.JDialog {
         txtTotal = new javax.swing.JTextField();
         btnTotal = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnGenerarCompra = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -261,7 +295,12 @@ public class VCompra extends javax.swing.JDialog {
             }
         });
 
-        jButton3.setText("Generar compra");
+        btnGenerarCompra.setText("Generar compra");
+        btnGenerarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarCompraActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -297,7 +336,7 @@ public class VCompra extends javax.swing.JDialog {
                                 .addComponent(txtPrecio, javax.swing.GroupLayout.Alignment.LEADING))))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton3)
+                            .addComponent(btnGenerarCompra)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
@@ -360,7 +399,7 @@ public class VCompra extends javax.swing.JDialog {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
+                    .addComponent(btnGenerarCompra)
                     .addComponent(jButton2))
                 .addContainerGap(91, Short.MAX_VALUE))
         );
@@ -396,6 +435,10 @@ public class VCompra extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void btnGenerarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarCompraActionPerformed
+        controlador.procesar(BTN_GENERAR_COMPRA);
+    }//GEN-LAST:event_btnGenerarCompraActionPerformed
+
 
     
 
@@ -403,11 +446,11 @@ public class VCompra extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscaLibro;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGenerarCompra;
     private javax.swing.JButton btnTotal;
     private javax.swing.JComboBox<String> cmbEditorial;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;

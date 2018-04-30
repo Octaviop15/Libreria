@@ -35,14 +35,14 @@ public class VNuVenta extends javax.swing.JDialog {
         initComponents();
         cargarTabla();
         visibilidad();
-        getFechaHora();
+        setFechaHora();
        
        
        
     }
     
     
-    public void getFechaHora(){
+    public void setFechaHora(){
         Calendar cal = Calendar.getInstance();
         String fecha,hora;
         fecha = cal.get(Calendar.DATE) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR);
