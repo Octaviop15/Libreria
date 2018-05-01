@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package controlador;
+import java.math.BigInteger;
 import modelo.*;
 import vista.*;
 import java.sql.*;
@@ -42,6 +43,8 @@ public class Controlador {
     int bnb;
     int tkl;
     int iden;
+    int iddomi;
+    int idturno;
     /*-------------------*/
     
     public Controlador(){
@@ -1678,39 +1681,65 @@ if(valor.equals(vmodificacioncliente.BTN_NUEVO_MODICLIENTE)){
     Conexion conectar = new Conexion();
     Connection conn   = conectar.getConexion(); 
     
-    Object[] datos = new Object[5];
-    Object[] datos2 = new Object[7];
+    String nombre= valtaEmple.getNombre();
+    int cuil= valtaEmple.getCuil();
+    String apellido= valtaEmple.getApellido();
+    String ciudad= valtaEmple.getCiudad();
+    String naci = valtaEmple.getFechaNacimiento();
+    String domi = valtaEmple.getDomicilio();
+    int fijo = valtaEmple.getTelFijo();
+    int movil=valtaEmple.getTelMovil();
+    String co=valtaEmple.getCorreo();
+    String tu=valtaEmple.getTurno();
     
+   BigInteger bigInteger = BigInteger.valueOf(cuil); 
+   
     
+   String SQL = "INSERT INTO turno (descripcion) "
+                      +    "VALUES ('"+tu+"')";
+   String edi = "SELECT idTurno FROM turno WHERE descripcion='"+tu+"' ";
+   
+   String Stl = "INSERT INTO domicilio (direccion) "
+                      +    "VALUES ('"+domi+"')";
+   String di = "SELECT idDomicilio FROM domicilio WHERE direccion='"+domi+"' "; 
     
-    datos[0] = valtaEmple.getApellido();
-    datos[1]  = valtaEmple.getNombre();
-    datos[2]  = valtaEmple.getDni();
-    valtaEmple.insertarFila(datos);
-    
-    datos2[0]  = valtaEmple.getDomicilio();
-    datos2[1]  = valtaEmple.getCiudad();   
-    datos2[2]  = valtaEmple.getFechaNacimiento();
-    datos2[3]  = valtaEmple.getTelFijo();
-    datos2[4]  = valtaEmple.getTelMovil();   
-    datos2[5]  = valtaEmple.getCorreo();
-    datos2[6]  = valtaEmple.getTurno();
-    
-    String SQL = "INSERT INTO empleado (idTurno, apellido,nombre,dni, "
-            + "domicilio,ciudad,fecha_nacimiento, tel_fijo, tel_movil, correo) "
-                      +    "VALUES"
-                      + " ('"+datos2[6]+"','"+datos[0]+"','"+datos[1]+"','"+datos[2]+"',"
-                      + " '"+datos2[0]+"','"+datos2[1]+"','"+datos2[2]+"',"
-                      + " '"+datos2[3]+"', '"+datos2[4]+"','"+datos2[5]+"')";
+   
+                  
     
     
        try{  
-           
                   Statement sentencia = conn.createStatement();
                   sentencia.executeUpdate(SQL);
+           
+                  Statement lm = conn.createStatement();
+                  ResultSet rs=lm.executeQuery(edi);
                   
+                                while(rs.next()){
+    idturno=rs.getInt("IdTurno");
+     JOptionPane.showMessageDialog(null,1);
+     System.out.println(idturno);
+              }
                   
+                  Statement sen = conn.createStatement();
+                  sen.executeUpdate(Stl);
+           
                   
+                  Statement lp = conn.createStatement();
+                  ResultSet rp=lp.executeQuery(di);
+                  
+      
+        while(rp.next()){
+    iddomi=rp.getInt("idDomicilio");
+     JOptionPane.showMessageDialog(null,2);
+     System.out.println(iddomi);
+              }
+               String Stp = "INSERT INTO empleado (nombre,apellido,fecha_nacimiento,ciudad,domicilio,tel_fijo,tel_movil,correo,CUIL,idTurno,idDomicilio1)"
+            +    "VALUES ('"+nombre+"','"+apellido+"','"+naci+"','"+ciudad+"','"+domi+"','"+fijo+"','"+movil+"','"+co+"','"+bigInteger+"','"+idturno+"','"+iddomi+"')";
+                    
+                    Statement t = conn.createStatement();
+                    t.executeUpdate(Stp);
+                
+                    
               }
               catch(SQLException e){
                   
@@ -1722,31 +1751,21 @@ if(valor.equals(vmodificacioncliente.BTN_NUEVO_MODICLIENTE)){
         }
     }
 
-    public void buscarEmpleado(String valor) {
+  /*  public void buscarEmpleado(String valor) {
        if(valor.equals(valtaEmple.BTN_BUSCAR_EMPLEADO)){
             Conexion conectar = new Conexion();
             Connection conn   = conectar.getConexion();
             
-            String[] datos = new String[4];
-            int dni = valtaEmple.getBucarDni();
-            String SQL = "SELECT * FROM empleado WHERE dni = '"+dni+"'";
+        
+            String SQL = "SELECT * FROM empleado WHERE dni = '"++"'";
             
             try{
                 Statement st = conn.createStatement();
                 ResultSet rs = st.executeQuery(SQL);
-                while(rs.next()){
-                    datos[0] = rs.getString("Apellido");
-                    datos[1] = rs.getString("Nombre");
-                    datos[2] = rs.getString("Dni");
-                    //datos[3] = rs.getString("Liquidacion");
-                }
-                
-                  //valtaEmple.setApellido(datos[0]);
-                  //valtaEmple.setNombre(datos[1]);
-                  //valtaEmple.setDni(datos[2]);
-                  //valtaEmple.setLiquidacion(datos[3]);
+              
+         
                   
-                valtaEmple.insertarFila(datos);
+                
                 
             }
              catch(SQLException e){
@@ -1757,8 +1776,66 @@ if(valor.equals(vmodificacioncliente.BTN_NUEVO_MODICLIENTE)){
           
             
         }
-    }
+    }*/
+    /*
+public void alta(String valor){
+if(valor.equals(edit.BTN_NUEVO_PRO)){
+    Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    
+    String n= edit.getnombreeditorial(); 
+    if(n.equals(""))
+    { JOptionPane.showMessageDialog(null,"Debe tener un nombre editorial");}
+    else{
+   
 
+    
+    
+    String nombre      = edit.getnombreeditorial();
+    int telefono        = edit.gettelefonoeditorial();
+    String direccion      = edit.getdireccioneditorial();
+    String ciudad      = edit.getciudadeditoral();
+    
+    String SQL = "INSERT INTO editorial (nombre,telefono,ciudad) "
+                      +    "VALUES ('"+nombre+"','"+telefono+"','"+ciudad+"')";
+    
+    
+     String edi = "SELECT idEditorial FROM editorial WHERE nombre='"+nombre+"' ";
+                      
+    
+      
+       
+    
+    
+       try{  
+           
+                  Statement sentencia = conn.createStatement();
+                  sentencia.executeUpdate(SQL);
+                 
+                  
+                  Statement lm = conn.createStatement();
+                  ResultSet rs=lm.executeQuery(edi);
+                  
+                  
+                  while(rs.next()){
+    f=rs.getString("idEditorial");
+   String flit = "INSERT INTO domicilio (direccion,Editorial_idEditorial) "
+                      +    "VALUES ('"+direccion+"','"+f+"')";
+                
+   
+                  Statement gs = conn.createStatement();
+                  gs.executeUpdate(flit);
+              }
+       }
+              catch(SQLException e){
+                  JOptionPane.showMessageDialog(null,e);
+              }
+       JOptionPane.showMessageDialog(null,"Editorial Agregada");
+}
+     mostar();
+    edit.limp();  
+        } *(/
+}/*aqui termina el alta*/
     
      
 }

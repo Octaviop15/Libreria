@@ -12,7 +12,8 @@ private Controlador controlador;
     public static final String BTN_AGREGAR_EMPLEADO = "AGREGAR EMPLEADO";
     public static final String BTN_BUSCAR_EMPLEADO = "BUSCAR EMPLEADO";
     DefaultTableModel modelo;
-    int turno;
+    String turno;
+    int cont;
     /**
      * Creates new form ValtaEmpleado
      */
@@ -25,11 +26,55 @@ private Controlador controlador;
         initComponents();
          cargarTabla();
         
-        
+        Requerido1.setVisible(false);
+        Requerido2.setVisible(false);
+        Requerido3.setVisible(false);
+        Requerido4.setVisible(false);
+        Requerido5.setVisible(false);
        
     }
     
-   
+    public void validacion(){
+        cont=0;
+        if(campoApellido.getText().equals("")){
+            Requerido1.setVisible(true);
+            cont++;
+        }
+        else{
+            Requerido1.setVisible(false);
+        }
+        if(campoCuil.getText().equals("")){
+            Requerido2.setVisible(true);
+            cont++;
+        }
+        else{
+            Requerido2.setVisible(false);
+        }
+        
+        if(campoNombre.getText().equals("")){
+            Requerido3.setVisible(true);
+            cont++;
+        }
+        else{
+            Requerido3.setVisible(false);
+        }
+        
+        if(campoFechaNacimiento.getText().equals("")){
+            Requerido4.setVisible(true);
+            cont++;
+        }
+        else{
+            Requerido4.setVisible(false);
+        }
+        
+         if(campoDomicilio.getText().equals("")){
+            Requerido5.setVisible(true);
+            cont++;
+        }
+        else{
+            Requerido5.setVisible(false);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,6 +84,7 @@ private Controlador controlador;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel17 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -53,7 +99,7 @@ private Controlador controlador;
         campoApellido = new javax.swing.JTextField();
         campoNombre = new javax.swing.JTextField();
         campoFechaNacimiento = new javax.swing.JTextField();
-        campoDni = new javax.swing.JTextField();
+        campoCuil = new javax.swing.JTextField();
         campoDomicilio = new javax.swing.JTextField();
         campoCiudad = new javax.swing.JTextField();
         campoTelFijo = new javax.swing.JTextField();
@@ -61,13 +107,20 @@ private Controlador controlador;
         campoCorreo = new javax.swing.JTextField();
         bCancelar = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
-        campoBuscarDni = new javax.swing.JTextField();
+        campoBuscarcuil = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaEmpleado = new javax.swing.JTable();
         bBorrar = new javax.swing.JButton();
         bModificar = new javax.swing.JButton();
-        itemTurno = new javax.swing.JComboBox<>();
+        itemTurno = new javax.swing.JComboBox<String>();
+        Requerido1 = new javax.swing.JLabel();
+        Requerido2 = new javax.swing.JLabel();
+        Requerido3 = new javax.swing.JLabel();
+        Requerido4 = new javax.swing.JLabel();
+        Requerido5 = new javax.swing.JLabel();
+
+        jLabel17.setText("jLabel17");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -77,7 +130,7 @@ private Controlador controlador;
 
         jLabel3.setText("NOMBRE");
 
-        jLabel4.setText("DNI");
+        jLabel4.setText("CUIL");
 
         jLabel5.setText("FECHA DE NACIEMIENTO");
 
@@ -98,9 +151,55 @@ private Controlador controlador;
             }
         });
 
+        campoApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoApellidoKeyTyped(evt);
+            }
+        });
+
+        campoNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoNombreActionPerformed(evt);
+            }
+        });
+        campoNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoNombreKeyTyped(evt);
+            }
+        });
+
         campoFechaNacimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campoFechaNacimientoActionPerformed(evt);
+            }
+        });
+
+        campoCuil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoCuilActionPerformed(evt);
+            }
+        });
+        campoCuil.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoCuilKeyTyped(evt);
+            }
+        });
+
+        campoCiudad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoCiudadKeyTyped(evt);
+            }
+        });
+
+        campoTelFijo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoTelFijoKeyTyped(evt);
+            }
+        });
+
+        campoTelMovil.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoTelMovilKeyTyped(evt);
             }
         });
 
@@ -117,11 +216,11 @@ private Controlador controlador;
             }
         });
 
-        jLabel13.setText("DNI o legajo :");
+        jLabel13.setText("CUIL");
 
-        campoBuscarDni.addActionListener(new java.awt.event.ActionListener() {
+        campoBuscarcuil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoBuscarDniActionPerformed(evt);
+                campoBuscarcuilActionPerformed(evt);
             }
         });
 
@@ -149,12 +248,22 @@ private Controlador controlador;
 
         bModificar.setText("MODIFICAR");
 
-        itemTurno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Turno", "Mañana", "Tarde" }));
+        itemTurno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Turno", "Mañana", "Tarde" }));
         itemTurno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemTurnoActionPerformed(evt);
             }
         });
+
+        Requerido1.setText("Requerido");
+
+        Requerido2.setText("Requerido");
+
+        Requerido3.setText("Requerido");
+
+        Requerido4.setText("Requerido");
+
+        Requerido5.setText("Requerido");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,61 +282,78 @@ private Controlador controlador;
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel6))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(campoTelMovil, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel8))
-                                    .addComponent(campoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(itemTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campoTelFijo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(campoFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Requerido3))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel13)
                                 .addGap(18, 18, 18)
-                                .addComponent(campoBuscarDni, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoBuscarcuil, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton1))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bBorrar)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(bModificar)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel6))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(campoDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(Requerido5))
+                                    .addComponent(campoCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(campoTelMovil, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jLabel8))
+                                            .addComponent(campoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(campoTelFijo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(bBorrar)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(campoFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Requerido4)
+                                .addGap(53, 53, 53)
+                                .addComponent(itemTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bModificar)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(campoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(jLabel4)))
-                        .addGap(18, 18, 18)
-                        .addComponent(campoDni, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                                .addGap(85, 85, 85)
+                                .addComponent(jLabel4))
+                            .addComponent(Requerido1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Requerido2)
+                            .addComponent(campoCuil, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(141, 141, 141))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,7 +362,7 @@ private Controlador controlador;
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(campoBuscarDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoBuscarcuil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addGap(40, 40, 40)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -244,25 +370,33 @@ private Controlador controlador;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bBorrar)
                     .addComponent(bModificar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Requerido2)
+                    .addComponent(Requerido1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(campoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(campoDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoCuil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Requerido3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(campoFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(itemTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(itemTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Requerido4))
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(campoDomicilio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(campoDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Requerido5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -296,36 +430,108 @@ private Controlador controlador;
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarActionPerformed
-    controlador.cargarEmpleado(BTN_AGREGAR_EMPLEADO);
     
+     validacion();
+        if(cont == 0){
+        controlador.cargarEmpleado(BTN_AGREGAR_EMPLEADO);
+        }
     }//GEN-LAST:event_bAgregarActionPerformed
 
-    private void campoBuscarDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBuscarDniActionPerformed
+    private void campoBuscarcuilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBuscarcuilActionPerformed
     
-    }//GEN-LAST:event_campoBuscarDniActionPerformed
+    }//GEN-LAST:event_campoBuscarcuilActionPerformed
 
     private void campoFechaNacimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoFechaNacimientoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoFechaNacimientoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        controlador.buscarEmpleado(BTN_BUSCAR_EMPLEADO);
+      /*  controlador.buscarEmpleado(BTN_BUSCAR_EMPLEADO);*/
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void itemTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemTurnoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_itemTurnoActionPerformed
+
+    private void campoApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoApellidoKeyTyped
+ char c = evt.getKeyChar();
+        
+        if(!Character.isLetter(c)){
+            getToolkit().beep();
+            evt.consume();
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_campoApellidoKeyTyped
+
+    private void campoNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoNombreKeyTyped
+ char c = evt.getKeyChar();
+        
+        if(!Character.isLetter(c)){
+            getToolkit().beep();
+            evt.consume();
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_campoNombreKeyTyped
+
+    private void campoCiudadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCiudadKeyTyped
+ char c = evt.getKeyChar();
+        
+        if(!Character.isLetter(c)){
+            getToolkit().beep();
+            evt.consume();
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_campoCiudadKeyTyped
+
+    private void campoTelMovilKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTelMovilKeyTyped
+char c = evt.getKeyChar();
+        
+        if(!Character.isDigit(c)){
+            getToolkit().beep();
+            evt.consume();}  // TODO add your handling code here:
+             // TODO add your handling code here:
+    }//GEN-LAST:event_campoTelMovilKeyTyped
+
+    private void campoTelFijoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoTelFijoKeyTyped
+     char c = evt.getKeyChar();
+        
+        if(!Character.isDigit(c)){
+            getToolkit().beep();
+            evt.consume();}  // TODO add your handling code here:
+       // TODO add your handling code here:
+    }//GEN-LAST:event_campoTelFijoKeyTyped
+
+    private void campoCuilKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCuilKeyTyped
+       char c = evt.getKeyChar();
+        int cant = campoCuil.getText().length();
+        
+        if(!Character.isDigit(c)){
+            getToolkit().beep();
+            evt.consume();
+        }
+        
+        if(cant>=11){
+            getToolkit().beep();
+            evt.consume();
+        }
+          // TODO add your handling code here:
+    }//GEN-LAST:event_campoCuilKeyTyped
+
+    private void campoCuilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoCuilActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoCuilActionPerformed
+
+    private void campoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoNombreActionPerformed
     public String getApellido(){
         return campoApellido.getText();
     }
     public String getNombre(){
         return campoNombre.getText();
     }
-    public int getDni(){
-        return Integer.parseInt(campoDni.getText());
+    public int getCuil(){
+        return Integer.parseInt(campoCuil.getText());
     }
     public int getBucarDni(){
-        return  Integer.parseInt(campoBuscarDni.getText());
+        return  Integer.parseInt(campoBuscarcuil.getText());
 
     }
     public String getFechaNacimiento(){
@@ -347,14 +553,14 @@ private Controlador controlador;
     public int getTelFijo(){
         return Integer.parseInt(campoTelFijo.getText());
     }
-    public int getTurno(){
+    public String getTurno(){
         
         if (itemTurno.getSelectedIndex()==1 ){
-          turno = 1;
+          turno = "Mañana";
         
         }
         if (itemTurno.getSelectedIndex()==2 ){
-          turno = 2;
+          turno = "Tarde";
         
         }      
         return turno;
@@ -403,15 +609,20 @@ private Controlador controlador;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Requerido1;
+    private javax.swing.JLabel Requerido2;
+    private javax.swing.JLabel Requerido3;
+    private javax.swing.JLabel Requerido4;
+    private javax.swing.JLabel Requerido5;
     private javax.swing.JButton bAgregar;
     private javax.swing.JButton bBorrar;
     private javax.swing.JButton bCancelar;
     private javax.swing.JButton bModificar;
     private javax.swing.JTextField campoApellido;
-    private javax.swing.JTextField campoBuscarDni;
+    private javax.swing.JTextField campoBuscarcuil;
     private javax.swing.JTextField campoCiudad;
     private javax.swing.JTextField campoCorreo;
-    private javax.swing.JTextField campoDni;
+    private javax.swing.JTextField campoCuil;
     private javax.swing.JTextField campoDomicilio;
     private javax.swing.JTextField campoFechaNacimiento;
     private javax.swing.JTextField campoNombre;
@@ -422,6 +633,7 @@ private Controlador controlador;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -441,7 +653,7 @@ private Controlador controlador;
         campoCiudad.setEnabled(false);
         campoCorreo.setEnabled(false);
         campoFechaNacimiento.setEnabled(false);
-        campoDni.setEnabled(false);
+        campoCuil.setEnabled(false);
         campoDomicilio.setEnabled(false);
         campoNombre.setEnabled(false);
         campoTelFijo.setEnabled(false);
@@ -456,28 +668,15 @@ private Controlador controlador;
         campoCiudad.setText("");
         campoCorreo.setText("");
         campoFechaNacimiento.setText("");
-        campoDni.setText("");
+        campoCuil.setText("");
         campoDomicilio.setText("");
         campoNombre.setText("");
         campoTelFijo.setText("");
         campoTelMovil.setText(""); 
-        campoBuscarDni.setText("");
+        campoBuscarcuil.setText("");
                 
     }
-    private void campoDniKeyTyped(java.awt.event.KeyEvent evt) {                                
-         char c = evt.getKeyChar();
-         int cant = campoDni.getText().length();
-        
-        if(!Character.isDigit(c)){
-            getToolkit().beep();
-            evt.consume();
-        }
-        
-        if(cant>=8){
-            getToolkit().beep();
-            evt.consume();
-        }
-    }
+    
 
     public void setApellido(String apellido) {
         campoApellido.setText(apellido);
@@ -487,8 +686,8 @@ private Controlador controlador;
        campoNombre.setText(nombre);
     }
 
-    public void setDni(String dni) {
-     campoDni.setText(dni);
+    public void setDni(String cuil) {
+campoCuil.setText(cuil);
     
     }
 
