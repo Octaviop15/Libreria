@@ -7,6 +7,11 @@
         <Property name="text" type="java.lang.String" value="jLabel17"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.JLabel" name="jLabel11">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel11"/>
+      </Properties>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
@@ -108,8 +113,10 @@
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="Requerido4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="itemTurno" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="Requerido6" min="-2" pref="54" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -186,6 +193,7 @@
                   <Component id="campoFechaNacimiento" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="itemTurno" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="Requerido4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Requerido6" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -415,6 +423,11 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="Requerido5">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Requerido"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="Requerido6">
       <Properties>
         <Property name="text" type="java.lang.String" value="Requerido"/>
       </Properties>

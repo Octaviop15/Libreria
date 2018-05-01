@@ -31,6 +31,7 @@ private Controlador controlador;
         Requerido3.setVisible(false);
         Requerido4.setVisible(false);
         Requerido5.setVisible(false);
+        Requerido6.setVisible(false);
        
     }
     
@@ -74,6 +75,14 @@ private Controlador controlador;
         else{
             Requerido5.setVisible(false);
         }
+         
+         if(itemTurno.getSelectedIndex()==0){
+            Requerido6.setVisible(true);
+            cont++;
+        }
+        else{
+            Requerido6.setVisible(false);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -85,6 +94,7 @@ private Controlador controlador;
     private void initComponents() {
 
         jLabel17 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -119,8 +129,11 @@ private Controlador controlador;
         Requerido3 = new javax.swing.JLabel();
         Requerido4 = new javax.swing.JLabel();
         Requerido5 = new javax.swing.JLabel();
+        Requerido6 = new javax.swing.JLabel();
 
         jLabel17.setText("jLabel17");
+
+        jLabel11.setText("jLabel11");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -265,6 +278,8 @@ private Controlador controlador;
 
         Requerido5.setText("Requerido");
 
+        Requerido6.setText("Requerido");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -331,8 +346,10 @@ private Controlador controlador;
                                         .addComponent(campoFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Requerido4)
-                                .addGap(53, 53, 53)
-                                .addComponent(itemTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(18, 18, 18)
+                                .addComponent(itemTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Requerido6, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -390,7 +407,8 @@ private Controlador controlador;
                     .addComponent(jLabel5)
                     .addComponent(campoFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(itemTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Requerido4))
+                    .addComponent(Requerido4)
+                    .addComponent(Requerido6))
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -614,6 +632,7 @@ char c = evt.getKeyChar();
     private javax.swing.JLabel Requerido3;
     private javax.swing.JLabel Requerido4;
     private javax.swing.JLabel Requerido5;
+    private javax.swing.JLabel Requerido6;
     private javax.swing.JButton bAgregar;
     private javax.swing.JButton bBorrar;
     private javax.swing.JButton bCancelar;
@@ -632,6 +651,7 @@ char c = evt.getKeyChar();
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
