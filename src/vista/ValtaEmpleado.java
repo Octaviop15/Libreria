@@ -11,6 +11,9 @@ public class ValtaEmpleado extends javax.swing.JDialog {
 private Controlador controlador;
     public static final String BTN_AGREGAR_EMPLEADO = "AGREGAR EMPLEADO";
     public static final String BTN_BUSCAR_EMPLEADO = "BUSCAR EMPLEADO";
+    public static final String BTN_BUSCAR_ELEGIR = "BUSCAR ELEGIR";
+    public static final String BTN_BUSCAR_MODIEMP = "BUSCAR MODIEMP";
+    public static final String BTN_BUSCAR_BORRAR = "BUSCAR BORRAR";
     
     String turno;
     int cont;
@@ -120,7 +123,7 @@ private Controlador controlador;
         campoBuscarcuil = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         bBorrar = new javax.swing.JButton();
-        bModificar = new javax.swing.JButton();
+        seleccionar = new javax.swing.JButton();
         itemTurno = new javax.swing.JComboBox<String>();
         Requerido1 = new javax.swing.JLabel();
         Requerido2 = new javax.swing.JLabel();
@@ -130,6 +133,7 @@ private Controlador controlador;
         Requerido6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaempleados = new javax.swing.JTable();
+        MODIEMP = new javax.swing.JButton();
 
         jLabel17.setText("jLabel17");
 
@@ -222,7 +226,7 @@ private Controlador controlador;
             }
         });
 
-        bCancelar.setText("CANCELAR");
+        bCancelar.setText("VOLVER");
         bCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bCancelarActionPerformed(evt);
@@ -250,8 +254,18 @@ private Controlador controlador;
         });
 
         bBorrar.setText("BORRAR");
+        bBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBorrarActionPerformed(evt);
+            }
+        });
 
-        bModificar.setText("MODIFICAR");
+        seleccionar.setText("Seleccionar Empleado");
+        seleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seleccionarActionPerformed(evt);
+            }
+        });
 
         itemTurno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Turno", "Mañana", "Tarde" }));
         itemTurno.addActionListener(new java.awt.event.ActionListener() {
@@ -282,45 +296,50 @@ private Controlador controlador;
         ));
         jScrollPane2.setViewportView(tablaempleados);
 
+        MODIEMP.setText("MODIFICAR");
+        MODIEMP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MODIEMPActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(156, 156, 156)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Requerido3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addGap(18, 18, 18)
+                                .addComponent(campoBuscarcuil, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1))))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 765, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(bModificar)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addComponent(seleccionar)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Requerido1))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(156, 156, 156)
-                .addComponent(jLabel1))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Requerido1)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Requerido3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addGap(18, 18, 18)
-                        .addComponent(campoBuscarcuil, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1))))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
                             .addComponent(jLabel10)
@@ -333,7 +352,7 @@ private Controlador controlador;
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(Requerido5))
                             .addComponent(campoCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(bBorrar)
                             .addGroup(layout.createSequentialGroup()
@@ -351,24 +370,25 @@ private Controlador controlador;
                                 .addComponent(Requerido6, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(campoCuil, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Requerido2)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bAgregar)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(97, 97, 97)
+                                .addGap(16, 16, 16)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(campoTelMovil, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel8))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(bCancelar)
-                                        .addComponent(campoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(campoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(campoTelFijo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(bAgregar)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(campoTelFijo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 765, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(MODIEMP)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,7 +404,7 @@ private Controlador controlador;
                 .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bBorrar)
-                    .addComponent(bModificar))
+                    .addComponent(seleccionar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Requerido2)
@@ -430,7 +450,8 @@ private Controlador controlador;
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bCancelar)
-                    .addComponent(bAgregar))
+                    .addComponent(bAgregar)
+                    .addComponent(MODIEMP))
                 .addGap(153, 153, 153))
         );
 
@@ -552,6 +573,22 @@ char c = evt.getKeyChar();
             evt.consume();
         }        // TODO add your handling code here:
     }//GEN-LAST:event_campoBuscarcuilKeyTyped
+
+    private void seleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionarActionPerformed
+ controlador.elegir(BTN_BUSCAR_ELEGIR);        // TODO add your handling code here:
+    }//GEN-LAST:event_seleccionarActionPerformed
+
+    private void MODIEMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MODIEMPActionPerformed
+        validacion();
+        if(cont == 0){
+         controlador.modiemp(BTN_BUSCAR_MODIEMP);
+        }
+            // TODO add your handling code here:
+    }//GEN-LAST:event_MODIEMPActionPerformed
+
+    private void bBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBorrarActionPerformed
+      controlador.eliemp(BTN_BUSCAR_BORRAR);  // TODO add your handling code here:
+    }//GEN-LAST:event_bBorrarActionPerformed
     public String getApellido(){
         return campoApellido.getText();
     }
@@ -640,6 +677,7 @@ char c = evt.getKeyChar();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JButton MODIEMP;
     private javax.swing.JLabel Requerido1;
     private javax.swing.JLabel Requerido2;
     private javax.swing.JLabel Requerido3;
@@ -647,20 +685,19 @@ char c = evt.getKeyChar();
     private javax.swing.JLabel Requerido5;
     private javax.swing.JLabel Requerido6;
     private javax.swing.JButton bAgregar;
-    private javax.swing.JButton bBorrar;
+    public static javax.swing.JButton bBorrar;
     private javax.swing.JButton bCancelar;
-    private javax.swing.JButton bModificar;
-    private javax.swing.JTextField campoApellido;
+    public static javax.swing.JTextField campoApellido;
     public static javax.swing.JTextField campoBuscarcuil;
-    private javax.swing.JTextField campoCiudad;
-    private javax.swing.JTextField campoCorreo;
-    private javax.swing.JTextField campoCuil;
-    private javax.swing.JTextField campoDomicilio;
-    private javax.swing.JTextField campoFechaNacimiento;
-    private javax.swing.JTextField campoNombre;
-    private javax.swing.JTextField campoTelFijo;
-    private javax.swing.JTextField campoTelMovil;
-    private javax.swing.JComboBox<String> itemTurno;
+    public static javax.swing.JTextField campoCiudad;
+    public static javax.swing.JTextField campoCorreo;
+    public static javax.swing.JTextField campoCuil;
+    public static javax.swing.JTextField campoDomicilio;
+    public static javax.swing.JTextField campoFechaNacimiento;
+    public static javax.swing.JTextField campoNombre;
+    public static javax.swing.JTextField campoTelFijo;
+    public static javax.swing.JTextField campoTelMovil;
+    public static javax.swing.JComboBox<String> itemTurno;
     public static javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -676,6 +713,7 @@ char c = evt.getKeyChar();
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton seleccionar;
     public static javax.swing.JTable tablaempleados;
     // End of variables declaration//GEN-END:variables
 
