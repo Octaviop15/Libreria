@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package controlador;
+
 import java.lang.invoke.MethodHandles;
+
+
 import java.math.BigInteger;
 import modelo.*;
 import vista.*;
@@ -47,7 +50,17 @@ public class Controlador {
     int bnb;
     int tkl;
     int iden;
+<<<<<<< HEAD
 
+=======
+    int iddomi;
+    int idturno;
+    int dom;
+    int turro;
+    String  e;
+    String h;
+    String t;
+>>>>>>> origin/master
     /*-------------------*/
     
     public Controlador(){
@@ -87,11 +100,12 @@ public class Controlador {
         mostar();
         mostrar();
         motacho();
+        mostrarempleado();
         vautorm.setControlador(this);
-          vaut.setControlador(this);
-          vcategoria.setControlador(this);
-          vmodcliente.setControlador(this);
-          vmodificacioncliente.setControlador(this);
+        vaut.setControlador(this);
+        vcategoria.setControlador(this);
+        vmodcliente.setControlador(this);
+        vmodificacioncliente.setControlador(this);
     }
     
     
@@ -1827,39 +1841,63 @@ if(valor.equals(vmodificacioncliente.BTN_NUEVO_MODICLIENTE)){
     Conexion conectar = new Conexion();
     Connection conn   = conectar.getConexion(); 
     
-    Object[] datos = new Object[5];
-    Object[] datos2 = new Object[7];
+    String nombre= valtaEmple.getNombre();
+    String cuil= valtaEmple.getCuil();
+    String apellido= valtaEmple.getApellido();
+    String ciudad= valtaEmple.getCiudad();
+    String naci = valtaEmple.getFechaNacimiento();
+    String domi = valtaEmple.getDomicilio();
+    int fijo = valtaEmple.getTelFijo();
+    int movil=valtaEmple.getTelMovil();
+    String co=valtaEmple.getCorreo();
+    String tu=valtaEmple.getTurno();
     
+   
+   
     
+   String SQL = "UPTADATE INTO turno (descripcion) "
+                      +    "VALUES ('"+tu+"')";
+   String edi = "SELECT idTurno FROM turno WHERE descripcion='"+tu+"' ";
+   
+   String Stl = "INSERT INTO domicilio (direccion) "
+                      +    "VALUES ('"+domi+"')";
+   String di = "SELECT idDomicilio FROM domicilio WHERE direccion='"+domi+"' "; 
     
-    datos[0] = valtaEmple.getApellido();
-    datos[1]  = valtaEmple.getNombre();
-    datos[2]  = valtaEmple.getDni();
-    valtaEmple.insertarFila(datos);
-    
-    datos2[0]  = valtaEmple.getDomicilio();
-    datos2[1]  = valtaEmple.getCiudad();   
-    datos2[2]  = valtaEmple.getFechaNacimiento();
-    datos2[3]  = valtaEmple.getTelFijo();
-    datos2[4]  = valtaEmple.getTelMovil();   
-    datos2[5]  = valtaEmple.getCorreo();
-    datos2[6]  = valtaEmple.getTurno();
-    
-    String SQL = "INSERT INTO empleado (idTurno, apellido,nombre,dni, "
-            + "domicilio,ciudad,fecha_nacimiento, tel_fijo, tel_movil, correo) "
-                      +    "VALUES"
-                      + " ('"+datos2[6]+"','"+datos[0]+"','"+datos[1]+"','"+datos[2]+"',"
-                      + " '"+datos2[0]+"','"+datos2[1]+"','"+datos2[2]+"',"
-                      + " '"+datos2[3]+"', '"+datos2[4]+"','"+datos2[5]+"')";
+   
+                  
     
     
        try{  
-           
                   Statement sentencia = conn.createStatement();
                   sentencia.executeUpdate(SQL);
+           
+                  Statement lm = conn.createStatement();
+                  ResultSet rs=lm.executeQuery(edi);
                   
+                                while(rs.next()){
+    idturno=rs.getInt("IdTurno");
+     System.out.println(idturno);
+              }
                   
+                  Statement sen = conn.createStatement();
+                  sen.executeUpdate(Stl);
+           
                   
+                  Statement lp = conn.createStatement();
+                  ResultSet rp=lp.executeQuery(di);
+                  
+      
+        while(rp.next()){
+    iddomi=rp.getInt("idDomicilio");
+     System.out.println(iddomi);
+              }
+               String Stp = "INSERT INTO empleado (nombre,apellido,fecha_nacimiento,ciudad,domicilio,tel_fijo,tel_movil,correo,CUIL,idTurno,idDomicilio1)"
+            +    "VALUES ('"+nombre+"','"+apellido+"','"+naci+"','"+ciudad+"','"+domi+"','"+fijo+"','"+movil+"','"+co+"','"+cuil+"','"+idturno+"','"+iddomi+"')";
+                    
+                    Statement t = conn.createStatement();
+                    t.executeUpdate(Stp);
+                
+                    
               }
               catch(SQLException e){
                   
@@ -1867,50 +1905,296 @@ if(valor.equals(vmodificacioncliente.BTN_NUEVO_MODICLIENTE)){
               }
        JOptionPane.showMessageDialog(null,"Empleado Agregado");
 
+    mostrarempleado();
+    valtaEmple.limpiar();
+        }
+    }
     
-        }
-    }
+    
+    public void mostrarempleado(){
+    
+Conexion conectar = new Conexion();
+Connection conn   = conectar.getConexion();
 
-    public void buscarEmpleado(String valor) {
-       if(valor.equals(valtaEmple.BTN_BUSCAR_EMPLEADO)){
-            Conexion conectar = new Conexion();
-            Connection conn   = conectar.getConexion();
-            
-            String[] datos = new String[4];
-            int dni = valtaEmple.getBucarDni();
-            String SQL = "SELECT * FROM empleado WHERE dni = '"+dni+"'";
-            
-            try{
-                Statement st = conn.createStatement();
-                ResultSet rs = st.executeQuery(SQL);
-                while(rs.next()){
-                    datos[0] = rs.getString("Apellido");
-                    datos[1] = rs.getString("Nombre");
-                    datos[2] = rs.getString("Dni");
-                    //datos[3] = rs.getString("Liquidacion");
-                }
-                
-                  //valtaEmple.setApellido(datos[0]);
-                  //valtaEmple.setNombre(datos[1]);
-                  //valtaEmple.setDni(datos[2]);
-                  //valtaEmple.setLiquidacion(datos[3]);
-                  
-                valtaEmple.insertarFila(datos);
-                
-            }
-             catch(SQLException e){
-                  JOptionPane.showMessageDialog(null,e);
-               
-        }
-            
-          
-            
-        }
-    }
+DefaultTableModel modo = new DefaultTableModel();
+modo.addColumn("idEmpleado");
+modo.addColumn("Nombre");
+modo.addColumn("Apellido");
+modo.addColumn("Fecha Nacimiento");
+modo.addColumn("Ciudad");
+modo.addColumn("Domicilio");
+modo.addColumn("Telefono Fijo");
+modo.addColumn("Telefono Movil");
+modo.addColumn("Correo");
+modo.addColumn("Cuil");
+modo.addColumn("Id Turno");
+modo.addColumn("Id Domicilio");
 
+
+valtaEmple.tablaempleados.setModel(modo);
+
+String sql="SELECT * FROM empleado";
+
+String datos[]= new String [12];
+try{
+    
+    Statement st = conn.createStatement();
+    ResultSet rs = st.executeQuery(sql);
+  
+    while(rs.next()){
+    datos[0]=rs.getString(1);
+    datos[1]=rs.getString(2);
+    datos[2]=rs.getString(3);
+    datos[3]=rs.getString(4);
+    datos[4]=rs.getString(5);
+    datos[5]=rs.getString(6);
+    datos[6]=rs.getString(7);
+    datos[7]=rs.getString(8);
+    datos[8]=rs.getString(9);
+    datos[9]=rs.getString(10);
+    datos[10]=rs.getString(11);
+    datos[11]=rs.getString(12);
     
      
+    
+    
+     
+     
+    modo.addRow(datos);
+    }
+    
+   
+    
+    valtaEmple.tablaempleados.setModel(modo);
+    }
+catch(SQLException ex){
+    JOptionPane.showMessageDialog(null,"no se puedo mostrar");
+}
+}
+    
+   
+    public void buscandoemp(String value){
+Conexion conectar = new Conexion();
+Connection conn   = conectar.getConexion();
+
+DefaultTableModel modo = new DefaultTableModel();
+modo.addColumn("idEmpleado");
+modo.addColumn("Nombre");
+modo.addColumn("Apellido");
+modo.addColumn("Fecha Nacimiento");
+modo.addColumn("Ciudad");
+modo.addColumn("Domicilio");
+modo.addColumn("Telefono Fijo");
+modo.addColumn("Telefono Movil");
+modo.addColumn("Correo");
+modo.addColumn("Cuil");
+modo.addColumn("Id Turno");
+modo.addColumn("Id Domicilio");
+
+valtaEmple.tablaempleados.setModel(modo);
+
+
+if(value.equals("")){
+ JOptionPane.showMessageDialog(null,"Ingrese un Cuil para buscar");
+  mostrarempleado();
+}
+else{
+  String sql;
+ sql="SELECT * FROM empleado WHERE CUIL='"+value+"'";        
+
+String datos[]= new String [12];
+try{
+    Statement st = conn.createStatement();
+    ResultSet rs = st.executeQuery(sql);
+  
+    while(rs.next()){
+    datos[0]=rs.getString(1);
+    datos[1]=rs.getString(2);
+    datos[2]=rs.getString(3);
+    datos[3]=rs.getString(4);
+    datos[4]=rs.getString(5);
+    datos[5]=rs.getString(6);
+    datos[6]=rs.getString(7);
+    datos[7]=rs.getString(8);
+    datos[8]=rs.getString(9);
+    datos[9]=rs.getString(10);
+    datos[10]=rs.getString(11);
+    datos[11]=rs.getString(12);
+    
+     
+    
+    
+     
+     
+    modo.addRow(datos);
+    }
+    
+   
+    
+    valtaEmple.tablaempleados.setModel(modo);
+    
+    }
+catch(SQLException ex){
+    JOptionPane.showMessageDialog(null,"no se puedo mostrar");
 }
 
+}
+
+ }   
+
+public void buscaremp(String valor) {
+       if(valor.equals(valtaEmple.BTN_BUSCAR_EMPLEADO)){
+     buscandoemp(valtaEmple.campoBuscarcuil.getText());
+   valtaEmple.limpiar();
+   
+}
+   
+}
+
+public void elegir(String mod){
+     
+   if(mod.equals(valtaEmple.BTN_BUSCAR_ELEGIR))
+   {
+       
+   int fila =valtaEmple.tablaempleados.getSelectedRow();
+   if(fila>=0){
+       t=valtaEmple.tablaempleados.getValueAt(fila, 0).toString();
+       valtaEmple.campoNombre.setText(valtaEmple.tablaempleados.getValueAt(fila, 1).toString());
+       valtaEmple.campoApellido.setText(valtaEmple.tablaempleados.getValueAt(fila, 2).toString());
+       valtaEmple.campoCiudad.setText(valtaEmple.tablaempleados.getValueAt(fila, 4).toString());
+       valtaEmple.campoFechaNacimiento.setText(valtaEmple.tablaempleados.getValueAt(fila, 3).toString());
+       valtaEmple.campoDomicilio.setText(valtaEmple.tablaempleados.getValueAt(fila, 5).toString());
+       valtaEmple.campoTelFijo.setText(valtaEmple.tablaempleados.getValueAt(fila, 6).toString());
+       valtaEmple.campoTelMovil.setText(valtaEmple.tablaempleados.getValueAt(fila,7).toString());
+       valtaEmple.campoCuil.setText(valtaEmple.tablaempleados.getValueAt(fila, 9).toString());
+       valtaEmple.campoCorreo.setText(valtaEmple.tablaempleados.getValueAt(fila, 8).toString());
+       e=valtaEmple.tablaempleados.getValueAt(fila, 10).toString();
+       h=valtaEmple.tablaempleados.getValueAt(fila, 11).toString();
+      
+   
+   
+   
+   
+   
+   
+   
+   }
+   else{JOptionPane.showMessageDialog(null,"no se seleciono fila");
+   }
+   
+   }
+  
+   }
+
+       public void modiemp(String valor){
+if(valor.equals(valtaEmple.BTN_BUSCAR_MODIEMP)){
+    Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
     
+        try{
+    String nombre= valtaEmple.getNombre();
+    String cuil= valtaEmple.getCuil();
+    String apellido= valtaEmple.getApellido();
+    String ciudad= valtaEmple.getCiudad();
+    String naci = valtaEmple.getFechaNacimiento();
+    String domi = valtaEmple.getDomicilio();
+    int fijo = valtaEmple.getTelFijo();
+    int movil=valtaEmple.getTelMovil();
+    String co=valtaEmple.getCorreo();
+    String tu=valtaEmple.getTurno();
+    
+  
+
+    String Ssql = "UPDATE empleado SET nombre=?, apellido=?, fecha_nacimiento=?, ciudad=?, domicilio=?, tel_fijo=?, tel_movil=?, CUIL=?, correo=?, idTurno=?, idDomicilio1=?"
+                    + "WHERE idEmpleado=?";
+    
+    String sql = "UPDATE turno SET descripcion=? "
+                    + "WHERE idTurno=?";
+    
+    String sqlo = "UPDATE domicilio SET direccion=? "
+                    + "WHERE idDomicilio=?";
+    PreparedStatement prest = conn.prepareStatement(Ssql);
+    PreparedStatement tic = conn.prepareStatement(sql);
+    PreparedStatement te = conn.prepareStatement(sqlo);
+    
+     prest.setString(1,nombre);
+     prest.setString(2, apellido);
+     prest.setString(3, naci);
+     prest.setString(4, ciudad);
+     prest.setString(5, domi);
+     prest.setInt(6, fijo);
+     prest.setInt(7, movil);
+     prest.setString(8, cuil);
+     prest.setString(9, co);
+     prest.setString(10, e);
+     prest.setString(11, h);
+     prest.setString(12, t);
+     
+    
+     tic.setString(1, tu);
+     tic.setString(2, e);
+     
+     
+    te.setString(1, domi);
+     te.setString(2, h);
+    
+        
+        
+     tic.executeUpdate();
+     prest.executeUpdate();
+     te.executeUpdate();
+   
+        }
+              catch(SQLException e){
+                  JOptionPane.showMessageDialog(null,e);
+              }
+         mostrarempleado();
+    valtaEmple.limpiar();
+       JOptionPane.showMessageDialog(null,"Empleado Modificado");
+       
+}
+  
+   
+         }
+       
+       
+               public void eliemp(String loca){
+        Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    if(loca.equals(valtaEmple.BTN_BUSCAR_BORRAR))
+   {
+   int fila = valtaEmple.tablaempleados.getSelectedRow();
+   if(fila>=0){
+     String domi=valtaEmple.tablaempleados.getValueAt(fila, 5).toString();
+     String idemp=valtaEmple.tablaempleados.getValueAt(fila, 0).toString();
+     String tur=valtaEmple.tablaempleados.getValueAt(fila, 10).toString();
+     try{
+         
+         
+         PreparedStatement ttm = conn.prepareStatement("DELETE FROM turno WHERE idTurno='"+tur+"'");
+         ttm.executeUpdate();
+                  
+         PreparedStatement sst = conn.prepareStatement("DELETE FROM empleado WHERE idEmpleado='"+idemp+"'");
+         sst.executeUpdate();
+           
+         PreparedStatement ppt = conn.prepareStatement("DELETE FROM domicilio WHERE direccion='"+domi+"'");
+         ppt.executeUpdate();
+
+     JOptionPane.showMessageDialog(null,"Empleado Eliminado");
+     
+     }
+     catch(SQLException e){JOptionPane.showMessageDialog(null,"No se pudo Eliminar");}
+ 
+   }
+   else{JOptionPane.showMessageDialog(null,"no se seleciono fila");
+   }
+    
+}
+mostrarempleado();
+    }
+
+
+
+
+    }
   
