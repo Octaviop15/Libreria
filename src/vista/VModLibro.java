@@ -2,16 +2,20 @@
 package vista;
 
 import controlador.Controlador;
+import java.util.ArrayList;
 
 
 public class VModLibro extends javax.swing.JDialog {
     
     public static final String BTN_ACEPTAR_MODIFICACION = "ACEPTAR MODIFICACION";
     private Controlador controlador;
-    private String idEditorial;
-    private String idAutor;
     private int contt;
 
+    
+    ArrayList<Integer> idEditorial = new ArrayList<Integer>();
+    ArrayList<Integer> idAutor = new ArrayList<Integer>();
+    ArrayList<Integer> idCategoria = new ArrayList<Integer>();
+    
     public VModLibro(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -46,7 +50,7 @@ public class VModLibro extends javax.swing.JDialog {
          txtTitulo.setText("");
          txtEdicion.setText("");
          txtPaginas.setText("");
-         txtPrecio.setText("");
+         txtPreciov.setText("");
          txtStock.setText("");
          txtareaDescripcion.setText("");
            
@@ -55,7 +59,34 @@ public class VModLibro extends javax.swing.JDialog {
          public void limpiarComboBox(){
         cmbAutor.removeAllItems();
         cmbEditorial.removeAllItems();
+        cmbCategoria.removeAllItems();
     }
+         
+         public void addIdEditorial(int id){
+             idEditorial.add(id);
+         }
+         
+         public void addIdAutor(int id){
+             idAutor.add(id);
+         }
+         
+         public void addIdCategoria(int id){
+             idCategoria.add(id);
+         }
+         
+          public int getIdEditorial(int i){
+             return idEditorial.get(i);
+     }
+          
+          public int getIdAutor(int i){
+              return idAutor.get(i);
+          }
+     
+          public int getIdCategoria(int i){
+             return idCategoria.get(i);
+     }
+         
+         
  
     public String getISBN(){
         return txtISBN.getText();
@@ -83,39 +114,42 @@ public class VModLibro extends javax.swing.JDialog {
         return txtareaDescripcion.getText();
     }
     
-    public double getPrecio(){
-        return Double.parseDouble(txtPrecio.getText());
+    public double getPreciov(){
+        return Double.parseDouble(txtPreciov.getText());
+    }
+    
+    public double getPrecioc(){
+        return Double.parseDouble(txtPrecioc.getText());
     }
     
     public int getStock(){
         return Integer.parseInt(txtStock.getText());
     }
-
-    public int getIdEditorial() {
-        return Integer.parseInt(idEditorial);
-    }
-
-    public void setIdEditorial(String idEditorial) {
-        this.idEditorial = idEditorial;
-    }
-
-    public int getIdAutor() {
-        return Integer.parseInt(idAutor);
-    }
-
-    public void setIdAutor(String idAutor) {
-        this.idAutor = idAutor;
-    }
-    
-    
-    
  
-    public String getComboBoxEditorial(){
+    public String getComboBoxEditorial1(){
         return cmbAutor.getSelectedItem().toString();
     }
     
-    public String getComboBoxAutor(){
+    public int getComboBoxEditorial2(){
+        return cmbEditorial.getSelectedIndex();
+    }
+    
+  
+    public String getComboBoxAutor1(){
         return cmbEditorial.getSelectedItem().toString();
+    }
+    
+      public int getComboBoxAutor2(){
+        return cmbAutor.getSelectedIndex();
+    }
+    
+    
+      public String getComboBoxCategoria1(){
+        return cmbCategoria.getSelectedItem().toString();
+    }
+        
+       public int getComboBoxCategoria2(){
+        return cmbCategoria.getSelectedIndex();
     }
     
       public void setComboBoxEditorial(String item){
@@ -124,6 +158,10 @@ public class VModLibro extends javax.swing.JDialog {
     
     public void setComboBoxAutor(String item){
         cmbAutor.addItem(item);
+    }
+    
+     public void setComboBoxCategoria(String item){
+        cmbCategoria.addItem(item);
     }
    
     public void setISBN(String ISBN){
@@ -140,8 +178,8 @@ public class VModLibro extends javax.swing.JDialog {
     }
     
     
-    public void setPaginas(String paginas){
-        txtPaginas.setText(paginas);
+    public void setPaginas(int paginas){
+        txtPaginas.setText(String.valueOf(paginas));
     }
     
     public void setFecha(String fecha){
@@ -149,12 +187,17 @@ public class VModLibro extends javax.swing.JDialog {
     }
     
  
-    public void setStock(String stock){
-        txtStock.setText(stock);
+    public void setStock(int stock){
+        txtStock.setText(String.valueOf(stock));
     }
     
-    public void setPrecio(String precio){
-        txtPrecio.setText(precio);
+    public void setPreciov(double precio){
+        txtPreciov.setText(String.valueOf(precio));
+    }
+    
+    public void setPrecioc(double precio){
+        txtPrecioc.setText(String.valueOf(precio));
+        
     }
     
     public void setNombreEditorial(String item ){
@@ -190,7 +233,7 @@ public class VModLibro extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         txtPaginas = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        txtPrecio = new javax.swing.JTextField();
+        txtPreciov = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         txtStock = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -204,6 +247,10 @@ public class VModLibro extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JButton();
         requerido1 = new javax.swing.JLabel();
         requerido2 = new javax.swing.JLabel();
+        cmbCategoria = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtPrecioc = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -229,11 +276,11 @@ public class VModLibro extends javax.swing.JDialog {
             }
         });
 
-        jLabel10.setText("Precio");
+        jLabel10.setText("Precio venta");
 
-        txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtPreciov.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPrecioKeyTyped(evt);
+                txtPreciovKeyTyped(evt);
             }
         });
 
@@ -278,6 +325,10 @@ public class VModLibro extends javax.swing.JDialog {
 
         requerido2.setText("requerido");
 
+        jLabel2.setText("Categoria");
+
+        jLabel8.setText("Precio compra");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -285,75 +336,71 @@ public class VModLibro extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel5)
+                    .addComponent(jLabel10)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(7, 7, 7)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel12)
-                            .addComponent(btnAceptarMod)))
-                    .addComponent(jLabel6)
+                        .addComponent(btnAceptarMod)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCancelar))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel10)
-                                .addComponent(jLabel11)))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(37, 37, 37)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(requerido1)
-                                        .addGap(98, 98, 98)
-                                        .addComponent(jLabel7))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(requerido2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(btnCancelar)))
-                .addGap(31, 31, 31))
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel9)))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtISBN)
+                            .addComponent(txtTitulo)
+                            .addComponent(txtEdicion)
+                            .addComponent(txtFecha)
+                            .addComponent(txtPaginas)
+                            .addComponent(txtPreciov)
+                            .addComponent(txtPrecioc)
+                            .addComponent(txtStock)
+                            .addComponent(cmbEditorial, 0, 215, Short.MAX_VALUE)
+                            .addComponent(cmbAutor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(requerido1)
+                            .addComponent(requerido2))
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(requerido1)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(requerido2)))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabel1)
+                            .addComponent(txtISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(requerido1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel3)
+                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(requerido2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(txtEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -361,34 +408,42 @@ public class VModLibro extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPreciov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(txtPrecioc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(32, 32, 32))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(cmbEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(cmbAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                    .addComponent(cmbAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptarMod)
                     .addComponent(btnCancelar))
                 .addGap(20, 20, 20))
         );
 
-        pack();
+        setBounds(0, 0, 854, 529);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtEdicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEdicionActionPerformed
@@ -415,14 +470,14 @@ public class VModLibro extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_txtPaginasKeyTyped
 
-    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
+    private void txtPreciovKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPreciovKeyTyped
         char c = evt.getKeyChar();
         
         if(!Character.isDigit(c)){
             getToolkit().beep();
             evt.consume();
         }
-    }//GEN-LAST:event_txtPrecioKeyTyped
+    }//GEN-LAST:event_txtPreciovKeyTyped
 
     private void txtStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStockActionPerformed
         // TODO add your handling code here:
@@ -442,16 +497,19 @@ public class VModLibro extends javax.swing.JDialog {
     private javax.swing.JButton btnAceptarMod;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JComboBox<String> cmbAutor;
+    private javax.swing.JComboBox<String> cmbCategoria;
     private javax.swing.JComboBox<String> cmbEditorial;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel requerido1;
@@ -460,7 +518,8 @@ public class VModLibro extends javax.swing.JDialog {
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtISBN;
     private javax.swing.JTextField txtPaginas;
-    private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtPrecioc;
+    private javax.swing.JTextField txtPreciov;
     private javax.swing.JTextField txtStock;
     private javax.swing.JTextField txtTitulo;
     private javax.swing.JTextArea txtareaDescripcion;

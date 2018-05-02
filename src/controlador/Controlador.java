@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package controlador;
+import java.lang.invoke.MethodHandles;
+import java.math.BigInteger;
 import modelo.*;
 import vista.*;
 import java.sql.*;
@@ -30,6 +32,8 @@ public class Controlador {
     private Vaut vaut;
     private VautorM vautorm;
     private Vcategoria vcategoria;
+    private VmodiCliente vmodcliente;
+    private Vmodificacioncliente vmodificacioncliente;
    
     private ValtaEmpleado valtaEmple;
     
@@ -37,7 +41,13 @@ public class Controlador {
     String f;
     String o;
     String i;
+
           
+
+    int bnb;
+    int tkl;
+    int iden;
+
     /*-------------------*/
     
     public Controlador(){
@@ -58,7 +68,8 @@ public class Controlador {
          vaut= new Vaut(vp,true);
       vautorm= new VautorM(null,true);
       vcategoria = new Vcategoria(vp,true);
-       
+       vmodcliente=new VmodiCliente(null,true);
+       vmodificacioncliente=new Vmodificacioncliente(null,true);
     }
     
     public void ejecutar(){
@@ -79,7 +90,8 @@ public class Controlador {
         vautorm.setControlador(this);
           vaut.setControlador(this);
           vcategoria.setControlador(this);
-          
+          vmodcliente.setControlador(this);
+          vmodificacioncliente.setControlador(this);
     }
     
     
@@ -92,7 +104,7 @@ public class Controlador {
         Conexion conectar = new Conexion();
         Connection conn = conectar.getConexion();
         
-        Object[] datos = new Object[7];
+        Object[] datos = new Object[8];
         String SQL = "SELECT * FROM libro";
         
         
@@ -103,8 +115,9 @@ public class Controlador {
                 datos[0] = rs.getString("ISBN");
                 datos[1] = rs.getString("titulo");
                 datos[3] = rs.getString("Edicion");
-                datos[5] = rs.getString("precio");
-                datos[6] = rs.getString("stock");
+                datos[5] = rs.getDouble("precio_venta");
+                datos[6] = rs.getDouble("precio_compra");
+                datos[7] = rs.getString("stock");
                 
                 //para mostrar en el jTable el nombre de autor y editorial primero obtenemos su respectivos id
                 //obtenemos el idAutor y el idEditorial de la tabla libros 
@@ -157,9 +170,11 @@ public class Controlador {
               while(rs.next()){
                   String nombre = rs.getString("nombre");
                   int idEditorial = rs.getInt("idEditorial");
+                  
                   vl.setComboBoxEditorial(nombre);
                   vml.setComboBoxEditorial(nombre);
                   vl.addIdEditorial(idEditorial);
+                  vml.addIdEditorial(idEditorial);
                  
                   
                   
@@ -181,6 +196,7 @@ public class Controlador {
              while(rs.next()){
                  String nombre = rs.getString("nombre");
                  int idEditorial = rs.getInt("idEditorial");
+                 
                  vc.setComboBoxEditorial(nombre);
                  vc.addIdEditorial(idEditorial);
                  
@@ -205,9 +221,11 @@ public class Controlador {
               while(rs.next()){                  
                   String nombre = rs.getString("nombre");
                   int idAutor = rs.getInt("idAutor");
+                  
                   vl.setComboBoxAutor(nombre);
                   vml.setComboBoxAutor(nombre);
                   vl.addIdAutor(idAutor);
+                  vml.addIdAutor(idAutor);
                   
                   
                   
@@ -215,6 +233,35 @@ public class Controlador {
           } catch (Exception e) {
           }
      }
+     
+     //Metodo para obtener pasar las categorias al jComboBox de la ventana libro
+     public void obtenerCategoriaComboBox(){
+          Conexion conexion = new Conexion();
+          Connection conn   = conexion.getConexion();
+          
+          String SQL = "SELECT * FROM categoria";
+          vl.setComboBoxCategoria("Seleccione una categoria");
+          vml.setComboBoxCategoria("Seleccione una categoria");
+          
+          try {
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(SQL);
+             while(rs.next()){
+                 String nombre = rs.getString("nombre");
+                 int idCategoria = rs.getInt("idCategoria");
+                 
+                 vl.setComboBoxCategoria(nombre);
+                 vml.setComboBoxCategoria(nombre);
+                 vl.addIdCategoria(idCategoria);
+                 vml.addIdCategoria(idCategoria);
+                 
+             }
+         } catch (Exception e) {
+         }
+         
+     }
+     
+     
          
      
     // ACCESOS A LA VISTA DE EMPLEADO
@@ -246,30 +293,46 @@ public class Controlador {
             String fechaNac    = vnc.getFechaNac();
             String ciudad      = vnc.getCiudad();
             String direccion   = vnc.getDireccion();
-            int telFijo        = vnc.getTelFijo();
+            Integer telFijo        = vnc.getTelFijo();
             int celular        = vnc.getCelular();
             String correo      = vnc.getCorreo();
             
             
-             String SQL = "INSERT INTO cliente (nombre,apellido,dni,fecha_nacimiento,tel_fijo,tel_movil,ciudad,direccion,correo) "
-                      +    "VALUES ('"+nombre+"','"+apellido+"','"+dni+"','"+fechaNac+"','"+telFijo+"','"+celular+"','"+ciudad+"','"+direccion+"','"+correo+"')";
-              
-              
-              // cliente = new Cliente(nombre,apellido,DNI,fechaNac,Ciudad,direccion,telFijo,celular,correo);
-              
-              /* String SQL = "INSERT INTO cliente (idCliente,nombre,apellido,dni,fecha_nacimiento,tel_fijo,tel_movil,ciudad,direccion,correo) "
-                      +    "VALUES ('"+vnc.getNombre()+"','"+vnc.getApellido()+"','"+vnc.getDNI()+"','"+vnc.getFechaNac()+"','"+vnc.getTelFijo()+"','"+vnc.getCelular()+"','"+vnc.getCiudad()+"','"+vnc.getDireccion()+"','"+vnc.getCorreo()+"')"; */
-              
-              
+            
+            
+             String SQL1 = "INSERT INTO domicilio (direccion) "
+                      +    "VALUES ('"+direccion+"')";
+             
+             String SQL2= "SELECT idDomicilio FROM domicilio WHERE direccion='"+direccion+"' ";
+             
               try{
-                  Statement sentencia = conn.createStatement();
-                  sentencia.executeUpdate(SQL);
+               
+                
+                  Statement st1 = conn.createStatement();
+                  st1.executeUpdate(SQL1);
+                 
+                  Statement st2= conn.createStatement();
+                  ResultSet rs=st2.executeQuery(SQL2);
+                  if(rs.next()){
+                       
+                       int idDomicilio= rs.getInt("idDomicilio");
+   
+    
+                       String SQL3 = "INSERT INTO cliente (nombre,apellido,DNI,fecha_nacimiento,tel_fijo,tel_movil,ciudad,correo,idDomicilio) "
+                      +    "VALUES ('"+nombre+"','"+apellido+"','"+dni+"','"+fechaNac+"','"+telFijo+"','"+celular+"','"+ciudad+"','"+correo+"','"+idDomicilio+"')";
+                
+   
+                  Statement st3 = conn.createStatement();
+                  st3.executeUpdate(SQL3);
+              }
+                    
+     
                   
               }
               catch(SQLException e){
                   JOptionPane.showMessageDialog(null,e);
               }
-              
+              JOptionPane.showMessageDialog(null,"Cliente agregado");
               vnc.limpiar();
         }
         
@@ -277,28 +340,40 @@ public class Controlador {
         if(valor.equals(vnv.BTN_BUSCAR_CLIENTE)){
             Conexion conectar = new Conexion();
             Connection conn   = conectar.getConexion();
+            int idDomicilio;
             
             String[] datos = new String[3];
             int DNI = vnv.getDNI();
-            String SQL = "SELECT * FROM cliente WHERE DNI = '"+DNI+"'";
+            
+            String SQL1 = "SELECT nombre,apellido,idDomicilio FROM cliente WHERE DNI = '"+DNI+"'";
             
             try{
-                Statement st = conn.createStatement();
-                ResultSet rs = st.executeQuery(SQL);
-                while(rs.next()){
-                    datos[0] = rs.getString("nombre");
-                    datos[1] = rs.getString("apellido");               
-                    datos[2] = rs.getString("direccion");                                      
+                Statement st1 = conn.createStatement();
+                ResultSet rs1 = st1.executeQuery(SQL1);
+                if(rs1.next()){
+                    idDomicilio = rs1.getInt("idDomicilio");
+                    datos[0] = rs1.getString("nombre");
+                    datos[1] = rs1.getString("apellido"); 
+                    
+                    String SQL2 = "SELECT direccion FROM domicilio WHERE idDomicilio = '"+idDomicilio+"'";
+                    Statement st2= conn.createStatement();
+                    ResultSet rs2= st2.executeQuery(SQL2);
+                    if(rs2.next()){
+                        datos[2] = rs2.getString("direccion");                                                              
+                }           
+                    
+               
                 }
-                
                 vnv.setNombre(datos[0]);
                 vnv.setApellido(datos[1]);
                 vnv.setDireccion(datos[2]);
+                
             }
              catch(SQLException e){
                   JOptionPane.showMessageDialog(null,e);
                
         }
+         
         }
         
           //VENTANA VENTA
@@ -315,7 +390,7 @@ public class Controlador {
                 ResultSet rs = st.executeQuery(SQL);
                 while(rs.next()){
                     datos[0] = rs.getString("titulo");
-                    datos[1]  =rs.getString("precio");
+                    datos[1]  =rs.getString("precio_venta");
                     datos[2] = rs.getString("stock");        
                 }
                 
@@ -382,7 +457,7 @@ public class Controlador {
                
            }  
            
-           
+           //VENTANA VENTA
            if(valor.equals(vnv.BTN_FINALIZAR_CARGA)){
                
                vnv.setTotal(vnv.getTotal());
@@ -395,8 +470,15 @@ public class Controlador {
                 Connection conn   = conectar.getConexion();
                 
                 int cantFilas = vnv.getCantFilasTabla();
+                int modoPago  = vnv.getModoPago();
                 int stock;
-                              
+                String fecha    = vnv.getFecha();                       
+                double total       = vnv.getTotalf();
+                int dni         = vnv.getDNI();
+                     
+                
+                
+                if(modoPago > 0){
                 for(int i=0;i<cantFilas;i++){
                     int ISBN = vnv.getISBN_tabla(i);
                     String SQL1 = "SELECT stock from libro WHERE ISBN ='"+ISBN+"'";
@@ -412,23 +494,58 @@ public class Controlador {
                             st2.executeUpdate(SQL2);
                         }
                         
-                        String fecha = vnv.getFecha();
-                        String hora = vnv.getHora();
-                        int total = vnv.getTotalf();
+                        
+                    }catch (Exception e) {
+                          JOptionPane.showMessageDialog(null, e);
+                    }
+                }
                         
                         
-                        String SQL3 = "INSERT INTO venta (fechaHora,total) VALUES ('"+fecha+ " " +hora+"','"+total+"')"; 
+                String SQL3 = "SELECT idCliente FROM cliente WHERE DNI = '"+dni+"'";
+                        
+                try {                             
+                    Statement st2 = conn.createStatement();
+                    ResultSet rs2 = st2.executeQuery(SQL3);
+                    if(rs2.next()){                                                     
+                        int idCliente = rs2.getInt("idCliente");
+                        
+                        String SQL4 = "INSERT INTO venta (fecha,total,idModoPago,idCliente,idUsuario) VALUES ('"+fecha+"','"+total+"','"+modoPago+"','"+idCliente+"','"+1+"')";
+                        
+                        Statement st3 = conn.createStatement();
+                        st3.executeUpdate(SQL4);
+                        ResultSet rs3 = st3.getGeneratedKeys();
+                        if(rs3.next()){
+                            int idVenta = rs3.getInt("idVenta");
+                            JOptionPane.showMessageDialog(null, idVenta);
+                        
+                        
+                        for(int i=0;i<cantFilas;i++){
+                            int ISBN = vnv.getISBN_tabla(i);
+                            int cantidad = vnv.getCant_table(i);
+                            double subtotal = vnv.getSubtotal_tabla(i);
+                            
+                            String SQL5 = "INSERT INTO detalleVenta (cantidad,subtotal,idLibro,idVenta,idUsuario) VALUES ('"+cantidad+"','"+subtotal+"','"+ISBN+"','"+idVenta+"'";
+
+                                }
+                                           
+                       }
+                    }
+                }catch (Exception e) {
+                                JOptionPane.showMessageDialog(null, e);
+                       }
+                        
+                                                                                                                                                                                            
+            }
                         
                         JOptionPane.showMessageDialog(null,"Venta generada con exito");
                         JOptionPane.showMessageDialog(null,"Stock actualizado");
                      
-                    } catch (Exception e) {
-                          JOptionPane.showMessageDialog(null, e);
-                    }
+                    
                 }
                 
                
-           }
+           
+
         
       
         //VENTANA LIBRO
@@ -438,6 +555,7 @@ public class Controlador {
              //llamamos a los metodos para que se carguen previamente los autores y las editoriales en el combo box 
             obtenerEditorialComboBox();
             obtenerAutorComboBox();
+            obtenerCategoriaComboBox();
             //llamamos al metodo para que se carguen los libros en el jTable
             cargarLibros();
             vl.setVisible(true);
@@ -451,37 +569,40 @@ public class Controlador {
             
             int ISBN = vl.getISBN();
             String titulo = vl.getTitulo();
-            int paginas = vl.getPaginas();
             String fecha = vl.getFecha();
-            String descripcion = vl.getDescripcion();
             String edicion = vl.getEdicion();
-            double precio = vl.getPrecio();
+            int paginas = vl.getPaginas();           
+            double preciov = vl.getPrecioVenta();
+            double precioc = vl.getPrecioCompra();
             int stock = vl.getStock();
+            String descripcion = vl.getDescripcion();
             
-            
-        //  String nombreAutor = vl.getComboBoxAutor1();
-        //  String nombreEditorial = vl.getComboBoxEditorial1();
+            String nombreAutor = vl.getComboBoxAutor1();
+            String nombreEditorial = vl.getComboBoxEditorial1();
            
             int ed = vl.getComboBoxEditorial2();
             int a = vl.getComboBoxAutor2();
+            int c = vl.getComboBoxCategoria2();
             
-             int idEditorial = vl.getidEditorial(ed);
-            int idAutor      = vl.getidAutor(a);
+            int idEditorial = vl.getIdEditorial(ed - 1 );
+            int idAutor      = vl.getIdAutor(a - 1 );
+            int idCategoria = vl.getIdCategoria(c - 1);
             
             
             Object[] datos = new Object[7];
             datos[0]       = ISBN;
-            datos[1]       = titulo;
-            
+            datos[1]       = titulo;           
+            datos[2]       = nombreAutor;        
             datos[3]       = edicion;
-           
-            datos[5]       = precio;
-            datos[6]       = stock;
+            datos[4]       = nombreEditorial;
+            datos[5]       = preciov;
+            datos[6]       = precioc;
+            datos[7]       = stock;
              
             
             
-            String SQL = "INSERT INTO libro (ISBN,titulo,fecha_lanzamiento,paginas,descripcion,edicion,precio,stock,idAutor,idEditorial,idCategoria) "
-                       + "VALUES ('"+ISBN+"','"+titulo+"','"+fecha+"','"+paginas+"','"+descripcion+"','"+edicion+"','"+precio+"','"+stock+"','"+idAutor+"','"+idEditorial+"','"+1+"')";
+            String SQL = "INSERT INTO libro (ISBN,titulo,fecha_de_lanzamiento,paginas,descripcion,edicion,precio_venta,precio_compra,stock,idAutor,idEditorial,idCategoria) "
+                       + "VALUES ('"+ISBN+"','"+titulo+"','"+fecha+"','"+paginas+"','"+descripcion+"','"+edicion+"','"+preciov+"','"+precioc+"','"+stock+"','"+idAutor+"','"+idEditorial+"','"+idCategoria+"')";
        
         try {
              Statement sentencia = conn.createStatement();
@@ -532,6 +653,7 @@ public class Controlador {
             //llamamos a los metodos para que se carguen previamente los autores y las editoriales en el combo box
             obtenerEditorialComboBox();
             obtenerAutorComboBox();
+            obtenerCategoriaComboBox();
             
             Conexion conectar = new Conexion();
             Connection conn   = conectar.getConexion();
@@ -546,15 +668,16 @@ public class Controlador {
             try{
                 Statement st = conn.createStatement();
                 ResultSet rs = st.executeQuery(SQL);
-                while(rs.next()){
+                if(rs.next()){
                     //establecemos los valores en los jTextField de la ventana modLibro
                     vml.setISBN(rs.getString("ISBN"));
-                    vml.setTitulo(rs.getString("Titulo"));
-                    vml.setEdicion(rs.getString("Edicion"));
-                    vml.setFecha(rs.getString("fecha_lanzamiento"));
-                    vml.setPaginas(rs.getString("paginas"));
-                    vml.setPrecio(rs.getString("precio"));
-                    vml.setStock(rs.getString("stock"));
+                    vml.setTitulo(rs.getString("titulo"));
+                    vml.setEdicion(rs.getString("edicion"));
+                    vml.setFecha(rs.getString("fecha_de_lanzamiento"));
+                    vml.setPaginas(rs.getInt("paginas"));
+                    vml.setPreciov(rs.getDouble("precio_venta"));
+                    vml.setPrecioc(rs.getDouble("precio_compra"));
+                    vml.setStock(rs.getInt("stock"));
                     vml.setDescripcion(rs.getString("descripcion"));
                 }
             }
@@ -575,27 +698,36 @@ public class Controlador {
             Conexion conectar = new Conexion();
             Connection conn   = conectar.getConexion();
              
-                       
-            Object[] datos = new Object[7];
+            //incluimos los datos que se agregarar en el jTbale de libros           
+            Object[] datos = new Object[8];
             datos[0]       = vml.getISBN();
             datos[1]       = vml.getTitulo();
-            datos[2]       = vml.getComboBoxAutor();
+            datos[2]       = vml.getComboBoxAutor1();
             datos[3]       = vml.getEdicion();
-            datos[4]       = vml.getComboBoxEditorial();
-            datos[5]       = vml.getPrecio();
-            datos[6]       = vml.getStock();
+            datos[4]       = vml.getComboBoxEditorial1();
+            datos[5]       = vml.getPreciov();
+            datos[6]       = vml.getPrecioc();
+            datos[7]       = vml.getStock();
             
-            
+            //incluimos los demas datos restantes para completar la sentencia SQL
             String fecha         = vml.getFecha();
             int paginas          = vml.getPaginas();
             String descripcion   = vml.getDescripcion();
-            int idEditorial      = vml.getIdEditorial();
-            int idAutor          = vml.getIdAutor();
+            
+            
+            //Obtenemos los idEditorial, idAutor, idCategoria
+            int ed = vml.getComboBoxEditorial2();
+            int a = vml.getComboBoxAutor2();
+            int c = vml.getComboBoxCategoria2();
+            
+            int idEditorial      = vml.getIdEditorial(ed - 1);
+            int idAutor          = vml.getIdAutor(a - 1);
+            int idCategoria      = vml.getIdCategoria(c - 1);
             
             int ISBN = vl.getISBN_tabla();
         
         
-            String SQL = "UPDATE libro SET ISBN = '"+datos[0]+"', titulo='"+datos[1]+"', idAutor='"+idAutor+"', edicion='"+datos[3]+"', fecha_lanzamiento='"+fecha+"', paginas='"+paginas+"', idEditorial='"+idEditorial+"', precio = '"+datos[5]+"', stock= '"+datos[6]+"', descripcion='"+descripcion+"', idCategoria='"+1+"' WHERE ISBN = '"+ISBN+"'";
+            String SQL = "UPDATE libro SET ISBN = '"+datos[0]+"', titulo='"+datos[1]+"', idAutor='"+idAutor+"', edicion='"+datos[3]+"', fecha_de_lanzamiento='"+fecha+"', paginas='"+paginas+"', idEditorial='"+idEditorial+"', precio_venta = '"+datos[5]+"',precio_compra='"+datos[6]+"', stock= '"+datos[6]+"', descripcion='"+descripcion+"', idCategoria='"+idCategoria+"' WHERE ISBN = '"+ISBN+"'";
             
                 try {
                     Statement st = conn.createStatement();
@@ -1056,17 +1188,7 @@ if(valor.equals(editm.BTN_NUEVO_ACE)){
 
 
 }
-   
-   
-     /* AUTOR*/
-    public void proce(String valor){
-    if(valor.equals(vp.BTN_AUTOR)){
-            vaut.setVisible(true);
-            
-        }
-    }
-    
-     public void eliminar(String loca){
+        public void eliminar(String loca){
         Conexion conectar = new Conexion();
     Connection conn   = conectar.getConexion();
     if(loca.equals(edit.BTN_NUEVO_BORRA))
@@ -1075,10 +1197,11 @@ if(valor.equals(editm.BTN_NUEVO_ACE)){
    if(fila>=0){
      String id=edit.tabla.getValueAt(fila, 0).toString();
      try{
-         
+         PreparedStatement sst = conn.prepareStatement("DELETE FROM domicilio WHERE Editorial_idEditorial='"+id+"'");
+         sst.executeUpdate();
      PreparedStatement ppt = conn.prepareStatement("DELETE FROM Editorial WHERE idEditorial='"+id+"'");
      ppt.executeUpdate();
-     JOptionPane.showMessageDialog(null,"Usuario Eliminado");
+     JOptionPane.showMessageDialog(null,"Editorial Eliminada");
      mostar();
      }
      catch(SQLException e){JOptionPane.showMessageDialog(null,"No se pudo Eliminar");}
@@ -1090,6 +1213,16 @@ if(valor.equals(editm.BTN_NUEVO_ACE)){
 }
 
     }
+   
+     /* AUTOR*/
+    public void proce(String valor){
+    if(valor.equals(vp.BTN_AUTOR)){
+            vaut.setVisible(true);
+            
+        }
+    }
+    
+
     
     public void altaau(String valor){
 if(valor.equals(vaut.BTN_NUEVO_AUTOR)){
@@ -1464,30 +1597,260 @@ catch(SQLException ex){
    }
     
 }
+    }
+    public void mostrarclientes(String valor){
+    if(valor.equals(vnc.BTN_AGREGAR_MODC)){
+        mostarclientes();
+            vmodcliente.setVisible(true);
+            
+        }
+    }
+      
+public void mostarclientes(){
+
+Conexion conectar = new Conexion();
+Connection conn   = conectar.getConexion();
+
+DefaultTableModel modo = new DefaultTableModel();
+modo.addColumn("idCliente");
+modo.addColumn("Nombre");
+modo.addColumn("Apellido");
+modo.addColumn("DNI");
+modo.addColumn("Fecha de Nacimiento");
+modo.addColumn("Telefono Fijo");
+modo.addColumn("Telefono Movil");
+modo.addColumn("Ciudad");
+modo.addColumn("Correo");
+modo.addColumn("direccion");
+
+vmodcliente.modcliente.setModel(modo);
+
+String sql="SELECT * FROM cliente";
+
+String datos[]= new String [10];
+try{
+   int tu=0; 
+    Statement st = conn.createStatement();
+    ResultSet rs = st.executeQuery(sql);
+  
+    while(rs.next()){
+    datos[0]=rs.getString(1);
+    datos[1]=rs.getString(2);
+    datos[2]=rs.getString(3);
+    datos[3]=rs.getString(4);
+    datos[4]=rs.getString(5);
+    datos[5]=rs.getString(6);
+    datos[6]=rs.getString(7);
+    datos[7]=rs.getString(8);
+    datos[8]=rs.getString(9);
+    tu=rs.getInt(10);
+     
+   
+          String edi = "SELECT direccion FROM domicilio WHERE idDomicilio ='"+tu+"' ";
+     Statement lm = conn.createStatement();
+     ResultSet ns=lm.executeQuery(edi);
+    
+   
+     while(ns.next()){
+         datos[9]=ns.getString("direccion");
+     }
+     
+    modo.addRow(datos);
+    vmodcliente.modcliente.setModel(modo);
+    }
+    
+   
+    
+    
+    }
+catch(SQLException ex){
+    JOptionPane.showMessageDialog(null,"no se puedo mostrar");
+}
+}
+
+   public void modicli(String valor){
+     
+   if(valor.equals(vmodcliente.BTN_NUEVO_MODICLI))
+   {
+       
+   int fila = vmodcliente.modcliente.getSelectedRow();
+   if(fila>=0){
+       vmodificacioncliente.idtxt.setText(vmodcliente.modcliente.getValueAt(fila, 0).toString());
+       vmodificacioncliente.nomtxt.setText(vmodcliente.modcliente.getValueAt(fila, 1).toString());
+       vmodificacioncliente.apetxt.setText(vmodcliente.modcliente.getValueAt(fila, 2).toString());
+       vmodificacioncliente.dnitxt.setText(vmodcliente.modcliente.getValueAt(fila, 3).toString());
+       vmodificacioncliente.nacitxt.setText(vmodcliente.modcliente.getValueAt(fila, 4).toString());
+       vmodificacioncliente.fijotxt.setText(vmodcliente.modcliente.getValueAt(fila, 5).toString());
+       vmodificacioncliente.moviltxt.setText(vmodcliente.modcliente.getValueAt(fila, 6).toString());
+       vmodificacioncliente.ciutxt.setText(vmodcliente.modcliente.getValueAt(fila, 7).toString());
+       vmodificacioncliente.cotxt.setText(vmodcliente.modcliente.getValueAt(fila, 8).toString());
+       vmodificacioncliente.diretxt.setText(vmodcliente.modcliente.getValueAt(fila, 9).toString());
+    
+       vmodificacioncliente.setVisible(true);
+     
+   
+   
+   
+   
+   
+   
+   
+   }
+   else{JOptionPane.showMessageDialog(null,"no se seleciono fila");
+   }
+   
+   }
+  
+   }
+
+public void confirmar(String valor){
+if(valor.equals(vmodificacioncliente.BTN_NUEVO_MODICLIENTE)){
+    
+    Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+        try{
+     int idcliente        = vmodificacioncliente.getidcli();
+     String nom        = vmodificacioncliente.getnombrecli();
+     String ape        = vmodificacioncliente.getapellidocli();
+     int dni        = vmodificacioncliente.getDNIcli();
+     String fecha        = vmodificacioncliente.getnacicli();
+     int fijo        = vmodificacioncliente.getfijocli();
+     int movil        = vmodificacioncliente.getmovicli();
+     String ciu        = vmodificacioncliente.getcicli();
+     String correo        = vmodificacioncliente.getcocli();
+     String direcc        = vmodificacioncliente.getdirecli();
+             
+
+    
+    String edi = "SELECT idDomicilio FROM domicilio WHERE direccion='"+direcc+"' ";
+     
+     Statement lm = conn.createStatement();
+     ResultSet rs=lm.executeQuery(edi);
+         
+         while(rs.next()){
+    tkl=rs.getInt("idDomicilio");
+              }
+    String Ssql = "UPDATE cliente SET idCliente=?, nombre=?, apellido=?, DNI=?, fecha_nacimiento=?, tel_fijo=?, tel_movil=?, ciudad=?, correo=?"
+                    + "WHERE Domicilio_idDomicilio=?";
+    
+    String sql = "UPDATE domicilio SET direccion=? "
+                    + "WHERE idDomicilio=?";
+    PreparedStatement prest = conn.prepareStatement(Ssql);
+    PreparedStatement tic = conn.prepareStatement(sql);
+
+     
+    
+    
+    
+     prest.setInt(1,idcliente);
+     prest.setString(2, nom);
+     prest.setString(3, ape);
+     prest.setInt(4, dni);
+     prest.setString(5, fecha);
+     prest.setInt(6, fijo);
+     prest.setInt(7, movil);
+     prest.setString(8, ciu);
+     prest.setString(9, correo);
+     prest.setInt(10, tkl);
+     tic.setString(1, direcc);
+     tic.setInt(2, tkl);
+    
+    
+        
+        
+     tic.executeUpdate();
+     prest.executeUpdate();
+    
+    
+    
+        }
+              catch(SQLException e){
+                  JOptionPane.showMessageDialog(null,e);
+              }
+       JOptionPane.showMessageDialog(null,"Editorial Modificada");
+       
+
+   
+     mostarclientes();
+    
+   vmodificacioncliente.setVisible(false);
+   
+         }
+
+
+}
+
+        public void elicli(String loca){
+        Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    if(loca.equals(vmodcliente.BTN_NUEVO_ELICLI))
+   {
+   int fila = vmodcliente.modcliente.getSelectedRow();
+   if(fila>=0){
+     String direc=vmodcliente.modcliente.getValueAt(fila, 9).toString();
+     try{
+         
+      
+         String edi = "SELECT idDomicilio FROM domicilio WHERE direccion='"+direc+"' ";
+           Statement lm = conn.createStatement();
+           ResultSet rs=lm.executeQuery(edi);
+           while(rs.next()){
+    iden=rs.getInt("idDomicilio");
+              }
+           
+                  
+         PreparedStatement sst = conn.prepareStatement("DELETE FROM cliente WHERE Domicilio_idDomicilio='"+iden+"'");
+         sst.executeUpdate();
+           
+         PreparedStatement ppt = conn.prepareStatement("DELETE FROM domicilio WHERE direccion='"+direc+"'");
+         ppt.executeUpdate();
+
+     JOptionPane.showMessageDialog(null,"Cliente Eliminado");
+     
+     }
+     catch(SQLException e){JOptionPane.showMessageDialog(null,"No se pudo Eliminar");}
+ 
+   }
+   else{JOptionPane.showMessageDialog(null,"no se seleciono fila");
+   }
+    
+}
 
     }
+
+      
+      /*TONY PROGRAMACION*/
+   
 
     public void cargarEmpleado(String valor) {
         if(valor.equals(valtaEmple.BTN_AGREGAR_EMPLEADO)){
     Conexion conectar = new Conexion();
     Connection conn   = conectar.getConexion(); 
-        
-    String apellido= valtaEmple.getApellido();
-    String nombre = valtaEmple.getNombre();
-    String ciudad = valtaEmple.getCiudad();
-    String domicilio = valtaEmple.getDomicilio();
-    String correo = valtaEmple.getCorreo();
-    int fecha = valtaEmple.getDia() + valtaEmple.getMes() + valtaEmple.getAnio();
-    int dni = valtaEmple.getDni();
-    int telfijo = valtaEmple.getTelFijo();
-    int telmovil = valtaEmple.getTelMovil();   
+    
+    Object[] datos = new Object[5];
+    Object[] datos2 = new Object[7];
     
     
-    String SQL = "INSERT INTO empleado (apellido,nombre,dni, domicilio,ciudad,fecha_nacimiento, tel_fijo, tel_movil, correo) "
+    
+    datos[0] = valtaEmple.getApellido();
+    datos[1]  = valtaEmple.getNombre();
+    datos[2]  = valtaEmple.getDni();
+    valtaEmple.insertarFila(datos);
+    
+    datos2[0]  = valtaEmple.getDomicilio();
+    datos2[1]  = valtaEmple.getCiudad();   
+    datos2[2]  = valtaEmple.getFechaNacimiento();
+    datos2[3]  = valtaEmple.getTelFijo();
+    datos2[4]  = valtaEmple.getTelMovil();   
+    datos2[5]  = valtaEmple.getCorreo();
+    datos2[6]  = valtaEmple.getTurno();
+    
+    String SQL = "INSERT INTO empleado (idTurno, apellido,nombre,dni, "
+            + "domicilio,ciudad,fecha_nacimiento, tel_fijo, tel_movil, correo) "
                       +    "VALUES"
-                      + " ('"+apellido+"','"+nombre+"','"+dni+"',"
-                      + " '"+domicilio+"','"+ciudad+"','"+fecha+"',"
-                      + " '"+telfijo+"', '"+telmovil+"','"+correo+"')";
+                      + " ('"+datos2[6]+"','"+datos[0]+"','"+datos[1]+"','"+datos[2]+"',"
+                      + " '"+datos2[0]+"','"+datos2[1]+"','"+datos2[2]+"',"
+                      + " '"+datos2[3]+"', '"+datos2[4]+"','"+datos2[5]+"')";
     
     
        try{  
@@ -1495,8 +1858,11 @@ catch(SQLException ex){
                   Statement sentencia = conn.createStatement();
                   sentencia.executeUpdate(SQL);
                   
+                  
+                  
               }
               catch(SQLException e){
+                  
                   JOptionPane.showMessageDialog(null,e);
               }
        JOptionPane.showMessageDialog(null,"Empleado Agregado");
@@ -1510,7 +1876,7 @@ catch(SQLException ex){
             Conexion conectar = new Conexion();
             Connection conn   = conectar.getConexion();
             
-            String[] datos = new String[3];
+            String[] datos = new String[4];
             int dni = valtaEmple.getBucarDni();
             String SQL = "SELECT * FROM empleado WHERE dni = '"+dni+"'";
             
@@ -1519,17 +1885,17 @@ catch(SQLException ex){
                 ResultSet rs = st.executeQuery(SQL);
                 while(rs.next()){
                     datos[0] = rs.getString("Apellido");
-                    datos[1]  =rs.getString("Nombre");
+                    datos[1] = rs.getString("Nombre");
                     datos[2] = rs.getString("Dni");
-                    datos[3] = rs.getString("Liquidacion");
+                    //datos[3] = rs.getString("Liquidacion");
                 }
                 
-                  valtaEmple.setApellido(datos[0]);
-                  valtaEmple.setNombre(datos[1]);
-                  valtaEmple.setDni(datos[2]);
-                  valtaEmple.setLiquidacion(datos[3]);
+                  //valtaEmple.setApellido(datos[0]);
+                  //valtaEmple.setNombre(datos[1]);
+                  //valtaEmple.setDni(datos[2]);
+                  //valtaEmple.setLiquidacion(datos[3]);
                   
-                
+                valtaEmple.insertarFila(datos);
                 
             }
              catch(SQLException e){

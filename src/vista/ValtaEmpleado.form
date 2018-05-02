@@ -47,13 +47,20 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="campoDomicilio" min="-2" pref="138" max="-2" attributes="0"/>
                           <Component id="campoCiudad" min="-2" pref="138" max="-2" attributes="0"/>
-                          <Component id="campoCorreo" min="-2" pref="117" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="campoTelMovil" min="-2" pref="117" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="campoTelMovil" min="-2" pref="117" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="campoCorreo" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="campoTelFijo" min="-2" pref="117" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="itemTurno" min="-2" max="-2" attributes="0"/>
+                                  <Component id="campoTelFijo" min="-2" pref="117" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
@@ -61,15 +68,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="campoDia" min="-2" pref="28" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      <Component id="jLabel11" min="-2" pref="26" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="campoMes" min="-2" pref="33" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jLabel12" min="-2" pref="26" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="campoAnio" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="campoFechaNacimiento" min="-2" pref="90" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
@@ -132,7 +131,7 @@
                   <Component id="bBorrar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="bModificar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <EmptySpace pref="33" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="campoApellido" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -145,24 +144,12 @@
                   <Component id="campoNombre" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="campoDia" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="campoMes" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="campoAnio" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  </Group>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="campoFechaNacimiento" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="itemTurno" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel6" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Component id="campoDomicilio" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -189,7 +176,7 @@
                   <Component id="bCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="bAgregar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -257,22 +244,9 @@
     </Component>
     <Component class="javax.swing.JTextField" name="campoNombre">
     </Component>
-    <Component class="javax.swing.JTextField" name="campoMes">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="mes"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="campoAnio">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="a&#xf1;o"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="campoDia">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="dia"/>
-      </Properties>
+    <Component class="javax.swing.JTextField" name="campoFechaNacimiento">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoDiaActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoFechaNacimientoActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="campoDni">
@@ -289,16 +263,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoCorreoActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel11">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="/"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel12">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="/"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="bCancelar">
       <Properties>
@@ -322,6 +286,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="BUSCAR"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -333,12 +300,7 @@
         <Component class="javax.swing.JTable" name="tablaEmpleado">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="4">
-                <Column editable="true" title="APELLIDO" type="java.lang.Object"/>
-                <Column editable="true" title="NOMBRE" type="java.lang.Object"/>
-                <Column editable="true" title="DNI" type="java.lang.Object"/>
-                <Column editable="true" title="LIQUIDACION" type="java.lang.Object"/>
-              </Table>
+              <Table columnCount="0" rowCount="4"/>
             </Property>
           </Properties>
         </Component>
@@ -353,6 +315,23 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="MODIFICAR"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="itemTurno">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value="Turno"/>
+            <StringItem index="1" value="Ma&#xf1;ana"/>
+            <StringItem index="2" value="Tarde"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemTurnoActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

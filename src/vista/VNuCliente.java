@@ -15,6 +15,7 @@ import controlador.Controlador;
  */
 public class VNuCliente extends javax.swing.JDialog {
     public static final String BTN_AGREGAR_CLIENTE = "AGREGAR CLIENTE";
+    public static final String BTN_AGREGAR_MODC = "AGREGAR MODC";
     Controlador controlador;
     int cont;
    
@@ -29,6 +30,7 @@ public class VNuCliente extends javax.swing.JDialog {
         requerido2.setVisible(false);
         requerido3.setVisible(false);
         requerido4.setVisible(false);
+        Requerido5.setVisible(false);
         
     }
     
@@ -67,6 +69,13 @@ public class VNuCliente extends javax.swing.JDialog {
             requerido4.setVisible(false);
         }
         
+         if(txtDireccion.getText().equals("")){
+            Requerido5.setVisible(true);
+            cont++;
+        }
+        else{
+            Requerido5.setVisible(false);
+        }
     }
     
     
@@ -155,6 +164,8 @@ public class VNuCliente extends javax.swing.JDialog {
         requerido2 = new javax.swing.JLabel();
         requerido3 = new javax.swing.JLabel();
         requerido4 = new javax.swing.JLabel();
+        Requerido5 = new javax.swing.JLabel();
+        Admini = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(643, 342));
@@ -262,6 +273,15 @@ public class VNuCliente extends javax.swing.JDialog {
 
         requerido4.setText("Requerido");
 
+        Requerido5.setText("Requerido");
+
+        Admini.setText("Administrar Clientes");
+        Admini.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AdminiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -269,40 +289,6 @@ public class VNuCliente extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel2))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                                .addComponent(txtNombre)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(botonAceptar)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel8)))
-                                .addComponent(jLabel10)
-                                .addComponent(jLabel9)
-                                .addComponent(jLabel11))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(botonCancelar)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addGap(0, 0, Short.MAX_VALUE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtDNI, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(txtCelular)
-                                        .addComponent(txtCiudad)
-                                        .addComponent(txtTel)
-                                        .addComponent(txtFecNac)
-                                        .addComponent(txtDireccion)
-                                        .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -312,14 +298,52 @@ public class VNuCliente extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel4))
                             .addComponent(jLabel6))
-                        .addGap(218, 218, 218)))
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(requerido1)
-                    .addComponent(requerido2)
-                    .addComponent(requerido3)
-                    .addComponent(requerido4))
-                .addGap(251, 251, 251))
+                        .addGap(252, 252, 252)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(requerido1)
+                            .addComponent(requerido2)
+                            .addComponent(requerido3)
+                            .addComponent(requerido4)
+                            .addComponent(Requerido5))
+                        .addGap(71, 71, 71))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                                    .addComponent(txtNombre)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(botonAceptar)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel8)))
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel11))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtDNI, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(txtCelular)
+                                            .addComponent(txtCiudad)
+                                            .addComponent(txtTel)
+                                            .addComponent(txtFecNac)
+                                            .addComponent(txtDireccion)
+                                            .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(botonCancelar)
+                                        .addGap(39, 39, 39)
+                                        .addComponent(Admini)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addGap(180, 180, 180))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -358,14 +382,15 @@ public class VNuCliente extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(Requerido5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -373,11 +398,12 @@ public class VNuCliente extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonAceptar)
-                    .addComponent(botonCancelar))
+                    .addComponent(botonCancelar)
+                    .addComponent(Admini))
                 .addGap(21, 21, 21))
         );
 
-        setBounds(0, 0, 461, 381);
+        setBounds(0, 0, 442, 389);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
@@ -429,23 +455,8 @@ public class VNuCliente extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_txtApellidoKeyTyped
 
-    private void txtCiudadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCiudadKeyTyped
-         char c = evt.getKeyChar();
-        
-        if(!Character.isLetter(c)){
-            getToolkit().beep();
-            evt.consume();
-        }                                   
-
-    }//GEN-LAST:event_txtCiudadKeyTyped
-
     private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
-        char c = evt.getKeyChar();
-        
-        if(!Character.isLetter(c)){
-            getToolkit().beep();
-            evt.consume();
-        }
+    
  
     }//GEN-LAST:event_txtDireccionKeyTyped
 
@@ -484,9 +495,24 @@ public class VNuCliente extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_txtCelularKeyTyped
 
+    private void AdminiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminiActionPerformed
+controlador.mostrarclientes(BTN_AGREGAR_MODC);        // TODO add your handling code here:
+    }//GEN-LAST:event_AdminiActionPerformed
+
+    private void txtCiudadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCiudadKeyTyped
+        char c = evt.getKeyChar();
+
+        if(!Character.isLetter(c)){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCiudadKeyTyped
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Admini;
+    private javax.swing.JLabel Requerido5;
     private javax.swing.JButton botonAceptar;
     private javax.swing.JButton botonCancelar;
     private javax.swing.JLabel jLabel1;

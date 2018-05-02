@@ -12,6 +12,7 @@ public class VPrincipal extends javax.swing.JFrame {
     public static final String BTN_CATEGORIA = "CATEGORIA";    
     public static final String BTN_ALTA_EMPLEADO = "AGREGAR EMPLEADO";
     public static final String BTN_COMPRA = "COMPRA";
+    public static final String BTN_NUEVO_CLIENTE = "NUEVO CLIENTE";
     
     private Controlador controlador;
 
@@ -30,149 +31,188 @@ public class VPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnVenta = new javax.swing.JButton();
-        btnEditorial = new javax.swing.JButton();
-        btnAutor = new javax.swing.JButton();
-        btnLibro = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        bAltaEmpleado = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        menuItemLibro = new javax.swing.JMenuItem();
+        menuItemAutor = new javax.swing.JMenuItem();
+        menuItemCategoria = new javax.swing.JMenuItem();
+        JMenu3 = new javax.swing.JMenu();
+        menuItemVenta = new javax.swing.JMenuItem();
+        menuItemCliente = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        menuItemCompra = new javax.swing.JMenuItem();
+        menuItemEditorial = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        menuItemEmpleado = new javax.swing.JMenuItem();
+
+        jButton4.setText("jButton4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnVenta.setText("Venta");
-        btnVenta.addActionListener(new java.awt.event.ActionListener() {
+        jMenu1.setText("Archivo");
+
+        jMenuItem9.setText("Salir");
+        jMenu1.add(jMenuItem9);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Libro");
+
+        menuItemLibro.setText("Libro");
+        menuItemLibro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVentaActionPerformed(evt);
+                menuItemLibroActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuItemLibro);
+
+        menuItemAutor.setText("Autor");
+        menuItemAutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemAutorActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuItemAutor);
+
+        menuItemCategoria.setText("Categoria");
+        menuItemCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemCategoriaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuItemCategoria);
+
+        jMenuBar1.add(jMenu2);
+
+        JMenu3.setText("Venta");
+        JMenu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMenu3ActionPerformed(evt);
             }
         });
 
-        btnEditorial.setText("Editorial");
-        btnEditorial.addActionListener(new java.awt.event.ActionListener() {
+        menuItemVenta.setText("Venta");
+        menuItemVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditorialActionPerformed(evt);
+                menuItemVentaActionPerformed(evt);
             }
         });
+        JMenu3.add(menuItemVenta);
 
-        btnAutor.setText("Autor");
-        btnAutor.addActionListener(new java.awt.event.ActionListener() {
+        menuItemCliente.setText("Cliente");
+        menuItemCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAutorActionPerformed(evt);
+                menuItemClienteActionPerformed(evt);
             }
         });
+        JMenu3.add(menuItemCliente);
 
-        btnLibro.setText("Libro");
-        btnLibro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLibroActionPerformed(evt);
-            }
-        });
+        jMenuBar1.add(JMenu3);
 
-        jButton1.setText("Administrar Categorias");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jMenu4.setText("Compra");
 
-        bAltaEmpleado.setText("Agregar Empleado");
-        bAltaEmpleado.addActionListener(new java.awt.event.ActionListener() {
+        menuItemCompra.setText("Compra");
+        menuItemCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bAltaEmpleadoActionPerformed(evt);
+                menuItemCompraActionPerformed(evt);
             }
         });
+        jMenu4.add(menuItemCompra);
 
-        jButton2.setText("Compra");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        menuItemEditorial.setText("Editorial");
+        menuItemEditorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                menuItemEditorialActionPerformed(evt);
             }
         });
+        jMenu4.add(menuItemEditorial);
+
+        jMenuBar1.add(jMenu4);
+
+        jMenu5.setText("Empleado");
+
+        menuItemEmpleado.setText("Empleado");
+        menuItemEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemEmpleadoActionPerformed(evt);
+            }
+        });
+        jMenu5.add(menuItemEmpleado);
+
+        jMenuBar1.add(jMenu5);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnVenta)
-                            .addComponent(btnAutor))
-                        .addGap(40, 40, 40)
-                        .addComponent(btnEditorial))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnLibro)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(bAltaEmpleado)))
-                        .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
-                            .addComponent(jButton1))))
-                .addContainerGap(95, Short.MAX_VALUE))
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVenta)
-                    .addComponent(btnEditorial))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAutor)
-                    .addComponent(btnLibro)
-                    .addComponent(jButton1))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(bAltaEmpleado))
-                .addContainerGap(166, Short.MAX_VALUE))
+            .addGap(0, 360, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
-    
-        controlador.procesar(BTN_VENTA);
-    }//GEN-LAST:event_btnVentaActionPerformed
-
-    private void btnEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditorialActionPerformed
-        controlador.proc(BTN_EDITORIAL);
-    }//GEN-LAST:event_btnEditorialActionPerformed
-
-    private void btnLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLibroActionPerformed
-        controlador.procesar(BTN_LIBRO);
-    }//GEN-LAST:event_btnLibroActionPerformed
-
-    private void btnAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutorActionPerformed
+    private void menuItemAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAutorActionPerformed
         controlador.proce(BTN_AUTOR);
-    }//GEN-LAST:event_btnAutorActionPerformed
+    }//GEN-LAST:event_menuItemAutorActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        controlador.p(BTN_CATEGORIA);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void menuItemLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemLibroActionPerformed
+        controlador.procesar(BTN_LIBRO);
+    }//GEN-LAST:event_menuItemLibroActionPerformed
 
-    private void bAltaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAltaEmpleadoActionPerformed
-        controlador.pasarAvistaAgregarEmpleado(BTN_ALTA_EMPLEADO);
-    }//GEN-LAST:event_bAltaEmpleadoActionPerformed
+    private void menuItemCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCategoriaActionPerformed
+        controlador.p(BTN_CATEGORIA); 
+    }//GEN-LAST:event_menuItemCategoriaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void JMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenu3ActionPerformed
+           controlador.procesar(BTN_VENTA);
+    }//GEN-LAST:event_JMenu3ActionPerformed
+
+    private void menuItemClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemClienteActionPerformed
+        controlador.procesar(BTN_NUEVO_CLIENTE);
+    }//GEN-LAST:event_menuItemClienteActionPerformed
+
+    private void menuItemVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemVentaActionPerformed
+             controlador.procesar(BTN_VENTA);
+    }//GEN-LAST:event_menuItemVentaActionPerformed
+
+    private void menuItemCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCompraActionPerformed
         controlador.procesar(BTN_COMPRA);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_menuItemCompraActionPerformed
+
+    private void menuItemEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEditorialActionPerformed
+        controlador.proc(BTN_EDITORIAL);
+    }//GEN-LAST:event_menuItemEditorialActionPerformed
+
+    private void menuItemEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEmpleadoActionPerformed
+        controlador.pasarAvistaAgregarEmpleado(BTN_ALTA_EMPLEADO);
+    }//GEN-LAST:event_menuItemEmpleadoActionPerformed
 
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bAltaEmpleado;
-    private javax.swing.JButton btnAutor;
-    private javax.swing.JButton btnEditorial;
-    private javax.swing.JButton btnLibro;
-    private javax.swing.JButton btnVenta;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JMenu JMenu3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuItem menuItemAutor;
+    private javax.swing.JMenuItem menuItemCategoria;
+    private javax.swing.JMenuItem menuItemCliente;
+    private javax.swing.JMenuItem menuItemCompra;
+    private javax.swing.JMenuItem menuItemEditorial;
+    private javax.swing.JMenuItem menuItemEmpleado;
+    private javax.swing.JMenuItem menuItemLibro;
+    private javax.swing.JMenuItem menuItemVenta;
     // End of variables declaration//GEN-END:variables
 }

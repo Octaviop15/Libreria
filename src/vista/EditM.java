@@ -29,8 +29,7 @@ public void setControlador(Controlador controlador){
     }
 public String getedi(){
         return editxt.getText();
-        
-    }
+        }
 public Integer gettel(){
         return Integer.parseInt(telefonoxtxt.getText());
                 
