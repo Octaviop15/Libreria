@@ -37,20 +37,15 @@ public class Controlador {
     private Vcategoria vcategoria;
     private VmodiCliente vmodcliente;
     private Vmodificacioncliente vmodificacioncliente;
-   
     private ValtaEmpleado valtaEmple;
-    
+    private Login login;
     /*Variables de ayuda*/
     String f;
     String o;
     String i;
-
-          
-
     int bnb;
     int tkl;
     int iden;
-
     int iddomi;
     int idturno;
     int dom;
@@ -67,12 +62,12 @@ public class Controlador {
         vl = new VLibro(vp, true);
         vml = new VModLibro(vp, true);
         vc = new VCompra(vp, true);
-        valtaEmple = new ValtaEmpleado(vp, true);
+        
    
         
         
         
-        
+        valtaEmple = new ValtaEmpleado(vp, true);
         edit=new Edit(vp,true);
         editm = new EditM(null,true);
          vaut= new Vaut(vp,true);
@@ -80,9 +75,42 @@ public class Controlador {
       vcategoria = new Vcategoria(vp,true);
        vmodcliente=new VmodiCliente(null,true);
        vmodificacioncliente=new Vmodificacioncliente(null,true);
+       login=new Login ();
+    }
+     public void ejecutar0(){
+         login.setLocationRelativeTo(null);
+       login.setControlador(this);
+       login.setVisible(true);
     }
     
     public void ejecutar(){
+        vp.setControlador(this);
+        vp.setLocationRelativeTo(null);
+        vp.setVisible(true);
+        vnv.setControlador(this);
+        vnc.setControlador(this);
+        vl.setControlador(this);
+        vml.setControlador(this);
+        vc.setControlador(this);
+        edit.setControlador(this);
+        editm.setControlador(this);
+        valtaEmple.setControlador(this);
+   
+        mostar();
+        mostrar();
+        motacho();
+        mostrarempleado();
+        mostarUser();
+        vautorm.setControlador(this);
+        vaut.setControlador(this);
+        vcategoria.setControlador(this);
+        vmodcliente.setControlador(this);
+        vmodificacioncliente.setControlador(this);
+    
+        
+    }
+     public void ejecutarusuario(){
+        vp.setLocationRelativeTo(null);
         vp.setControlador(this);
         vp.setVisible(true);
         vnv.setControlador(this);
@@ -104,6 +132,9 @@ public class Controlador {
         vcategoria.setControlador(this);
         vmodcliente.setControlador(this);
         vmodificacioncliente.setControlador(this);
+        
+       vp.jMenu5.setEnabled(false);
+       vp.menuItemCompra.setEnabled(false);
     }
     
     
@@ -2569,6 +2600,57 @@ if(valor.equals(valtaEmple.BTN_BUSCAR_MODIUSER)){
 
     }
 
+ 
+  public void Logear(String local){
+        Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    if(local.equals(login.BTN_LOGUSER))
+   {    
+       String cap="";
+       String user=login.getusuariologin();
+       String passw=login.getpasslogin();
+  String SQL = "SELECT * FROM usuario WHERE usuario='"+user+"' && password='"+passw+"' ";
+         try {
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(SQL);
+             while(rs.next()){
+                  cap= rs.getString("rol");
+               
+                 
+             }
+              if(cap.equals("Administrador"))
+              {
+              JOptionPane.showMessageDialog(null,"Sesion Iniciada como ADMINISTRADOR\n Bienvenido"+user);
+              ejecutar();
+              login.setVisible(false);
+             
+              }
+              if(!cap.equals("Administrador")&&(!cap.equals("Usuario")))
+              {
+              JOptionPane.showMessageDialog(null,"DATOS ERRONEOS");
+             
+              }
+              if(cap.equals("Usuario"))
+              {
+              JOptionPane.showMessageDialog(null,"Sesion Iniciada como USUARIO\n Bienvenido "+user);
+                ejecutarusuario();
+            
+              login.setVisible(false);
+             
+              }
+              
+         } catch (Exception e) {JOptionPane.showMessageDialog(null,"nose pudo mostrar");
+         }
+       
+       
+       
+       
+       
+       
+       
+    }
+
+    }
     
     
   

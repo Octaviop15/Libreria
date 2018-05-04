@@ -402,7 +402,7 @@ private Controlador controlador;
             }
         });
 
-        rol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Operador", "Administrador" }));
+        rol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Usuario", "Administrador" }));
         rol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rolActionPerformed(evt);
@@ -986,7 +986,7 @@ char c = evt.getKeyChar();
       public String getRol(){
         
         if (rol.getSelectedIndex()==0 ){
-          role = "Operador";
+          role = "Usuario";
         
         }
         if (itemTurno.getSelectedIndex()==1 ){
