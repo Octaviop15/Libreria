@@ -305,8 +305,8 @@ public class Controlador {
             String fechaNac    = vnc.getFechaNac();
             String ciudad      = vnc.getCiudad();
             String direccion   = vnc.getDireccion();
-            Integer telFijo        = vnc.getTelFijo();
-            int celular        = vnc.getCelular();
+            String telFijo       = vnc.getTelFijo();
+            String celular        = vnc.getCelular();
             String correo      = vnc.getCorreo();
             
             
@@ -330,7 +330,7 @@ public class Controlador {
                        int idDomicilio= rs.getInt("idDomicilio");
    
     
-                       String SQL3 = "INSERT INTO cliente (nombre,apellido,DNI,fecha_nacimiento,tel_fijo,tel_movil,ciudad,correo,idDomicilio) "
+                       String SQL3 = "INSERT INTO cliente (nombre,apellido,DNI,fecha_nacimiento,tel_fijo,tel_movil,ciudad,correo,idDomicilio2) "
                       +    "VALUES ('"+nombre+"','"+apellido+"','"+dni+"','"+fechaNac+"','"+telFijo+"','"+celular+"','"+ciudad+"','"+correo+"','"+idDomicilio+"')";
                 
    
@@ -923,16 +923,17 @@ if(valor.equals(edit.BTN_NUEVO_PRO)){
     Conexion conectar = new Conexion();
     Connection conn   = conectar.getConexion();
     
-    String n= edit.getnombreeditorial(); 
-    if(n.equals(""))
-    { JOptionPane.showMessageDialog(null,"Debe tener un nombre editorial");}
+    String n= edit.getnombreeditorial();
+    String p=edit.gettelefonoeditorial();
+    if(n.equals("")||p.equals("") )
+    { JOptionPane.showMessageDialog(null,"Debe tener un nombre y Telefono la editorial");}
     else{
    
 
     
     
     String nombre      = edit.getnombreeditorial();
-    int telefono        = edit.gettelefonoeditorial();
+    String telefono        = edit.gettelefonoeditorial();
     String direccion      = edit.getdireccioneditorial();
     String ciudad      = edit.getciudadeditoral();
     
@@ -1151,14 +1152,15 @@ if(valor.equals(editm.BTN_NUEVO_ACE)){
     Conexion conectar = new Conexion();
     Connection conn   = conectar.getConexion();
     
-    String n= editm.getedi(); 
-    if(n.equals(""))
-    { JOptionPane.showMessageDialog(null,"Debe tener un nombre editorial");}
+   String n= editm.getedi();
+    String p=editm.gettel();
+    if(n.equals("")||p.equals("") )
+    { JOptionPane.showMessageDialog(null,"Debe tener un nombre y Telefono la editorial");}
     else{
         try{
     int idEditorial        = editm.getide();
     String nombre      = editm.getedi();
-    int telefono        = editm.gettel();
+    String telefono        = editm.gettel();
     String direccion      = editm.getdirec();
     String ciudad      = editm.getciu();
     
@@ -1173,7 +1175,7 @@ if(valor.equals(editm.BTN_NUEVO_ACE)){
     PreparedStatement tic = conn.prepareStatement(sql);
     
     prest.setString(1,nombre);
-        prest.setInt(2, telefono);
+        prest.setString(2, telefono);
       tic.setString(1, direccion);
         prest.setString(3, ciudad);
         prest.setInt(4, idEditorial);
@@ -1271,6 +1273,7 @@ if(valor.equals(vaut.BTN_NUEVO_AUTOR)){
                   JOptionPane.showMessageDialog(null,e);
               }
        JOptionPane.showMessageDialog(null,"Autor Agregado");
+        mostrar();
 }
     
         }
@@ -1726,8 +1729,8 @@ if(valor.equals(vmodificacioncliente.BTN_NUEVO_MODICLIENTE)){
      String ape        = vmodificacioncliente.getapellidocli();
      int dni        = vmodificacioncliente.getDNIcli();
      String fecha        = vmodificacioncliente.getnacicli();
-     int fijo        = vmodificacioncliente.getfijocli();
-     int movil        = vmodificacioncliente.getmovicli();
+     String fijo        = vmodificacioncliente.getfijocli();
+     String movil        = vmodificacioncliente.getmovicli();
      String ciu        = vmodificacioncliente.getcicli();
      String correo        = vmodificacioncliente.getcocli();
      String direcc        = vmodificacioncliente.getdirecli();
@@ -1743,7 +1746,7 @@ if(valor.equals(vmodificacioncliente.BTN_NUEVO_MODICLIENTE)){
     tkl=rs.getInt("idDomicilio");
               }
     String Ssql = "UPDATE cliente SET idCliente=?, nombre=?, apellido=?, DNI=?, fecha_nacimiento=?, tel_fijo=?, tel_movil=?, ciudad=?, correo=?"
-                    + "WHERE Domicilio_idDomicilio=?";
+                    + "WHERE idDomicilio2=?";
     
     String sql = "UPDATE domicilio SET direccion=? "
                     + "WHERE idDomicilio=?";
@@ -1759,8 +1762,8 @@ if(valor.equals(vmodificacioncliente.BTN_NUEVO_MODICLIENTE)){
      prest.setString(3, ape);
      prest.setInt(4, dni);
      prest.setString(5, fecha);
-     prest.setInt(6, fijo);
-     prest.setInt(7, movil);
+     prest.setString(6, fijo);
+     prest.setString(7, movil);
      prest.setString(8, ciu);
      prest.setString(9, correo);
      prest.setInt(10, tkl);
@@ -1811,14 +1814,14 @@ if(valor.equals(vmodificacioncliente.BTN_NUEVO_MODICLIENTE)){
               }
            
                   
-         PreparedStatement sst = conn.prepareStatement("DELETE FROM cliente WHERE Domicilio_idDomicilio='"+iden+"'");
+         PreparedStatement sst = conn.prepareStatement("DELETE FROM cliente WHERE idDomicilio2='"+iden+"'");
          sst.executeUpdate();
            
          PreparedStatement ppt = conn.prepareStatement("DELETE FROM domicilio WHERE direccion='"+direc+"'");
          ppt.executeUpdate();
 
      JOptionPane.showMessageDialog(null,"Cliente Eliminado");
-     
+     mostarclientes();
      }
      catch(SQLException e){JOptionPane.showMessageDialog(null,"No se pudo Eliminar");}
  
@@ -1845,8 +1848,8 @@ if(valor.equals(vmodificacioncliente.BTN_NUEVO_MODICLIENTE)){
     String ciudad= valtaEmple.getCiudad();
     String naci = valtaEmple.getFechaNacimiento();
     String domi = valtaEmple.getDomicilio();
-    int fijo = valtaEmple.getTelFijo();
-    int movil=valtaEmple.getTelMovil();
+    String fijo = valtaEmple.getTelFijo();
+    String movil=valtaEmple.getTelMovil();
     String co=valtaEmple.getCorreo();
     String tu=valtaEmple.getTurno();
     
@@ -1862,7 +1865,6 @@ if(valor.equals(vmodificacioncliente.BTN_NUEVO_MODICLIENTE)){
    String di = "SELECT idDomicilio FROM domicilio WHERE direccion='"+domi+"' "; 
     
    
-                  
     
     
        try{  
@@ -1889,8 +1891,8 @@ if(valor.equals(vmodificacioncliente.BTN_NUEVO_MODICLIENTE)){
     iddomi=rp.getInt("idDomicilio");
      System.out.println(iddomi);
               }
-               String Stp = "INSERT INTO empleado (nombre,apellido,fecha_nacimiento,ciudad,domicilio,tel_fijo,tel_movil,correo,CUIL,idTurno,idDomicilio1)"
-            +    "VALUES ('"+nombre+"','"+apellido+"','"+naci+"','"+ciudad+"','"+domi+"','"+fijo+"','"+movil+"','"+co+"','"+cuil+"','"+idturno+"','"+iddomi+"')";
+               String Stp = "INSERT INTO empleado (nombre,apellido,fecha_nacimiento,ciudad,tel_fijo,tel_movil,correo,CUIL,idTurno,idDomicilio1)"
+            +    "VALUES ('"+nombre+"','"+apellido+"','"+naci+"','"+ciudad+"','"+fijo+"','"+movil+"','"+co+"','"+cuil+"','"+idturno+"','"+iddomi+"')";
                     
                     Statement t = conn.createStatement();
                     t.executeUpdate(Stp);
@@ -1920,7 +1922,6 @@ modo.addColumn("Nombre");
 modo.addColumn("Apellido");
 modo.addColumn("Fecha Nacimiento");
 modo.addColumn("Ciudad");
-modo.addColumn("Domicilio");
 modo.addColumn("Telefono Fijo");
 modo.addColumn("Telefono Movil");
 modo.addColumn("Correo");
@@ -1964,7 +1965,7 @@ try{
     datos[8]=rs.getString(9);
     datos[9]=rs.getString(10);
     datos[10]=rs.getString(11);
-    datos[11]=rs.getString(12);
+    
     datosusuario[0]=rs.getString(1);
     datosusuario[1]=rs.getString(2);
     datosusuario[2]=rs.getString(3);
@@ -1998,7 +1999,6 @@ modo.addColumn("Nombre");
 modo.addColumn("Apellido");
 modo.addColumn("Fecha Nacimiento");
 modo.addColumn("Ciudad");
-modo.addColumn("Domicilio");
 modo.addColumn("Telefono Fijo");
 modo.addColumn("Telefono Movil");
 modo.addColumn("Correo");
@@ -2034,7 +2034,6 @@ try{
     datos[8]=rs.getString(9);
     datos[9]=rs.getString(10);
     datos[10]=rs.getString(11);
-    datos[11]=rs.getString(12);
     
      
     
@@ -2067,24 +2066,44 @@ public void buscaremp(String valor) {
 }
 
 public void elegir(String mod){
-     
+     String aiuda;
    if(mod.equals(valtaEmple.BTN_BUSCAR_ELEGIR))
-   {
+   {Conexion conectar = new Conexion();
+Connection conn   = conectar.getConexion();
        
    int fila =valtaEmple.tablaempleados.getSelectedRow();
    if(fila>=0){
+       h=valtaEmple.tablaempleados.getValueAt(fila, 10).toString();
+       try{
+         String di = "SELECT direccion FROM domicilio WHERE idDomicilio='"+h+"' "; 
+    
+   
+              Statement lp = conn.createStatement();
+                  ResultSet rp=lp.executeQuery(di);
+                  
+      
+        while(rp.next()){
+    aiuda=rp.getString("direccion");
+     System.out.println(aiuda);
+     valtaEmple.campoDomicilio.setText(aiuda);
+              }     
+       }
+       catch(SQLException ex){
+    JOptionPane.showMessageDialog(null,"no se pudo agrega domicilio para modificar");
+}
+       
        t=valtaEmple.tablaempleados.getValueAt(fila, 0).toString();
        valtaEmple.campoNombre.setText(valtaEmple.tablaempleados.getValueAt(fila, 1).toString());
        valtaEmple.campoApellido.setText(valtaEmple.tablaempleados.getValueAt(fila, 2).toString());
        valtaEmple.campoCiudad.setText(valtaEmple.tablaempleados.getValueAt(fila, 4).toString());
        valtaEmple.campoFechaNacimiento.setText(valtaEmple.tablaempleados.getValueAt(fila, 3).toString());
-       valtaEmple.campoDomicilio.setText(valtaEmple.tablaempleados.getValueAt(fila, 5).toString());
-       valtaEmple.campoTelFijo.setText(valtaEmple.tablaempleados.getValueAt(fila, 6).toString());
-       valtaEmple.campoTelMovil.setText(valtaEmple.tablaempleados.getValueAt(fila,7).toString());
-       valtaEmple.campoCuil.setText(valtaEmple.tablaempleados.getValueAt(fila, 9).toString());
-       valtaEmple.campoCorreo.setText(valtaEmple.tablaempleados.getValueAt(fila, 8).toString());
-       e=valtaEmple.tablaempleados.getValueAt(fila, 10).toString();
-       h=valtaEmple.tablaempleados.getValueAt(fila, 11).toString();
+      
+       valtaEmple.campoTelFijo.setText(valtaEmple.tablaempleados.getValueAt(fila, 5).toString());
+       valtaEmple.campoTelMovil.setText(valtaEmple.tablaempleados.getValueAt(fila,6).toString());
+       valtaEmple.campoCuil.setText(valtaEmple.tablaempleados.getValueAt(fila, 8).toString());
+       valtaEmple.campoCorreo.setText(valtaEmple.tablaempleados.getValueAt(fila, 7).toString());
+       e=valtaEmple.tablaempleados.getValueAt(fila, 9).toString();
+       
       
    
        
@@ -2112,14 +2131,14 @@ if(valor.equals(valtaEmple.BTN_BUSCAR_MODIEMP)){
     String ciudad= valtaEmple.getCiudad();
     String naci = valtaEmple.getFechaNacimiento();
     String domi = valtaEmple.getDomicilio();
-    int fijo = valtaEmple.getTelFijo();
-    int movil=valtaEmple.getTelMovil();
+    String fijo = valtaEmple.getTelFijo();
+    String movil=valtaEmple.getTelMovil();
     String co=valtaEmple.getCorreo();
     String tu=valtaEmple.getTurno();
     
   
 
-    String Ssql = "UPDATE empleado SET nombre=?, apellido=?, fecha_nacimiento=?, ciudad=?, domicilio=?, tel_fijo=?, tel_movil=?, CUIL=?, correo=?, idTurno=?, idDomicilio1=?"
+    String Ssql = "UPDATE empleado SET nombre=?, apellido=?, fecha_nacimiento=?, ciudad=?, tel_fijo=?, tel_movil=?, CUIL=?, correo=?, idTurno=?, idDomicilio1=?"
                     + "WHERE idEmpleado=?";
     
     String sql = "UPDATE turno SET descripcion=? "
@@ -2135,14 +2154,14 @@ if(valor.equals(valtaEmple.BTN_BUSCAR_MODIEMP)){
      prest.setString(2, apellido);
      prest.setString(3, naci);
      prest.setString(4, ciudad);
-     prest.setString(5, domi);
-     prest.setInt(6, fijo);
-     prest.setInt(7, movil);
-     prest.setString(8, cuil);
-     prest.setString(9, co);
-     prest.setString(10, e);
-     prest.setString(11, h);
-     prest.setString(12, t);
+     
+     prest.setString(5, fijo);
+     prest.setString(6, movil);
+     prest.setString(7, cuil);
+     prest.setString(8, co);
+     prest.setString(9, e);
+     prest.setString(10, h);
+     prest.setString(11, t);
      
     
      tic.setString(1, tu);

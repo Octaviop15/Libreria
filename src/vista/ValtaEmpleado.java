@@ -44,7 +44,7 @@ private Controlador controlador;
         Requerido3.setVisible(false);
         Requerido4.setVisible(false);
         Requerido5.setVisible(false);
-        Requerido6.setVisible(false);
+       
        
     }
     
@@ -89,13 +89,7 @@ private Controlador controlador;
             Requerido5.setVisible(false);
         }
          
-         if(itemTurno.getSelectedIndex()==0){
-            Requerido6.setVisible(true);
-            cont++;
-        }
-        else{
-            Requerido6.setVisible(false);
-        }
+     
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -140,7 +134,6 @@ private Controlador controlador;
         Requerido3 = new javax.swing.JLabel();
         Requerido4 = new javax.swing.JLabel();
         Requerido5 = new javax.swing.JLabel();
-        Requerido6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaempleados = new javax.swing.JTable();
         MODIEMP = new javax.swing.JButton();
@@ -308,7 +301,7 @@ private Controlador controlador;
             }
         });
 
-        itemTurno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Turno", "Mañana", "Tarde" }));
+        itemTurno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Turno Mañana", "Turno Tarde" }));
         itemTurno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemTurnoActionPerformed(evt);
@@ -324,8 +317,6 @@ private Controlador controlador;
         Requerido4.setText("Requerido");
 
         Requerido5.setText("Requerido");
-
-        Requerido6.setText("Requerido");
 
         tablaempleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -686,10 +677,8 @@ private Controlador controlador;
                                         .addComponent(campoFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
                                 .addComponent(Requerido4)
-                                .addGap(31, 31, 31)
-                                .addComponent(itemTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Requerido6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(17, 17, 17)
+                                .addComponent(itemTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -702,7 +691,7 @@ private Controlador controlador;
                                 .addComponent(campoCuil, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Requerido2)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
@@ -739,8 +728,7 @@ private Controlador controlador;
                             .addComponent(jLabel5)
                             .addComponent(campoFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(itemTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Requerido4)
-                            .addComponent(Requerido6))
+                            .addComponent(Requerido4))
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -976,20 +964,20 @@ char c = evt.getKeyChar();
     public String getCorreo(){
         return campoCorreo.getText();
     }
-    public int getTelMovil(){
-        return Integer.parseInt(campoTelMovil.getText());
+    public String getTelMovil(){
+        return campoTelMovil.getText();
     }
-    public int getTelFijo(){
-        return Integer.parseInt(campoTelFijo.getText());
+    public String getTelFijo(){
+        return campoTelFijo.getText();
     }
     public String getTurno(){
         
-        if (itemTurno.getSelectedIndex()==1 ){
-          turno = "Mañana";
+        if (itemTurno.getSelectedIndex()==0 ){
+          turno = "Turno Mañana";
         
         }
-        if (itemTurno.getSelectedIndex()==2 ){
-          turno = "Tarde";
+        if (itemTurno.getSelectedIndex()==1 ){
+          turno = "Turno Tarde";
         
         }      
         return turno;
@@ -1073,7 +1061,6 @@ char c = evt.getKeyChar();
     private javax.swing.JLabel Requerido3;
     private javax.swing.JLabel Requerido4;
     private javax.swing.JLabel Requerido5;
-    private javax.swing.JLabel Requerido6;
     private javax.swing.JButton bAgregar;
     public static javax.swing.JButton bBorrar;
     private javax.swing.JButton bCancelar;

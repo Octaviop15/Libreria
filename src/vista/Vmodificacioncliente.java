@@ -35,11 +35,11 @@ public class Vmodificacioncliente extends javax.swing.JDialog {
     public String getnacicli(){
         return nacitxt.getText();
         }
-    public Integer getfijocli(){
-      return Integer.parseInt(fijotxt.getText());
+    public String getfijocli(){
+      return fijotxt.getText();
         }
-     public Integer getmovicli(){
-       return Integer.parseInt(moviltxt.getText());
+     public String getmovicli(){
+       return moviltxt.getText();
         }
       public String getcicli(){
         return ciutxt.getText();
