@@ -113,12 +113,12 @@ public class VNuCliente extends javax.swing.JDialog {
         return txtFecNac.getText();
     }
     
-    public int getTelFijo(){
-        return Integer.parseInt(txtTel.getText());
+    public String getTelFijo(){
+        return txtTel.getText();
     }
     
-    public int getCelular(){
-        return Integer.parseInt(txtCelular.getText());
+    public String getCelular(){
+        return txtCelular.getText();
     }
     
     public String getCiudad(){
@@ -298,14 +298,7 @@ public class VNuCliente extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel4))
                             .addComponent(jLabel6))
-                        .addGap(252, 252, 252)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(requerido1)
-                            .addComponent(requerido2)
-                            .addComponent(requerido3)
-                            .addComponent(requerido4)
-                            .addComponent(Requerido5))
-                        .addGap(71, 71, 71))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -343,7 +336,14 @@ public class VNuCliente extends javax.swing.JDialog {
                                         .addGap(39, 39, 39)
                                         .addComponent(Admini)
                                         .addGap(0, 0, Short.MAX_VALUE)))))
-                        .addGap(180, 180, 180))))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(requerido1)
+                            .addComponent(requerido2)
+                            .addComponent(requerido3)
+                            .addComponent(requerido4)
+                            .addComponent(Requerido5))
+                        .addGap(113, 113, 113))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -403,7 +403,7 @@ public class VNuCliente extends javax.swing.JDialog {
                 .addGap(21, 21, 21))
         );
 
-        setBounds(0, 0, 442, 389);
+        setBounds(0, 0, 472, 389);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed

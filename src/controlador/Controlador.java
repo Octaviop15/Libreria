@@ -50,9 +50,8 @@ public class Controlador {
     int bnb;
     int tkl;
     int iden;
-<<<<<<< HEAD
 
-=======
+
     int iddomi;
     int idturno;
     int dom;
@@ -60,7 +59,7 @@ public class Controlador {
     String  e;
     String h;
     String t;
->>>>>>> origin/master
+
     /*-------------------*/
     
     public Controlador(){
@@ -113,6 +112,17 @@ public class Controlador {
     
     //OCTAVIO PROGRAMACION
     
+    
+    public void convertir(String s){
+        if(!s.equals("")){
+            Integer.parseInt(s);                  
+        }
+      
+        
+        
+    }
+    
+    
     //metodo para cargar los libros en el jTable de la ventana libros
     public void cargarLibros(){
         Conexion conectar = new Conexion();
@@ -128,7 +138,8 @@ public class Controlador {
             while(rs.next()){
                 datos[0] = rs.getString("ISBN");
                 datos[1] = rs.getString("titulo");
-                datos[3] = rs.getString("Edicion");
+               
+                datos[3] = rs.getString("edicion");
                 datos[5] = rs.getDouble("precio_venta");
                 datos[6] = rs.getDouble("precio_compra");
                 datos[7] = rs.getString("stock");
@@ -289,6 +300,8 @@ public class Controlador {
     
     public void procesar(String valor){
         if(valor.equals(vp.BTN_VENTA)){
+            vnv.limpiar();
+            
             vnv.setVisible(true);
         }
         
@@ -307,21 +320,22 @@ public class Controlador {
             String fechaNac    = vnc.getFechaNac();
             String ciudad      = vnc.getCiudad();
             String direccion   = vnc.getDireccion();
-            Integer telFijo        = vnc.getTelFijo();
-            int celular        = vnc.getCelular();
+            String telFijo     = vnc.getTelFijo();
+            String celular     = vnc.getCelular();
             String correo      = vnc.getCorreo();
             
-            
+           
+       
             
             
              String SQL1 = "INSERT INTO domicilio (direccion) "
                       +    "VALUES ('"+direccion+"')";
              
-             String SQL2= "SELECT idDomicilio FROM domicilio WHERE direccion='"+direccion+"' ";
+             String SQL2 = "SELECT idDomicilio FROM domicilio ORDER BY idDomicilio DESC LIMIT 1";
              
-              try{
-               
-                
+           
+             
+              try{                              
                   Statement st1 = conn.createStatement();
                   st1.executeUpdate(SQL1);
                  
@@ -329,15 +343,16 @@ public class Controlador {
                   ResultSet rs=st2.executeQuery(SQL2);
                   if(rs.next()){
                        
-                       int idDomicilio= rs.getInt("idDomicilio");
+                    int idDomicilio= rs.getInt("idDomicilio");
    
     
-                       String SQL3 = "INSERT INTO cliente (nombre,apellido,DNI,fecha_nacimiento,tel_fijo,tel_movil,ciudad,correo,idDomicilio) "
+                    String SQL3 = "INSERT INTO cliente (nombre,apellido,DNI,fecha_nacimiento,tel_fijo,tel_movil,ciudad,correo,idDomicilio2) "
                       +    "VALUES ('"+nombre+"','"+apellido+"','"+dni+"','"+fechaNac+"','"+telFijo+"','"+celular+"','"+ciudad+"','"+correo+"','"+idDomicilio+"')";
                 
    
                   Statement st3 = conn.createStatement();
                   st3.executeUpdate(SQL3);
+                  JOptionPane.showMessageDialog(null,"Cliente agregado");
               }
                     
      
@@ -346,7 +361,7 @@ public class Controlador {
               catch(SQLException e){
                   JOptionPane.showMessageDialog(null,e);
               }
-              JOptionPane.showMessageDialog(null,"Cliente agregado");
+             
               vnc.limpiar();
         }
         
@@ -359,13 +374,13 @@ public class Controlador {
             String[] datos = new String[3];
             int DNI = vnv.getDNI();
             
-            String SQL1 = "SELECT nombre,apellido,idDomicilio FROM cliente WHERE DNI = '"+DNI+"'";
+            String SQL1 = "SELECT nombre,apellido,idDomicilio2 FROM cliente WHERE DNI = '"+DNI+"'";
             
             try{
                 Statement st1 = conn.createStatement();
                 ResultSet rs1 = st1.executeQuery(SQL1);
                 if(rs1.next()){
-                    idDomicilio = rs1.getInt("idDomicilio");
+                    idDomicilio = rs1.getInt("idDomicilio2");
                     datos[0] = rs1.getString("nombre");
                     datos[1] = rs1.getString("apellido"); 
                     
@@ -396,22 +411,26 @@ public class Controlador {
             Connection conn   = conectar.getConexion();
             
             String[] datos = new String[3];
-            int ISBN = vnv.getISBN();
-            String SQL = "SELECT * FROM libro WHERE ISBN = '"+ISBN+"'";
+            String ISBN = vnv.getISBN();
+            String SQL = "SELECT titulo,precio_venta,stock FROM libro WHERE ISBN = '"+ISBN+"'";
+            
+            if(!vnv.getISBN().equals("")){
             
             try{
                 Statement st = conn.createStatement();
                 ResultSet rs = st.executeQuery(SQL);
-                while(rs.next()){
+                if(rs.next()){
                     datos[0] = rs.getString("titulo");
                     datos[1]  =rs.getString("precio_venta");
-                    datos[2] = rs.getString("stock");        
+                    datos[2] = rs.getString("stock");  
+                    
+                    vnv.setTitulo(datos[0]);
+                    vnv.setPrecio(datos[1]);
+                    vnv.setStock(datos[2]);
+                    vnv.activarCantidad();
                 }
                 
-                  vnv.setTitulo(datos[0]);
-                  vnv.setPrecio(datos[1]);
-                  vnv.setStock(datos[2]);
-                  vnv.visibilidadCantOn();
+                 
                 
                 
             }
@@ -419,7 +438,10 @@ public class Controlador {
                   JOptionPane.showMessageDialog(null,e);
                
         }
-            
+            }else{
+                JOptionPane.showMessageDialog(null,"Ingrese ISBN del libro");
+                
+            }    
           
             
         }
@@ -428,7 +450,7 @@ public class Controlador {
                 
                  boolean b = false;
                    for(int i=0;i<vnv.getCantFilasTabla();i++){
-                     if(vnv.getISBN() == vnv.getISBN_tabla(i)){
+                     if(vnv.getISBN().equals(vnv.getISBN_tabla(i))){
                          b = true;
                      }
                    }
@@ -436,7 +458,7 @@ public class Controlador {
                    if(b==false){
                  
                  Object[] datos = new Object[5];
-                 int ISBN = vnv.getISBN();
+                 String ISBN = vnv.getISBN();
                  
                  datos[0] = vnv.getISBN();
                  datos[1] = vnv.getTitulo();
@@ -445,7 +467,7 @@ public class Controlador {
                  datos[4] = vnv.getSubtotal();
                  
                  vnv.insertarFila(datos);
-                 vnv.limpiar();
+               
                  vnv.visibilidadCantOff();
                  }
                    else{
@@ -455,6 +477,11 @@ public class Controlador {
                  
                  else{
                          JOptionPane.showMessageDialog(null,"Stock insuficiente");
+                 }
+                 
+                 if(vnv.getCantFilasTabla()!= 0){
+                     vnv.activarTotal();
+                     
                  }
                  
     }
@@ -468,6 +495,10 @@ public class Controlador {
                else{
                    JOptionPane.showMessageDialog(null,"Seleccione una fila");
                }
+               if(vc.getCantFilas()== 0){
+                    vc.desactivarTotal();;
+                }
+                
                
            }  
            
@@ -492,20 +523,87 @@ public class Controlador {
                      
                 
                 
+                //Si se selecciona un modo de pago 
                 if(modoPago > 0){
+                if(vnv.getTotalf()!= 0){    
+              
+                        
+                   
+                //Se selecciona el id del cliente de la venta y procedemos a hacer un insert de la venta  
+                String SQL3 = "SELECT idCliente FROM cliente WHERE DNI = '"+dni+"'";
+                
+               
+                try {                             
+                    Statement st3 = conn.createStatement();
+                    ResultSet rs3 = st3.executeQuery(SQL3);
+                    if(rs3.next()){                                                     
+                        int idCliente = rs3.getInt("idCliente");
+                        
+                        // insertamos la venta
+                        String SQL4 = "INSERT INTO venta (fecha,total,idModoPago,idCliente,idUsuario) VALUES ('"+fecha+"','"+total+"','"+modoPago+"','"+idCliente+"','"+1+"')";                                 
+                        Statement st4 = conn.createStatement();
+                        st4.executeUpdate(SQL4);   
+                        JOptionPane.showMessageDialog(null,"Venta generada con exito");
+                        
+                          }
+                }
+                
+                catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e);
+                }
+                
+                
+                
+                
+                        
+                //Seleccionamos el ultimo idVenta insertado
+                String SQL5 = "SELECT idVenta FROM venta ORDER BY idVenta DESC LIMIT 1";   
+                        
+                try{                                      
+                    Statement st5 = conn.createStatement();
+                    ResultSet rs5 = st5.executeQuery(SQL5);                                
+                        
+              //    ResultSet rs4 = st4.getGeneratedKeys();
+                    if(rs5.next()){
+                        int idVenta = rs5.getInt("idVenta");
+                        JOptionPane.showMessageDialog(null, idVenta);                                                                                                           
+                        for(int i=0;i<cantFilas;i++){                               
+                            String ISBN = vnv.getISBN_tabla(i);
+                            int cantidad = vnv.getCant_tabla(i);
+                            double subtotal = vnv.getSubtotal_tabla(i);
+                            
+                            String SQL6 = "INSERT INTO detalleVenta (cantidad,subtotal,idLibro,idVenta) VALUES ('"+cantidad+"','"+subtotal+"','"+ISBN+"','"+idVenta+"')";
+                            Statement st6 = conn.createStatement();
+                            st6.executeUpdate(SQL6);
+                             }  
+                        
+                    }
+                   vnv.limpiar();
+                   vnv.setTotal(0);                       
+                   vc.desactivar_btn();
+                   vc.desactivar_txt();
+                }catch (Exception e) { 
+                    JOptionPane.showMessageDialog(null, e);
+                }
+                
+                
+                  //Se recorre cada fila del jTable y se actualiza el stock de cada libro    
                 for(int i=0;i<cantFilas;i++){
-                    int ISBN = vnv.getISBN_tabla(i);
+                    String ISBN = vnv.getISBN_tabla(i);
+                    int cant = vnv.getCant_tabla(i);
                     String SQL1 = "SELECT stock from libro WHERE ISBN ='"+ISBN+"'";
                     
                     try {
                         Statement st1 = conn.createStatement();
                         ResultSet rs = st1.executeQuery(SQL1);
-                        while(rs.next()){
+                        if(rs.next()){
                             stock = rs.getInt("stock");
-                            stock = stock - 1;
+                            stock = stock - cant;
+                            
                             String SQL2 = "UPDATE libro SET stock = '"+stock+"' where ISBN='"+ISBN+"'";
-                            Statement st2  =conn.createStatement();
+                            Statement st2  = conn.createStatement();
                             st2.executeUpdate(SQL2);
+                            JOptionPane.showMessageDialog(null,"Stock actualizado");
                         }
                         
                         
@@ -513,49 +611,19 @@ public class Controlador {
                           JOptionPane.showMessageDialog(null, e);
                     }
                 }
-                        
-                        
-                String SQL3 = "SELECT idCliente FROM cliente WHERE DNI = '"+dni+"'";
-                        
-                try {                             
-                    Statement st2 = conn.createStatement();
-                    ResultSet rs2 = st2.executeQuery(SQL3);
-                    if(rs2.next()){                                                     
-                        int idCliente = rs2.getInt("idCliente");
-                        
-                        String SQL4 = "INSERT INTO venta (fecha,total,idModoPago,idCliente,idUsuario) VALUES ('"+fecha+"','"+total+"','"+modoPago+"','"+idCliente+"','"+1+"')";
-                        
-                        Statement st3 = conn.createStatement();
-                        st3.executeUpdate(SQL4);
-                        ResultSet rs3 = st3.getGeneratedKeys();
-                        if(rs3.next()){
-                            int idVenta = rs3.getInt("idVenta");
-                            JOptionPane.showMessageDialog(null, idVenta);
-                        
-                        
-                        for(int i=0;i<cantFilas;i++){
-                            int ISBN = vnv.getISBN_tabla(i);
-                            int cantidad = vnv.getCant_table(i);
-                            double subtotal = vnv.getSubtotal_tabla(i);
-                            
-                            String SQL5 = "INSERT INTO detalleVenta (cantidad,subtotal,idLibro,idVenta,idUsuario) VALUES ('"+cantidad+"','"+subtotal+"','"+ISBN+"','"+idVenta+"'";
-
-                                }
-                                           
-                       }
-                    }
-                }catch (Exception e) {
-                                JOptionPane.showMessageDialog(null, e);
-                       }
-                        
-                                                                                                                                                                                            
-            }
-                        
-                        JOptionPane.showMessageDialog(null,"Venta generada con exito");
-                        JOptionPane.showMessageDialog(null,"Stock actualizado");
-                     
+               
                     
-                }
+                                                                                                                                                                                                                        
+            
+        }else{
+                JOptionPane.showMessageDialog(null,"No calculo el total de la venta");                                                                                                   
+            }
+       } else{
+            JOptionPane.showMessageDialog(null,"Seleccione un modo de pago");      
+            }
+                
+           }
+                
                 
                
            
@@ -581,15 +649,18 @@ public class Controlador {
             Conexion conectar = new Conexion();
             Connection conn   = conectar.getConexion();
             
-            int ISBN = vl.getISBN();
+            String ISBN = vl.getISBN();
             String titulo = vl.getTitulo();
             String fecha = vl.getFecha();
             String edicion = vl.getEdicion();
-            int paginas = vl.getPaginas();           
+            String paginas = vl.getPaginas();           
             double preciov = vl.getPrecioVenta();
             double precioc = vl.getPrecioCompra();
             int stock = vl.getStock();
             String descripcion = vl.getDescripcion();
+            
+            
+            
             
             String nombreAutor = vl.getComboBoxAutor1();
             String nombreEditorial = vl.getComboBoxEditorial1();
@@ -603,7 +674,7 @@ public class Controlador {
             int idCategoria = vl.getIdCategoria(c - 1);
             
             
-            Object[] datos = new Object[7];
+            Object[] datos = new Object[8];
             datos[0]       = ISBN;
             datos[1]       = titulo;           
             datos[2]       = nombreAutor;        
@@ -623,6 +694,8 @@ public class Controlador {
              sentencia.executeUpdate(SQL);
              vl.insertarFila(datos);
              vl.limpiar();
+             JOptionPane.showMessageDialog(null,"Libro creado correctamente");
+             
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -641,7 +714,7 @@ public class Controlador {
             if(fila >= 0){
                 if (JOptionPane.showConfirmDialog(null,"Se eliminta la fila seleccionada") == JOptionPane.YES_OPTION){
                     
-                    int ISBN = vl.getISBN_tabla();
+                    String ISBN = vl.getISBN_tabla();
                     String SQL = "DELETE FROM libro WHERE ISBN = '"+ISBN+"'";
                     
                     try {
@@ -675,7 +748,7 @@ public class Controlador {
             int fila = vl.getFila();
             if(fila>= 0){
             
-            int ISBN = vl.getISBN_tabla();
+            String ISBN = vl.getISBN_tabla();
            
             String SQL = "SELECT * FROM libro WHERE ISBN = '"+ISBN+"'";
             
@@ -688,7 +761,7 @@ public class Controlador {
                     vml.setTitulo(rs.getString("titulo"));
                     vml.setEdicion(rs.getString("edicion"));
                     vml.setFecha(rs.getString("fecha_de_lanzamiento"));
-                    vml.setPaginas(rs.getInt("paginas"));
+                    vml.setPaginas(rs.getString("paginas"));
                     vml.setPreciov(rs.getDouble("precio_venta"));
                     vml.setPrecioc(rs.getDouble("precio_compra"));
                     vml.setStock(rs.getInt("stock"));
@@ -725,7 +798,7 @@ public class Controlador {
             
             //incluimos los demas datos restantes para completar la sentencia SQL
             String fecha         = vml.getFecha();
-            int paginas          = vml.getPaginas();
+            String paginas          = vml.getPaginas();
             String descripcion   = vml.getDescripcion();
             
             
@@ -738,16 +811,17 @@ public class Controlador {
             int idAutor          = vml.getIdAutor(a - 1);
             int idCategoria      = vml.getIdCategoria(c - 1);
             
-            int ISBN = vl.getISBN_tabla();
+           String ISBN = vl.getISBN_tabla();
         
         
-            String SQL = "UPDATE libro SET ISBN = '"+datos[0]+"', titulo='"+datos[1]+"', idAutor='"+idAutor+"', edicion='"+datos[3]+"', fecha_de_lanzamiento='"+fecha+"', paginas='"+paginas+"', idEditorial='"+idEditorial+"', precio_venta = '"+datos[5]+"',precio_compra='"+datos[6]+"', stock= '"+datos[6]+"', descripcion='"+descripcion+"', idCategoria='"+idCategoria+"' WHERE ISBN = '"+ISBN+"'";
+            String SQL = "UPDATE libro SET ISBN = '"+datos[0]+"', titulo='"+datos[1]+"', idAutor='"+idAutor+"', edicion='"+datos[3]+"', fecha_de_lanzamiento='"+fecha+"', paginas='"+paginas+"', idEditorial='"+idEditorial+"', precio_venta = '"+datos[5]+"',precio_compra='"+datos[6]+"', stock= '"+datos[7]+"', descripcion='"+descripcion+"', idCategoria='"+idCategoria+"' WHERE ISBN = '"+ISBN+"'";
             
                 try {
                     Statement st = conn.createStatement();
                     st.executeUpdate(SQL); 
                     vl.modificarFila(datos);
                     vml.limpiar();
+                    JOptionPane.showMessageDialog(null,"Libro modificado correctamente");
                     
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e);
@@ -757,6 +831,7 @@ public class Controlador {
              
             //VENTANA COMPRA     
             if(valor.equals(vp.BTN_COMPRA)){
+                vc.limpiar();
                 vc.limpiarComboBox();
                 obtenerEditorialComboBoxCompra();
                 vc.setVisible(true);
@@ -767,43 +842,59 @@ public class Controlador {
                 Conexion conectar = new Conexion();
                 Connection conn   = conectar.getConexion();
                                          
-                Object[] datos = new Object[3];
-                    
-                int idEditorial = vc.getidEditorial(vc.getComboBoxEditorial());
-                int ISBN = vc.getISBN();
-                   
-                String SQL = "SELECT * FROM libro WHERE ISBN ='"+ISBN+"' and idEditorial= '"+idEditorial+"' ";
+                Object[] datos = new Object[3];                             
+                int ed = vc.getComboBoxEditorial();
+                String ISBN = vc.getISBN();
                 
-                try {
-                    
+                
+                
+                if(ed != 0){
+                    int idEditorial = vc.getIdEditorial(vc.getComboBoxEditorial());
+                         
+                if(!ISBN.equals("")){
+                                 
+                String SQL = "SELECT titulo,precio_compra,stock FROM libro WHERE ISBN ='"+ISBN+"' and idEditorial = '"+idEditorial+"'";
+                
+                try {                    
                     Statement st = conn.createStatement();
                     ResultSet rs = st.executeQuery(SQL);
                     if(rs.next()){                                 
                                           
                         datos[0] = rs.getString("titulo");
-                        datos[1] = rs.getInt("precio");
+                        datos[1] = rs.getInt("precio_compra");
                         datos[2] = rs.getInt("stock");                                                      
                          
-                    
+                        
                         vc.setTitulo(datos[0]);
                         vc.setPrecio(datos[1]);
                         vc.setStock(datos[2]);
+                        vc.activarCantidad();
                     }           
                      else{
                         JOptionPane.showMessageDialog(null,"No se encontro libro con la editorial especificada");
-                    }
-                         
-                    } catch (Exception e) {
+                    }                                                     
+               }catch (Exception e) {
                          JOptionPane.showMessageDialog(null,e);  
                      }
-                 }
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"Ingrese un numero ISBN");
+                    }
+                    
+                }     
+                else{
+                    JOptionPane.showMessageDialog(null,"Seleccione una editorial");
+                    } 
+            }
             
             //VENTANA COMPRA
             if(valor.equals(vc.BTN_AGREGAR_DETALLE_COMPRA)){
                 
                 boolean b = false;
+                String cant = vc.getCant();
+                if(!cant.equals("")){
                 for(int i=0;i<vc.getCantFilas();i++){
-                    if(vc.getISBN() == vc.getISBN_tabla(i)){
+                    if(vc.getISBN().equals(vc.getISBN_tabla(i))){
                         b = true;
                     }}
                 
@@ -818,6 +909,14 @@ public class Controlador {
                 }
                 else{
                     JOptionPane.showMessageDialog(null,"Libro con ISBN ya ingresado");
+                }
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"Ingrese uan cantidad");
+                }
+                
+                if(vc.getCantFilas()!= 0){
+                    vc.activarTotal();
                 }
                 
 
@@ -837,7 +936,11 @@ public class Controlador {
                 else{
                     JOptionPane.showMessageDialog(null,"Seleccione una fila");
                 }
+               if(vnv.getCantFilasTabla() == 0){
+                    vnv.desactivarTotal();;
+                }
                 
+               
             }
             
             
@@ -854,49 +957,119 @@ public class Controlador {
                 Connection conn   = conectar.getConexion();
              
                 int cantFilas = vc.getCantFilas();
-                int stock;
-                int idEditorial; 
-                
+                   
+                double total = vc.getTotal();
                 String fecha = vc.getFecha();
-                for(int i=0;i<cantFilas;i++){
-                    int ISBN = vc.getISBN_tabla(i);
+                int idEditorial = vc.getComboBoxEditorial();
+              
+                             
+               if(vc.getTotal_f() != 0){
+                
+                String SQL1 = "INSERT INTO compra (fecha,total,idEditorial,idUsuario) VALUES ('"+fecha+"','"+total+"','"+idEditorial+"','"+1+"')";
+                try{
+                    Statement st3 = conn.createStatement();
+                    st3.executeUpdate(SQL1);
+                    JOptionPane.showMessageDialog(null,"Compra generada con exito");
+                    
+                    
+                }catch (Exception e) {
+                        JOptionPane.showMessageDialog(null,e);  
+                    }
+                
+                String SQL2 = "SELECT idCompra FROM compra ORDER BY idCompra DESC LIMIT 1";
+                try {
+                    Statement st4 = conn.createStatement();              
+                    ResultSet rs3 = st4.executeQuery(SQL2);
+                    if(rs3.next()){ 
+                        int idCompra = rs3.getInt("idCompra");
+                    
+                                            
+                 for(int i=0;i<cantFilas;i++){
+                    String  ISBN = vc.getISBN_tabla(i);
                     int cant = vc.getCant_tabla(i);
                     double  subtotal = vc.getSubTotal_tabla(i);
-                    double total = vc.getTotal();
                     
-                    String SQL1 = "SELECT stock,idEditorial from libro WHERE ISBN ='"+ISBN+"'";
-                   // String SQL2 = "SELECT idUsuario FROM usuario where nombre= '"+nombre+"'";
+                    String SQL3 = "INSERT INTO detalleCompra (cantidad,subtotal,idCompra,idLibro) VALUES ('"+cant+"','"+subtotal+"','"+idCompra+"','"+ISBN+"')";
+                    Statement st5 = conn.createStatement();              
+                    st5.executeUpdate(SQL3);
+                 }
+             
+                    }
+                    vc.limpiar();
+                    vc.setTotal(0);
+                    vc.desactivar_btn();
+                    vc.desactivar_txt();
+                 } catch (Exception e) {
+                         JOptionPane.showMessageDialog(null,e);
+                         }
+              
+            
+            
+            
+             
+                for(int i=0;i<cantFilas;i++){
+                    String ISBN = vc.getISBN_tabla(i);
+                    int cant = vc.getCant_tabla(i);
+                    double  subtotal = vc.getSubTotal_tabla(i);            
+                    
+                     String SQL4 = "SELECT stock FROM libro WHERE ISBN = '"+ISBN+"'";
+                   //  String SQL1 = "SELECT stock,idEditorial FROM libro WHERE ISBN = '"+ISBN+"'";ring SQL2 = "SELECT idUsuario FROM usuario where nombre= '"+nombre+"'";
               
                     try {
-                        Statement st1 = conn.createStatement();
-                        ResultSet rs = st1.executeQuery(SQL1);
+                        Statement st1 = conn.createStatement();             
+                        ResultSet rs = st1.executeQuery(SQL4);
                         if(rs.next()){
-                            stock = rs.getInt("stock");
-                            idEditorial = rs.getInt("idEditorial");
+                           int stock = rs.getInt("stock");
+                         
                             stock = stock + cant;
-                            String SQL2 = "UPDATE libro SET stock = '"+stock+"' where ISBN='"+ISBN+"'";
+                            String SQL5 = "UPDATE libro SET stock = '"+stock+"' where ISBN='"+ISBN+"'";
                             Statement st2  =conn.createStatement();
-                            st2.executeUpdate(SQL2);
+                            st2.executeUpdate(SQL5);
+                            JOptionPane.showMessageDialog(null,"Stock actualizado");                                                
                         }
+                        
+                    
+                        
+                        
+                    }catch (Exception e) {
+                         JOptionPane.showMessageDialog(null,e);  
                     }
-                            
-                          catch (Exception e) {
-                                  JOptionPane.showMessageDialog(null,e);  
-                          }
+                }
+                
+                
+                 }
+               else{
+                   JOptionPane.showMessageDialog(null, "No calculo el total de compra");
+               }
+                
+                
+                
+                
+            }
+                
                     
-                    String SQL2 = "INSERT INTO pedidos (fechaPedido,total,idEditorial,idUsuario) VALUES ('"+fecha+"','"+total+"','"+idEditorial+"','"+idUsuario+"')";
+                
+                
+                
+                
                     
-                    String SQL3 = "INSERT INTO detallepedido(cantidad,subtotal,idPedido,idLibro) VALUES ('"+cant+"','"+subtotal+"''"+idPedido+"','"+ISBN+"'";
+                    
+                    
+                    
+                    
+                
+                    
+                
                     
                     
                                    
                                   
                          
-                     }
+                     
                 
                 
                 
-            }
+            
              
              
     }

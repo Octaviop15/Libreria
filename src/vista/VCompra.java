@@ -6,6 +6,8 @@
 package vista;
 
 import controlador.Controlador;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.table.DefaultTableModel;
@@ -29,7 +31,8 @@ public class VCompra extends javax.swing.JDialog {
     public VCompra(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        desactivar();
+        desactivar_txt();
+        desactivar_btn();
         cargarTabla();
         setFechaHora();
     }
@@ -40,12 +43,15 @@ public class VCompra extends javax.swing.JDialog {
     }
      
      public void setFechaHora(){
-        Calendar cal = Calendar.getInstance();
-        String fecha,hora;
-        fecha = cal.get(Calendar.DATE) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR);
-        hora = cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND);
-        txtFecha.setText(fecha);
-        txtHora.setText(hora);
+         
+        Date fecha = new Date(Calendar.getInstance().getTimeInMillis());
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+        String f = formatter.format(fecha);
+       /* Calendar cal = Calendar.getInstance();
+        String fecha;
+        fecha = cal.get(Calendar.DATE) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR); */
+        txtFecha.setText(f); 
+    
         
     }
      
@@ -60,13 +66,46 @@ public class VCompra extends javax.swing.JDialog {
          cmbEditorial.removeAllItems();
      }
      
-     public void desactivar(){
+     public void limpiar(){
+         
+         txtISBN.setText("");
+         txtTitulo.setText("");
+         txtPrecio.setText("");
+         txtStock.setText("");
+         txtCantidad.setText("");
+         
+     }
+     
+     public void desactivar_txt(){
          txtFecha.setEnabled(false);
-         txtHora.setEnabled(false);
          txtTitulo.setEnabled(false);
          txtPrecio.setEnabled(false);
          txtStock.setEnabled(false);
+         txtCantidad.setEnabled(false);
+         txtTotal.setEnabled(false);
+         
      }
+     
+     public void desactivar_btn(){
+         btnTotal.setEnabled(false);
+         btnAgregarDetalleCompra.setEnabled(false);
+     }
+     
+     public void activarTotal(){
+         btnTotal.setEnabled(true);
+         txtTotal.setEnabled(true);
+     }
+     
+      public void desactivarTotal(){
+         btnTotal.setEnabled(false);
+         txtTotal.setEnabled(false);
+     }
+      
+       public void activarCantidad(){
+         txtCantidad.setEnabled(true);
+         btnAgregarDetalleCompra.setEnabled(true);
+     }
+     
      
       public void addIdEditorial(int id){
          idEditorial.add(id);
@@ -74,7 +113,7 @@ public class VCompra extends javax.swing.JDialog {
          
      } 
      
-      public int getidEditorial(int i){
+      public int getIdEditorial(int i){
          return idEditorial.get(i-1);
      }
      
@@ -87,14 +126,18 @@ public class VCompra extends javax.swing.JDialog {
       public int getComboBoxEditorial(){
         return cmbEditorial.getSelectedIndex();
     }
-     public int getISBN(){
-         return Integer.parseInt(txtISBN.getText());
+     public String getISBN(){
+         return txtISBN.getText();
      }
      
-     public int getCant(){
-         return Integer.parseInt(txtCantidad.getText());
+
+             
+     
+     public String getCant(){
+         return txtCantidad.getText();
      }
      
+    
      public String getTitulo(){
          return txtTitulo.getText();
      }
@@ -123,10 +166,12 @@ public class VCompra extends javax.swing.JDialog {
      public String getFecha(){
         return txtFecha.getText();
     }
+     
+     public void setFecha(String fecha){
+         txtFecha.setText(fecha);
+     }
     
-    public String getHora(){
-        return txtHora.getText();
-    }
+    
      
      public void insertarFila(Object[] datos){
          model.addRow(datos);
@@ -148,7 +193,7 @@ public class VCompra extends javax.swing.JDialog {
      
      
      public double getSubtotal(){
-         double subtotal = getPrecio()*getCant();
+         double subtotal = getPrecio()*(Integer.parseInt(getCant()));
          return subtotal;
      }
      
@@ -164,14 +209,20 @@ public class VCompra extends javax.swing.JDialog {
         return total;
     }
     
+    public double getTotal_f(){
+        return Double.parseDouble(txtTotal.getText());
+        
+        
+    }
+    
  
    
     public void setTotal(double t){
         txtTotal.setText(String.valueOf(t));
     }
     
-    public int getISBN_tabla(int i){
-        return Integer.parseInt(tablaDetalleCompra.getValueAt(i,0).toString());
+    public String getISBN_tabla(int i){
+        return tablaDetalleCompra.getValueAt(i,0).toString();
     }
     
     public int getCant_tabla(int i){
@@ -196,8 +247,6 @@ public class VCompra extends javax.swing.JDialog {
 
         jLabel10 = new javax.swing.JLabel();
         txtFecha = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        txtHora = new javax.swing.JTextField();
         cmbEditorial = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         txtISBN = new javax.swing.JTextField();
@@ -212,7 +261,7 @@ public class VCompra extends javax.swing.JDialog {
         txtStock = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaDetalleCompra = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnAgregarDetalleCompra = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         txtTotal = new javax.swing.JTextField();
         btnTotal = new javax.swing.JButton();
@@ -226,14 +275,6 @@ public class VCompra extends javax.swing.JDialog {
         txtFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFechaActionPerformed(evt);
-            }
-        });
-
-        jLabel12.setText("Hora:");
-
-        txtHora.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtHoraActionPerformed(evt);
             }
         });
 
@@ -252,7 +293,7 @@ public class VCompra extends javax.swing.JDialog {
 
         jLabel4.setText("Cantidad:");
 
-        jLabel5.setText("Stock:");
+        jLabel5.setText("Stock actual:");
 
         tablaDetalleCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -267,10 +308,10 @@ public class VCompra extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tablaDetalleCompra);
 
-        jButton1.setText("Agregar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarDetalleCompra.setText("Agregar");
+        btnAgregarDetalleCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAgregarDetalleCompraActionPerformed(evt);
             }
         });
 
@@ -280,6 +321,8 @@ public class VCompra extends javax.swing.JDialog {
                 btnEliminarActionPerformed(evt);
             }
         });
+
+        txtTotal.setText("0");
 
         btnTotal.setText("Total");
         btnTotal.addActionListener(new java.awt.event.ActionListener() {
@@ -312,28 +355,8 @@ public class VCompra extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addGap(18, 18, 18)
-                        .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cmbEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(btnBuscaLibro))
-                            .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtStock, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                                .addComponent(txtPrecio, javax.swing.GroupLayout.Alignment.LEADING))))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btnGenerarCompra)
@@ -346,14 +369,35 @@ public class VCompra extends javax.swing.JDialog {
                                     .addGap(18, 18, 18)
                                     .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jButton1)
+                                    .addComponent(btnAgregarDetalleCompra)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnEliminar))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(37, 37, 37)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnTotal)))))
+                                .addComponent(btnTotal))))
+                    .addComponent(jLabel5)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(txtISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(btnBuscaLibro))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -362,9 +406,7 @@ public class VCompra extends javax.swing.JDialog {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel12))
+                    .addComponent(jLabel10))
                 .addGap(39, 39, 39)
                 .addComponent(cmbEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
@@ -388,7 +430,7 @@ public class VCompra extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
+                    .addComponent(btnAgregarDetalleCompra)
                     .addComponent(btnEliminar))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -411,17 +453,13 @@ public class VCompra extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFechaActionPerformed
 
-    private void txtHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHoraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtHoraActionPerformed
-
     private void btnBuscaLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaLibroActionPerformed
         controlador.procesar(BTN_BUSCAR_LIBRO_COMPRA);
     }//GEN-LAST:event_btnBuscaLibroActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAgregarDetalleCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDetalleCompraActionPerformed
         controlador.procesar(BTN_AGREGAR_DETALLE_COMPRA);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAgregarDetalleCompraActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         controlador.procesar(BTN_ELIMINAR_DETALLE_COMPRA);
@@ -444,16 +482,15 @@ public class VCompra extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarDetalleCompra;
     private javax.swing.JButton btnBuscaLibro;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGenerarCompra;
     private javax.swing.JButton btnTotal;
     private javax.swing.JComboBox<String> cmbEditorial;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -462,7 +499,6 @@ public class VCompra extends javax.swing.JDialog {
     private javax.swing.JTable tablaDetalleCompra;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtFecha;
-    private javax.swing.JTextField txtHora;
     private javax.swing.JTextField txtISBN;
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtStock;

@@ -64,6 +64,7 @@ public class VLibro extends javax.swing.JDialog {
          txtEdicion.setText("");
          txtPaginas.setText("");
          txtPrecioVenta.setText("");
+         txtPrecioCompra.setText("");
          txtStock.setText("");
          txtareaDescripcion.setText("");
          
@@ -117,16 +118,16 @@ public class VLibro extends javax.swing.JDialog {
      
     
     
-    public int getISBN(){
-        return Integer.parseInt(txtISBN.getText());
+    public String getISBN(){
+        return txtISBN.getText();
     }
     
     public String getTitulo(){
         return txtNombre.getText();
     }
     
-    public int getPaginas(){
-        return Integer.parseInt(txtPaginas.getText());
+    public String getPaginas(){
+        return txtPaginas.getText();
     }
     
     public String getFecha(){
@@ -224,8 +225,8 @@ public class VLibro extends javax.swing.JDialog {
         return tablaLibros.getSelectedRow();
     }
     
-    public int getISBN_tabla(){
-        return Integer.parseInt(tablaLibros.getValueAt(tablaLibros.getSelectedRow(),0).toString());
+    public String getISBN_tabla(){
+        return tablaLibros.getValueAt(tablaLibros.getSelectedRow(),0).toString();
     }
     
     public String getTitulo_tabla(){
@@ -574,9 +575,9 @@ public class VLibro extends javax.swing.JDialog {
                             .addComponent(jLabel11)
                             .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(17, 17, 17)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(cmbEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cmbAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

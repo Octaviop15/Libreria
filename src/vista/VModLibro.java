@@ -51,6 +51,7 @@ public class VModLibro extends javax.swing.JDialog {
          txtEdicion.setText("");
          txtPaginas.setText("");
          txtPreciov.setText("");
+         txtPrecioc.setText("");
          txtStock.setText("");
          txtareaDescripcion.setText("");
            
@@ -102,8 +103,8 @@ public class VModLibro extends javax.swing.JDialog {
     }
     
     
-    public int getPaginas(){
-        return Integer.parseInt(txtPaginas.getText());
+    public String getPaginas(){
+        return txtPaginas.getText();
     }
  
     public String getFecha(){
@@ -178,8 +179,8 @@ public class VModLibro extends javax.swing.JDialog {
     }
     
     
-    public void setPaginas(int paginas){
-        txtPaginas.setText(String.valueOf(paginas));
+    public void setPaginas(String paginas){
+        txtPaginas.setText(paginas);
     }
     
     public void setFecha(String fecha){
