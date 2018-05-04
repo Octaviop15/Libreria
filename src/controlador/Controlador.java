@@ -100,6 +100,7 @@ public class Controlador {
         mostrar();
         motacho();
         mostrarempleado();
+        mostarUser();
         vautorm.setControlador(this);
         vaut.setControlador(this);
         vcategoria.setControlador(this);
@@ -301,6 +302,8 @@ public class Controlador {
     public void procesar(String valor){
         if(valor.equals(vp.BTN_VENTA)){
             vnv.limpiar();
+            vnv.desactivar_btn();
+            vnv.desactivar_txt();
             
             vnv.setVisible(true);
         }
@@ -1048,11 +1051,14 @@ public class Controlador {
             }
                 
                     
+
                 
                 
                 
                 
-                    
+
+                 /*   String SQL2 = "INSERT INTO pedidos (fechaPedido,total,idEditorial,idUsuario) VALUES ('"+fecha+"','"+total+"','"+idEditorial+"','"+idUsuario+"')";
+
                     
                     
                     
@@ -1060,7 +1066,9 @@ public class Controlador {
                 
                     
                 
-                    
+=======
+                    String SQL3 = "INSERT INTO detallepedido(cantidad,subtotal,idPedido,idLibro) VALUES ('"+cant+"','"+subtotal+"''"+idPedido+"','"+ISBN+"'"; */
+
                     
                                    
                                   
@@ -1906,7 +1914,7 @@ if(valor.equals(vmodificacioncliente.BTN_NUEVO_MODICLIENTE)){
      String ciu        = vmodificacioncliente.getcicli();
      String correo        = vmodificacioncliente.getcocli();
      String direcc        = vmodificacioncliente.getdirecli();
-             
+                                                     
 
     
     String edi = "SELECT idDomicilio FROM domicilio WHERE direccion='"+direcc+"' ";
@@ -2028,7 +2036,7 @@ if(valor.equals(vmodificacioncliente.BTN_NUEVO_MODICLIENTE)){
    
    
     
-   String SQL = "UPTADATE INTO turno (descripcion) "
+   String SQL = "INSERT INTO turno (descripcion) "
                       +    "VALUES ('"+tu+"')";
    String edi = "SELECT idTurno FROM turno WHERE descripcion='"+tu+"' ";
    
@@ -2106,9 +2114,22 @@ modo.addColumn("Id Domicilio");
 
 valtaEmple.tablaempleados.setModel(modo);
 
+DefaultTableModel moda = new DefaultTableModel();
+moda.addColumn("idEmpleado");
+moda.addColumn("Nombre");
+moda.addColumn("Apellido");
+moda.addColumn("Cuil");
+
+
+
+
+valtaEmple.tablausuario.setModel(moda);
+
+
 String sql="SELECT * FROM empleado";
 
 String datos[]= new String [12];
+String datosusuario[]= new String [4];
 try{
     
     Statement st = conn.createStatement();
@@ -2127,13 +2148,17 @@ try{
     datos[9]=rs.getString(10);
     datos[10]=rs.getString(11);
     datos[11]=rs.getString(12);
-    
+    datosusuario[0]=rs.getString(1);
+    datosusuario[1]=rs.getString(2);
+    datosusuario[2]=rs.getString(3);
+    datosusuario[3]=rs.getString(10);
      
     
     
      
      
     modo.addRow(datos);
+    moda.addRow(datosusuario);
     }
     
    
@@ -2245,8 +2270,7 @@ public void elegir(String mod){
        h=valtaEmple.tablaempleados.getValueAt(fila, 11).toString();
       
    
-   
-   
+       
    
    
    
@@ -2364,10 +2388,355 @@ if(valor.equals(valtaEmple.BTN_BUSCAR_MODIEMP)){
     
 }
 mostrarempleado();
+mostarUser();
     }
 
 
+               public void buscarusuarios(String mod){
+     
+   if(mod.equals(valtaEmple.BTN_BUSCAR_USER))
+   {
+       
+   int fila =valtaEmple.tablausuario.getSelectedRow();
+   if(fila>=0){
+       valtaEmple.idemptxt.setText(valtaEmple.tablausuario.getValueAt(fila, 0).toString());
+       valtaEmple.nametxt.setText(valtaEmple.tablausuario.getValueAt(fila, 1).toString());
+       valtaEmple.lastnametxt.setText(valtaEmple.tablausuario.getValueAt(fila, 2).toString());
+       valtaEmple.cuiltxtemp.setText(valtaEmple.tablausuario.getValueAt(fila, 3).toString());
 
-
-    }
+   }
+   else{JOptionPane.showMessageDialog(null,"no se seleciono fila");
+   }
+   
+   }
   
+   }
+               
+public void altausuario(String valor){
+if(valor.equals(valtaEmple.BTN_BUSCAR_ALTAU)){
+    Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    
+    int n= valtaEmple.getidempleado();
+     String user= valtaEmple.getUsuario();
+      String pa= valtaEmple.getpass();
+       String ro= valtaEmple.getRol();
+    if(n<=0 || user.equals("") || pa.equals("") || ro.equals("") )
+    { JOptionPane.showMessageDialog(null,"Los campos PASSWORD y USUARIO no pueden ser Nulos");}
+    else{
+   
+
+    
+    
+   
+    
+    String SQL = "INSERT INTO usuario (usuario,password,rol,idEmpleado) "
+                      +    "VALUES ('"+user+"','"+pa+"','"+ro+"','"+n+"')";
+
+    
+       try{  
+           
+                  Statement sentencia = conn.createStatement();
+                  sentencia.executeUpdate(SQL);
+
+       }
+              catch(SQLException e){
+                  JOptionPane.showMessageDialog(null,e);
+              }
+        valtaEmple.limpiaruser();
+        mostarUser();
+       JOptionPane.showMessageDialog(null,"Usuario Agregado");
+}
+   
+        }
+}
+
+ public void bus3(String value){
+Conexion conectar = new Conexion();
+Connection conn   = conectar.getConexion();
+
+DefaultTableModel moda = new DefaultTableModel();
+moda.addColumn("idEmpleado");
+moda.addColumn("Nombre");
+moda.addColumn("Apellido");
+moda.addColumn("Cuil");
+
+
+
+
+valtaEmple.tablausuario.setModel(moda);
+
+
+
+
+if(value.equals("")){
+ JOptionPane.showMessageDialog(null,"Ingrese un ID para buscar");
+  mostrarempleado();
+}
+else{
+  String sql;
+ sql="SELECT * FROM empleado WHERE idEmpleado='"+value+"'";        
+
+String datosusuario[]= new String [4];
+try{
+    Statement st = conn.createStatement();
+    ResultSet rs = st.executeQuery(sql);
+  
+    while(rs.next()){
+   
+    
+     
+    datosusuario[0]=rs.getString(1);
+    datosusuario[1]=rs.getString(2);
+    datosusuario[2]=rs.getString(3);
+    datosusuario[3]=rs.getString(10);
+    
+     
+     
+    moda.addRow(datosusuario);
+    }
+    
+   
+    
+    valtaEmple.tablausuario.setModel(moda);
+    
+    }
+catch(SQLException ex){
+    JOptionPane.showMessageDialog(null,"no se puedo mostrar");
+}
+
+}
+
+ }   
+ public void bus2(String valor) {
+       if(valor.equals(valtaEmple.BTN_BUSCAR_bus2)){
+     bus3(valtaEmple.bus.getText());
+   valtaEmple.limpiaruser();
+   
+}
+
+    }
+ 
+ 
+ public void mostarUser(){
+    
+Conexion conectar = new Conexion();
+Connection conn   = conectar.getConexion();
+
+DefaultTableModel modo = new DefaultTableModel();
+modo.addColumn("idUsuario");
+modo.addColumn("Usuario");
+modo.addColumn("Rol");
+modo.addColumn("idEmpleado");
+
+valtaEmple.tablauser.setModel(modo);
+
+String sql="SELECT * FROM usuario";
+
+String datos[]= new String [4];
+try{
+    
+    Statement st = conn.createStatement();
+    ResultSet rs = st.executeQuery(sql);
+  
+    while(rs.next()){
+    datos[0]=rs.getString(1);
+    datos[1]=rs.getString(2);
+    datos[2]=rs.getString(4);
+    datos[3]=rs.getString(5);
+    
+     
+    
+    
+    modo.addRow(datos);
+    }
+    
+   
+    
+    valtaEmple.tablauser.setModel(modo);
+    }
+catch(SQLException ex){
+    JOptionPane.showMessageDialog(null,"no se puedo mostrar");
+}
+}
+ 
+ public void search(String valor) {
+       if(valor.equals(valtaEmple.BTN_BUSCAR_SEARCH)){
+     search1(valtaEmple.ingresariduser.getText());
+   valtaEmple.limpiaruser();
+   
+}
+ }
+ 
+     public void search1(String value){
+Conexion conectar = new Conexion();
+Connection conn   = conectar.getConexion();
+
+DefaultTableModel modo = new DefaultTableModel();
+modo.addColumn("idUsuario");
+modo.addColumn("Usuario");
+modo.addColumn("Rol");
+modo.addColumn("idEmpleado");
+
+valtaEmple.tablauser.setModel(modo);
+
+
+if(value.equals("")){
+ JOptionPane.showMessageDialog(null,"Ingrese El ID de el Empleado para buscar");
+ mostarUser();
+}
+else{
+  String sql;
+ sql="SELECT * FROM usuario WHERE idEmpleado='"+value+"'";        
+
+String datos[]= new String [4];
+try{
+    Statement st = conn.createStatement();
+    ResultSet rs = st.executeQuery(sql);
+  
+    while(rs.next()){
+    datos[0]=rs.getString(1);
+    datos[1]=rs.getString(2);
+    datos[2]=rs.getString(4);
+    datos[3]=rs.getString(5);
+
+    
+     
+    
+    
+     
+     
+    modo.addRow(datos);
+    }
+    
+   
+    
+    valtaEmple.tablauser.setModel(modo);
+    
+    }
+catch(SQLException ex){
+    JOptionPane.showMessageDialog(null,"no se puedo mostrar");
+}
+
+}
+}
+
+ public void modiuser(String valor){
+if(valor.equals(valtaEmple.BTN_BUSCAR_MODIUSER)){
+    Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    
+       
+    String pass= valtaEmple.getpass();
+    int iduser= valtaEmple.getidUsuario();
+    String user= valtaEmple.getUsuario();
+    int idemp= valtaEmple.getidempleado();
+    String ro= valtaEmple.getRol();
+    
+     if( user.equals("") || pass.equals(""))
+    { JOptionPane.showMessageDialog(null,"Los campos USUARIO y PASSWORD no pueden ser Nulos");}
+    else{
+   try{
+
+    String Ssql = "UPDATE usuario SET usuario=?, password=?,rol=?"
+                    + "WHERE idEmpleado=?";
+    
+ 
+    PreparedStatement prest = conn.prepareStatement(Ssql);
+
+    
+     
+     prest.setString(1, user);
+     prest.setString(2, pass);
+     prest.setString(3, ro);
+     prest.setInt(4, idemp);
+     
+
+    
+        
+        
+    
+     prest.executeUpdate();
+   
+   
+        }
+              catch(SQLException e){
+                  JOptionPane.showMessageDialog(null,e);
+              }
+         
+    valtaEmple.limpiaruser();
+       JOptionPane.showMessageDialog(null,"Usuario Modificado");
+       mostarUser();
+}
+     }
+  
+   
+         }
+ 
+    public void seleccionarusuario(String valor){
+     
+   if(valor.equals(valtaEmple.BTN_BUSCAR_SELECT))
+   {
+       
+   int fila = valtaEmple.tablauser.getSelectedRow();
+   if(fila>=0){
+       String t="";
+       
+       String pass=valtaEmple.tablauser.getValueAt(fila, 1).toString();
+       valtaEmple.usuario.setText(valtaEmple.tablauser.getValueAt(fila, 1).toString());
+       valtaEmple.idfix.setText(valtaEmple.tablauser.getValueAt(fila, 0).toString());
+       valtaEmple.idemptxt.setText(valtaEmple.tablauser.getValueAt(fila, 3).toString());
+       Conexion conectar = new Conexion();
+       Connection conn   = conectar.getConexion();
+        String SQL = "SELECT password FROM usuario WHERE usuario='"+pass+"' ";
+         try {
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(SQL);
+             while(rs.next()){
+                  t = rs.getString("password");
+               
+             }
+              valtaEmple.pass .setText(t);
+         } catch (Exception e) {JOptionPane.showMessageDialog(null,"nose pudo mostrar");
+         }
+
+   }
+   else{JOptionPane.showMessageDialog(null,"no se seleciono fila");
+   }
+   
+   }
+  
+   }
+
+ public void borman(String local){
+        Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    if(local.equals(valtaEmple.BTN_BUSCAR_BORMAN))
+   {
+   int fila = valtaEmple.tablauser.getSelectedRow();
+   if(fila>=0){
+     String id=valtaEmple.tablauser.getValueAt(fila, 0).toString();
+     try{
+         
+     PreparedStatement ppt = conn.prepareStatement("DELETE FROM usuario WHERE idUsuarios='"+id+"'");
+     ppt.executeUpdate();
+     JOptionPane.showMessageDialog(null,"Usuario Eliminado");
+    mostarUser();
+     }
+     catch(SQLException e){JOptionPane.showMessageDialog(null,e);}
+ 
+   }
+   else{JOptionPane.showMessageDialog(null,"no se seleciono fila");
+   }
+    
+}
+
+    }
+
+    
+    
+  
+ }
+    
+ 
+   
