@@ -2352,7 +2352,7 @@ try{
     datosusuario[0]=rs.getString(1);
     datosusuario[1]=rs.getString(2);
     datosusuario[2]=rs.getString(3);
-    datosusuario[3]=rs.getString(10);
+    datosusuario[3]=rs.getString(9);
      
     
     
@@ -2639,9 +2639,9 @@ if(valor.equals(valtaEmple.BTN_BUSCAR_ALTAU)){
     int n= valtaEmple.getidempleado();
      String user= valtaEmple.getUsuario();
       String pa= valtaEmple.getpass();
-       String ro= valtaEmple.getRol();
-    if(n<=0 || user.equals("") || pa.equals("") || ro.equals("") )
-    { JOptionPane.showMessageDialog(null,"Los campos PASSWORD y USUARIO no pueden ser Nulos");}
+       String rx= valtaEmple.getRol();
+    if(n<=0 || user.equals("") || pa.equals("") || rx.equals("") )
+    { JOptionPane.showMessageDialog(null,"Los campos IDEMPLEADO,PASSWORD y USUARIO no pueden ser Nulos");}
     else{
    
 
@@ -2650,7 +2650,7 @@ if(valor.equals(valtaEmple.BTN_BUSCAR_ALTAU)){
    
     
     String SQL = "INSERT INTO usuario (usuario,password,rol,idEmpleado) "
-                      +    "VALUES ('"+user+"','"+pa+"','"+ro+"','"+n+"')";
+                      +    "VALUES ('"+user+"','"+pa+"','"+rx+"','"+n+"')";
 
     
        try{  
@@ -2858,7 +2858,7 @@ if(valor.equals(valtaEmple.BTN_BUSCAR_MODIUSER)){
    try{
 
     String Ssql = "UPDATE usuario SET usuario=?, password=?,rol=?"
-                    + "WHERE idEmpleado=?";
+                    + "WHERE idUsuarios=?";
     
  
     PreparedStatement prest = conn.prepareStatement(Ssql);
@@ -2868,7 +2868,7 @@ if(valor.equals(valtaEmple.BTN_BUSCAR_MODIUSER)){
      prest.setString(1, user);
      prest.setString(2, pass);
      prest.setString(3, ro);
-     prest.setInt(4, idemp);
+     prest.setInt(4, iduser);
      
 
     
@@ -3198,7 +3198,14 @@ if(valor.equals(liquidacion.BTN_SLECT_AGRE)){
 liquidacion.radic();
 }
           
-       
+           public void cerrar(String valor){
+    if(valor.equals(vp.BTN_CERRAR)){
+           vp.setVisible(false);
+           login.limpiarlogin();
+           login.setVisible(true);
+          
+        }
+    }
  }
     
  

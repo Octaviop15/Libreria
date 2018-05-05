@@ -14,6 +14,7 @@ public class VPrincipal extends javax.swing.JFrame {
     public static final String BTN_COMPRA = "COMPRA";
     public static final String BTN_NUEVO_CLIENTE = "NUEVO CLIENTE";
     public static final String BTN_NUEVA_LIQUIDACION = "NUEVA LIQUIDACION";
+     public static final String BTN_CERRAR = "CERRAR";
     
     private Controlador controlador;
 
@@ -63,7 +64,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Archivo");
 
-        jMenuItem9.setText("Salir");
+        jMenuItem9.setText("Cerrar Sesion");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem9ActionPerformed(evt);
@@ -219,7 +220,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
 
-        System.exit(1);// TODO add your handling code here:
+       controlador.cerrar(BTN_CERRAR);
 
       // TODO add your handling code here:
 

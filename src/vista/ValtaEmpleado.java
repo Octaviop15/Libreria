@@ -1019,10 +1019,10 @@ char c = evt.getKeyChar();
       public String getRol(){
         
         if (rol.getSelectedIndex()==0 ){
-          role = "Usuario";
+          role= "Usuario";
         
         }
-        if (itemTurno.getSelectedIndex()==1 ){
+        if (rol.getSelectedIndex()==1 ){
           role = "Administrador";
         
         }      
