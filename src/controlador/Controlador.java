@@ -3199,12 +3199,12 @@ liquidacion.radic();
 }
           
            public void cerrar(String valor){
-    if(valor.equals(vp.BTN_CERRAR)){
-           vp.setVisible(false);
+  
+           vp.dispose();
            login.limpiarlogin();
            login.setVisible(true);
-          Logear(login.BTN_LOGUSER);
-        }
+          
+        
     }
  }
     
