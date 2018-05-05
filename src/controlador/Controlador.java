@@ -88,12 +88,19 @@ public class Controlador {
         vp.setLocationRelativeTo(null);
         vp.setVisible(true);
         vnv.setControlador(this);
+        vnv.setLocationRelativeTo(null);
         vnc.setControlador(this);
+        vnc.setLocationRelativeTo(null);
         vl.setControlador(this);
+        vl.setLocationRelativeTo(null);
         vml.setControlador(this);
+        vml.setLocationRelativeTo(null);
         vc.setControlador(this);
+        vc.setLocationRelativeTo(null);
         edit.setControlador(this);
+        edit.setLocationRelativeTo(null);
         editm.setControlador(this);
+        editm.setLocationRelativeTo(null);
         valtaEmple.setControlador(this);
    
         mostar();
@@ -102,24 +109,36 @@ public class Controlador {
         mostrarempleado();
         mostarUser();
         vautorm.setControlador(this);
+        vautorm.setLocationRelativeTo(null);
         vaut.setControlador(this);
+        vaut.setLocationRelativeTo(null);
         vcategoria.setControlador(this);
+        vcategoria.setLocationRelativeTo(null);
         vmodcliente.setControlador(this);
+        vmodcliente.setLocationRelativeTo(null);
         vmodificacioncliente.setControlador(this);
+        vmodificacioncliente.setLocationRelativeTo(null);
     
         
     }
      public void ejecutarusuario(){
-        vp.setLocationRelativeTo(null);
         vp.setControlador(this);
+        vp.setLocationRelativeTo(null);
         vp.setVisible(true);
         vnv.setControlador(this);
+        vnv.setLocationRelativeTo(null);
         vnc.setControlador(this);
+        vnc.setLocationRelativeTo(null);
         vl.setControlador(this);
+        vl.setLocationRelativeTo(null);
         vml.setControlador(this);
+        vml.setLocationRelativeTo(null);
         vc.setControlador(this);
+        vc.setLocationRelativeTo(null);
         edit.setControlador(this);
+        edit.setLocationRelativeTo(null);
         editm.setControlador(this);
+        editm.setLocationRelativeTo(null);
         valtaEmple.setControlador(this);
    
         mostar();
@@ -128,10 +147,15 @@ public class Controlador {
         mostrarempleado();
         mostarUser();
         vautorm.setControlador(this);
+        vautorm.setLocationRelativeTo(null);
         vaut.setControlador(this);
+        vaut.setLocationRelativeTo(null);
         vcategoria.setControlador(this);
+        vcategoria.setLocationRelativeTo(null);
         vmodcliente.setControlador(this);
+        vmodcliente.setLocationRelativeTo(null);
         vmodificacioncliente.setControlador(this);
+        vmodificacioncliente.setLocationRelativeTo(null);
         
        vp.jMenu5.setEnabled(false);
        vp.menuItemCompra.setEnabled(false);
@@ -2653,6 +2677,23 @@ if(valor.equals(valtaEmple.BTN_BUSCAR_MODIUSER)){
     }
     
     
+  
+   public void bemp(String valor){
+    if(valor.equals(valtaEmple.BTN_BUSCAR_ACTEMPLEADO)){
+        
+      mostrarempleado();
+      mostarUser();
+       JOptionPane.showMessageDialog(null,"Tabla Actualizada");     
+        }
+    }
+   public void busa(String valor){
+    if(valor.equals(valtaEmple.BTN_BUSCAR_ACTUSUARIO)){
+        
+      mostrarempleado();
+      mostarUser();
+          JOptionPane.showMessageDialog(null,"Tabla Actualizada");  
+        }
+    }
   
  }
     
