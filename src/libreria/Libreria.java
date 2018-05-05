@@ -17,7 +17,7 @@ public class Libreria {
      */
     public static void main(String[] args) {
         Controlador c = new Controlador();
-        c.ejecutar();
+        c.ejecutar0();
         // TODO code application logic here
     }
     

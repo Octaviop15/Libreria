@@ -48,20 +48,15 @@ public class Controlador {
     private Vcategoria vcategoria;
     private VmodiCliente vmodcliente;
     private Vmodificacioncliente vmodificacioncliente;
-   
     private ValtaEmpleado valtaEmple;
-    
+    private Login login;
     /*Variables de ayuda*/
     String f;
     String o;
     String i;
-
-          
-
     int bnb;
     int tkl;
     int iden;
-
 
     int iddomi;
     int idturno;
@@ -80,12 +75,12 @@ public class Controlador {
         vl = new VLibro(vp, true);
         vml = new VModLibro(vp, true);
         vc = new VCompra(vp, true);
-        valtaEmple = new ValtaEmpleado(vp, true);
+        
    
         
         
         
-        
+        valtaEmple = new ValtaEmpleado(vp, true);
         edit=new Edit(vp,true);
         editm = new EditM(null,true);
          vaut= new Vaut(vp,true);
@@ -93,18 +88,32 @@ public class Controlador {
       vcategoria = new Vcategoria(vp,true);
        vmodcliente=new VmodiCliente(null,true);
        vmodificacioncliente=new Vmodificacioncliente(null,true);
+       login=new Login ();
+    }
+     public void ejecutar0(){
+         login.setLocationRelativeTo(null);
+       login.setControlador(this);
+       login.setVisible(true);
     }
     
     public void ejecutar(){
         vp.setControlador(this);
+        vp.setLocationRelativeTo(null);
         vp.setVisible(true);
         vnv.setControlador(this);
+        vnv.setLocationRelativeTo(null);
         vnc.setControlador(this);
+        vnc.setLocationRelativeTo(null);
         vl.setControlador(this);
+        vl.setLocationRelativeTo(null);
         vml.setControlador(this);
+        vml.setLocationRelativeTo(null);
         vc.setControlador(this);
+        vc.setLocationRelativeTo(null);
         edit.setControlador(this);
+        edit.setLocationRelativeTo(null);
         editm.setControlador(this);
+        editm.setLocationRelativeTo(null);
         valtaEmple.setControlador(this);
    
         mostar();
@@ -113,10 +122,56 @@ public class Controlador {
         mostrarempleado();
         mostarUser();
         vautorm.setControlador(this);
+        vautorm.setLocationRelativeTo(null);
         vaut.setControlador(this);
+        vaut.setLocationRelativeTo(null);
         vcategoria.setControlador(this);
+        vcategoria.setLocationRelativeTo(null);
         vmodcliente.setControlador(this);
+        vmodcliente.setLocationRelativeTo(null);
         vmodificacioncliente.setControlador(this);
+        vmodificacioncliente.setLocationRelativeTo(null);
+    
+        
+    }
+     public void ejecutarusuario(){
+        vp.setControlador(this);
+        vp.setLocationRelativeTo(null);
+        vp.setVisible(true);
+        vnv.setControlador(this);
+        vnv.setLocationRelativeTo(null);
+        vnc.setControlador(this);
+        vnc.setLocationRelativeTo(null);
+        vl.setControlador(this);
+        vl.setLocationRelativeTo(null);
+        vml.setControlador(this);
+        vml.setLocationRelativeTo(null);
+        vc.setControlador(this);
+        vc.setLocationRelativeTo(null);
+        edit.setControlador(this);
+        edit.setLocationRelativeTo(null);
+        editm.setControlador(this);
+        editm.setLocationRelativeTo(null);
+        valtaEmple.setControlador(this);
+   
+        mostar();
+        mostrar();
+        motacho();
+        mostrarempleado();
+        mostarUser();
+        vautorm.setControlador(this);
+        vautorm.setLocationRelativeTo(null);
+        vaut.setControlador(this);
+        vaut.setLocationRelativeTo(null);
+        vcategoria.setControlador(this);
+        vcategoria.setLocationRelativeTo(null);
+        vmodcliente.setControlador(this);
+        vmodcliente.setLocationRelativeTo(null);
+        vmodificacioncliente.setControlador(this);
+        vmodificacioncliente.setLocationRelativeTo(null);
+        
+       vp.jMenu5.setEnabled(false);
+       vp.menuItemCompra.setEnabled(false);
     }
     
     
@@ -335,10 +390,14 @@ public class Controlador {
             String ciudad      = vnc.getCiudad();
             String direccion   = vnc.getDireccion();
 
+
             String telFijo     = vnc.getTelFijo();
             String celular     = vnc.getCelular();
 
           
+
+          
+
             String correo      = vnc.getCorreo();
             
            
@@ -361,12 +420,8 @@ public class Controlador {
                   if(rs.next()){
                        
                     int idDomicilio= rs.getInt("idDomicilio");
-   
-    
 
-                    String SQL3 = "INSERT INTO cliente (nombre,apellido,DNI,fecha_nacimiento,tel_fijo,tel_movil,ciudad,correo,idDomicilio2) "
-
-                     
+                       String SQL3 = "INSERT INTO cliente (nombre,apellido,DNI,fecha_nacimiento,tel_fijo,tel_movil,ciudad,correo,idDomicilio2) "
 
                       +    "VALUES ('"+nombre+"','"+apellido+"','"+dni+"','"+fechaNac+"','"+telFijo+"','"+celular+"','"+ciudad+"','"+correo+"','"+idDomicilio+"')";
                 
@@ -511,8 +566,10 @@ public class Controlador {
            if(valor.equals(vnv.BTN_ELIMINAR_DETALLE_VENTA)){
                int fila = vnv.getFila();
                if(fila >= 0){
+                   if (JOptionPane.showConfirmDialog(null,"Se eliminta la fila seleccionada") == JOptionPane.YES_OPTION){
                vnv.eliminarFila(fila);
                vnv.setTotal(vnv.getTotalf()- vnv.getSubtotal2_tabla(fila));
+                   }
                }
                else{
                    JOptionPane.showMessageDialog(null,"Seleccione una fila");
@@ -2836,8 +2893,76 @@ if(valor.equals(valtaEmple.BTN_BUSCAR_MODIUSER)){
 
     }
 
+ 
+  public void Logear(String local){
+        Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    if(local.equals(login.BTN_LOGUSER))
+   {    
+       String cap="";
+       String user=login.getusuariologin();
+       String passw=login.getpasslogin();
+  String SQL = "SELECT * FROM usuario WHERE usuario='"+user+"' && password='"+passw+"' ";
+         try {
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery(SQL);
+             while(rs.next()){
+                  cap= rs.getString("rol");
+               
+                 
+             }
+              if(cap.equals("Administrador"))
+              {
+              JOptionPane.showMessageDialog(null,"Sesion Iniciada como ADMINISTRADOR\n Bienvenido"+user);
+              ejecutar();
+              login.setVisible(false);
+             
+              }
+              if(!cap.equals("Administrador")&&(!cap.equals("Usuario")))
+              {
+              JOptionPane.showMessageDialog(null,"DATOS ERRONEOS");
+             
+              }
+              if(cap.equals("Usuario"))
+              {
+              JOptionPane.showMessageDialog(null,"Sesion Iniciada como USUARIO\n Bienvenido "+user);
+                ejecutarusuario();
+            
+              login.setVisible(false);
+             
+              }
+              
+         } catch (Exception e) {JOptionPane.showMessageDialog(null,"nose pudo mostrar");
+         }
+       
+       
+       
+       
+       
+       
+       
+    }
+
+    }
     
     
+  
+   public void bemp(String valor){
+    if(valor.equals(valtaEmple.BTN_BUSCAR_ACTEMPLEADO)){
+        
+      mostrarempleado();
+      mostarUser();
+       JOptionPane.showMessageDialog(null,"Tabla Actualizada");     
+        }
+    }
+   public void busa(String valor){
+    if(valor.equals(valtaEmple.BTN_BUSCAR_ACTUSUARIO)){
+        
+      mostrarempleado();
+      mostarUser();
+          JOptionPane.showMessageDialog(null,"Tabla Actualizada");  
+        }
+    }
   
  }
     

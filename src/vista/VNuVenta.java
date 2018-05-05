@@ -259,7 +259,7 @@ public class VNuVenta extends javax.swing.JDialog {
     }
     
     public Double getSubtotal2_tabla(int i){
-        return tablaVentaLibros.getValueAt(i,4).toString();
+        return Double.parseDouble(tablaVentaLibros.getValueAt(i,4).toString());
     }
         
     
