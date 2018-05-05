@@ -20,6 +20,7 @@ public class VPrincipal extends javax.swing.JFrame {
    
     public VPrincipal() {
         initComponents();
+        setTitle("Menu principal");
     }
     
       public void setControlador(Controlador controlador){
@@ -33,7 +34,7 @@ public class VPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton4 = new javax.swing.JButton();
-        nuevali = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
@@ -49,17 +50,18 @@ public class VPrincipal extends javax.swing.JFrame {
         menuItemEditorial = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         menuItemEmpleado = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
 
         jButton4.setText("jButton4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
-        nuevali.setText("Liquidacion");
-        nuevali.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nuevaliActionPerformed(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 51, 51));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1393924_605824496122545_1496992593_n.png"))); // NOI18N
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(10, 0, 380, 374);
 
         jMenu1.setText("Archivo");
 
@@ -158,24 +160,10 @@ public class VPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
-        setJMenuBar(jMenuBar1);
+        jMenu6.setText("Liquidacion");
+        jMenuBar1.add(jMenu6);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(268, Short.MAX_VALUE)
-                .addComponent(nuevali)
-                .addGap(47, 47, 47))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(nuevali)
-                .addContainerGap(302, Short.MAX_VALUE))
-        );
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -226,17 +214,23 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void nuevaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevaliActionPerformed
-        controlador.vistali(BTN_NUEVA_LIQUIDACION); // TODO add your handling code here:
+         // TODO add your handling code here:
     }//GEN-LAST:event_nuevaliActionPerformed
+
+    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+        controlador.vistali(BTN_NUEVA_LIQUIDACION);
+    }//GEN-LAST:event_jMenu3ActionPerformed
 
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JMenu JMenu3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     public static javax.swing.JMenu jMenu2;
     public static javax.swing.JMenu jMenu4;
     public static javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     public static javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem9;
     public static javax.swing.JMenuItem menuItemAutor;
@@ -247,6 +241,5 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemEmpleado;
     public static javax.swing.JMenuItem menuItemLibro;
     public static javax.swing.JMenuItem menuItemVenta;
-    private javax.swing.JButton nuevali;
     // End of variables declaration//GEN-END:variables
 }

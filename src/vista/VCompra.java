@@ -76,6 +76,7 @@ public class VCompra extends javax.swing.JDialog {
          txtApellido.setText("");
          txtNombre.setText("");
          
+         
      }
      
      public void desactivar_txt(){
