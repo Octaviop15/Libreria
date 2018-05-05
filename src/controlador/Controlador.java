@@ -57,7 +57,6 @@ public class Controlador {
     int bnb;
     int tkl;
     int iden;
-
     int iddomi;
     int idturno;
     int dom;
@@ -353,6 +352,48 @@ public class Controlador {
          
      }
      
+     public void obtenerEmpleado(){
+          Conexion conexion = new Conexion();
+          Connection conn   = conexion.getConexion();
+         
+          String nombreUsuario = login.getusuariologin();
+          
+          
+          String SQL1 = "SELECT idEmpleado FROM usuario WHERE usuario= '"+nombreUsuario+"'";
+          try {
+          Statement st1 = conn.createStatement();
+          ResultSet rs1 = st1.executeQuery(SQL1);
+          if(rs1.next()){
+              int idEmpleado = rs1.getInt("idEmpleado");
+              
+                  
+              String SQL2 = "SELECT nombre,apellido FROM empleado WHERE idEmpleado = '"+idEmpleado+"'";
+              Statement st2 = conn.createStatement();
+              ResultSet rs2 = st2.executeQuery(SQL2);
+              
+                  
+              if(rs2.next()){
+                  String  nombre = rs2.getString("nombre");
+                  String apellido = rs2.getString("apellido");
+                  
+                  vnv.setNombreEmpleado(nombre);
+                  vnv.setApellidoEmpleado(apellido);
+                  vc.setNombreEmpleado(nombre);
+                  vc.setApellidoEmpleado(apellido);
+                  
+                  
+              }
+              
+          }
+              
+          
+         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, e);
+             
+         }
+          
+     }
+     
      
          
      
@@ -370,8 +411,9 @@ public class Controlador {
             vnv.limpiar();
             vnv.desactivar_btn();
             vnv.desactivar_txt();
-            
+            obtenerEmpleado();
             vnv.setVisible(true);
+         
         }
         
         if(valor.equals(vnv.BTN_NUEVO_CLIENTE)){
@@ -389,29 +431,21 @@ public class Controlador {
             String fechaNac    = vnc.getFechaNac();
             String ciudad      = vnc.getCiudad();
             String direccion   = vnc.getDireccion();
-
-
-            String telFijo     = vnc.getTelFijo();
-            String celular     = vnc.getCelular();
-
-          
-
-          
-
+            String telFijo       = vnc.getTelFijo();
+            String celular        = vnc.getCelular();
             String correo      = vnc.getCorreo();
             
-           
-       
+            
             
             
              String SQL1 = "INSERT INTO domicilio (direccion) "
                       +    "VALUES ('"+direccion+"')";
              
-             String SQL2 = "SELECT idDomicilio FROM domicilio ORDER BY idDomicilio DESC LIMIT 1";
+             String SQL2= "SELECT idDomicilio FROM domicilio WHERE direccion='"+direccion+"' ";
              
-           
-             
-              try{                              
+              try{
+               
+                
                   Statement st1 = conn.createStatement();
                   st1.executeUpdate(SQL1);
                  
@@ -419,16 +453,15 @@ public class Controlador {
                   ResultSet rs=st2.executeQuery(SQL2);
                   if(rs.next()){
                        
-                    int idDomicilio= rs.getInt("idDomicilio");
-
+                       int idDomicilio= rs.getInt("idDomicilio");
+   
+    
                        String SQL3 = "INSERT INTO cliente (nombre,apellido,DNI,fecha_nacimiento,tel_fijo,tel_movil,ciudad,correo,idDomicilio2) "
-
                       +    "VALUES ('"+nombre+"','"+apellido+"','"+dni+"','"+fechaNac+"','"+telFijo+"','"+celular+"','"+ciudad+"','"+correo+"','"+idDomicilio+"')";
                 
    
                   Statement st3 = conn.createStatement();
                   st3.executeUpdate(SQL3);
-                  JOptionPane.showMessageDialog(null,"Cliente agregado");
               }
                     
      
@@ -437,9 +470,10 @@ public class Controlador {
               catch(SQLException e){
                   JOptionPane.showMessageDialog(null,e);
               }
-             
+              JOptionPane.showMessageDialog(null,"Cliente agregado");
               vnc.limpiar();
         }
+
         
         //VENTANA VENTA
         if(valor.equals(vnv.BTN_BUSCAR_CLIENTE)){
@@ -599,6 +633,7 @@ public class Controlador {
                 String fecha    = vnv.getFecha();                       
                 double total       = vnv.getTotalf();
                 int dni         = vnv.getDNI();
+                String nombreUsuario = login.getusuariologin();
                      
                 
                 
@@ -609,17 +644,21 @@ public class Controlador {
                         
                    
                 //Se selecciona el id del cliente de la venta y procedemos a hacer un insert de la venta  
-                String SQL3 = "SELECT idCliente FROM cliente WHERE DNI = '"+dni+"'";
+                String SQL1 = "SELECT idCliente FROM cliente WHERE DNI = '"+dni+"'";
+                String SQL2 = "SELECT idUsuario FROM usuario WHERE usuario = '"+nombreUsuario+"'";
                 
                
                 try {                             
-                    Statement st3 = conn.createStatement();
-                    ResultSet rs3 = st3.executeQuery(SQL3);
-                    if(rs3.next()){                                                     
-                        int idCliente = rs3.getInt("idCliente");
+                    Statement st1 = conn.createStatement();
+                    ResultSet rs1 = st1.executeQuery(SQL1);
+                    Statement st2 = conn.createStatement();
+                    ResultSet rs2 = st2.executeQuery(SQL2);
+                    if(rs1.next() && rs2.next()){                                                     
+                        int idCliente = rs1.getInt("idCliente");
+                        int idUsuario = rs2.getInt("idUsuario");
                         
                         // insertamos la venta
-                        String SQL4 = "INSERT INTO venta (fecha,total,idModoPago,idCliente,idUsuario) VALUES ('"+fecha+"','"+total+"','"+modoPago+"','"+idCliente+"','"+1+"')";                                 
+                        String SQL4 = "INSERT INTO venta (fecha,total,idModoPago,idCliente,idUsuario) VALUES ('"+fecha+"','"+total+"','"+modoPago+"','"+idCliente+"','"+idUsuario+"')";                                 
                         Statement st4 = conn.createStatement();
                         st4.executeUpdate(SQL4);   
                         JOptionPane.showMessageDialog(null,"Venta generada con exito");
@@ -670,18 +709,18 @@ public class Controlador {
                 for(int i=0;i<cantFilas;i++){
                     String ISBN = vnv.getISBN_tabla(i);
                     int cant = vnv.getCant_tabla(i);
-                    String SQL1 = "SELECT stock from libro WHERE ISBN ='"+ISBN+"'";
+                    String SQL7 = "SELECT stock from libro WHERE ISBN ='"+ISBN+"'";
                     
                     try {
-                        Statement st1 = conn.createStatement();
-                        ResultSet rs = st1.executeQuery(SQL1);
-                        if(rs.next()){
-                            stock = rs.getInt("stock");
+                        Statement st7 = conn.createStatement();
+                        ResultSet rs7 = st7.executeQuery(SQL7);
+                        if(rs7.next()){
+                            stock = rs7.getInt("stock");
                             stock = stock - cant;
                             
-                            String SQL2 = "UPDATE libro SET stock = '"+stock+"' where ISBN='"+ISBN+"'";
-                            Statement st2  = conn.createStatement();
-                            st2.executeUpdate(SQL2);
+                            String SQL8 = "UPDATE libro SET stock = '"+stock+"' where ISBN='"+ISBN+"'";
+                            Statement st8  = conn.createStatement();
+                            st8.executeUpdate(SQL8);
                             JOptionPane.showMessageDialog(null,"Stock actualizado");
                         }
                         
@@ -913,6 +952,7 @@ public class Controlador {
                 vc.limpiar();
                 vc.limpiarComboBox();
                 obtenerEditorialComboBoxCompra();
+                obtenerEmpleado();
                 vc.setVisible(true);
             }
              
@@ -1040,18 +1080,30 @@ public class Controlador {
                 double total = vc.getTotal();
                 String fecha = vc.getFecha();
                 int idEditorial = vc.getComboBoxEditorial();
+                
+                String nombreUsuario = login.getusuariologin();
               
                              
                if(vc.getTotal_f() != 0){
                 
-                String SQL1 = "INSERT INTO compra (fecha,total,idEditorial,idUsuario) VALUES ('"+fecha+"','"+total+"','"+idEditorial+"','"+idUsuario+"')";
+                String SQL6 = "SELECT idUsuario FROM usuario WHERE usuario = '"+nombreUsuario+"'"; 
                 try{
+                    Statement st6 = conn.createStatement();
+                    ResultSet rs6 = st6.executeQuery(SQL6);
+                    if(rs6.next()){
+                        int idUsuario = rs6.getInt("idUsuario");
+                    
+                    
+                
+                    
+                    String SQL1 = "INSERT INTO compra (fecha,total,idEditorial,idUsuario) VALUES ('"+fecha+"','"+total+"','"+idEditorial+"','"+idUsuario+"')";
+                
                     Statement st3 = conn.createStatement();
                     st3.executeUpdate(SQL1);
                     JOptionPane.showMessageDialog(null,"Compra generada con exito");
                     
-                    
-                }catch (Exception e) {
+                    }
+                    }catch (Exception e) {
                         JOptionPane.showMessageDialog(null,e);  
                     }
                 

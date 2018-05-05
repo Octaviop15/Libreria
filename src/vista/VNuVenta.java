@@ -58,7 +58,9 @@ public class VNuVenta extends javax.swing.JDialog {
         
         
     }
-    
+     public void setControlador(Controlador controlador){
+        this.controlador = controlador;
+    }
    
     
     public void cargarTabla(){
@@ -77,6 +79,8 @@ public class VNuVenta extends javax.swing.JDialog {
         txtPrecio.setText("");
         txtStock.setText("");
         txtCant.setText("");
+        txtApellidoEmpleado.setText("");
+        txtNombreEmpleado.setText("");
  
         tablaVentaLibros.removeAll();
         
@@ -94,6 +98,8 @@ public class VNuVenta extends javax.swing.JDialog {
         txtCant.setEnabled(false);
         txtDireccion.setEnabled(false);    
         txtFecha.setEnabled(false);
+        txtNombreEmpleado.setEnabled(false);
+        txtApellidoEmpleado.setEnabled(false);
         
     }
     
@@ -122,8 +128,21 @@ public class VNuVenta extends javax.swing.JDialog {
         txtCant.setEnabled(false);
         
     }
-    public void setControlador(Controlador controlador){
-        this.controlador = controlador;
+   
+    public String getNombreEmpleado(){
+        return txtNombreEmpleado.getText();
+    }
+    
+    public void setNombreEmpleado(String empleado){
+        txtNombreEmpleado.setText(empleado);
+    }
+    
+    public String getApellidoEmpleado(){
+        return txtApellidoEmpleado.getText();
+    }
+    
+    public void setApellidoEmpleado(String apellido){
+        txtApellidoEmpleado.setText(apellido);
     }
     
     public int getDNI(){
@@ -323,6 +342,11 @@ public class VNuVenta extends javax.swing.JDialog {
         txtFecha = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         cmbModoPago = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        txtNombreEmpleado = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        txtApellidoEmpleado = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -481,6 +505,12 @@ public class VNuVenta extends javax.swing.JDialog {
 
         cmbModoPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Modo de pago", "Efectivo", "Tarjeta" }));
 
+        jLabel12.setText("Empleado:");
+
+        jLabel13.setText("Nombre:");
+
+        jLabel14.setText("Apellido:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -521,12 +551,6 @@ public class VNuVenta extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnBuscarC, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(jButton1))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btnGenerarVenta)
@@ -548,22 +572,48 @@ public class VNuVenta extends javax.swing.JDialog {
                                 .addComponent(jLabel2)
                                 .addComponent(btnTotal)
                                 .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel4)
+                    .addComponent(cmbModoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel10)
-                        .addGap(18, 18, 18)
+                        .addGap(39, 39, 39)
                         .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4)
-                    .addComponent(cmbModoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtNombreEmpleado))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnBuscarC, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtApellidoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel12))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(13, 13, 13)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNombreEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14)
+                    .addComponent(txtApellidoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -597,7 +647,7 @@ public class VNuVenta extends javax.swing.JDialog {
                     .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -737,6 +787,9 @@ public class VNuVenta extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -748,12 +801,14 @@ public class VNuVenta extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaVentaLibros;
     private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextField txtApellidoEmpleado;
     private javax.swing.JTextField txtCant;
     private javax.swing.JTextField txtDNI;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtISBN;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNombreEmpleado;
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtStock;
     private javax.swing.JTextField txtTitulo;

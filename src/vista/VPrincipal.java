@@ -203,7 +203,7 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemEmpleadoActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-this.dispose();        // TODO add your handling code here:
+        System.exit(1);// TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
  
