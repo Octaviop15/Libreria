@@ -56,13 +56,14 @@ public class VPrincipal extends javax.swing.JFrame {
         jButton4.setText("jButton4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(400, 400));
         getContentPane().setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 51, 51));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1393924_605824496122545_1496992593_n.png"))); // NOI18N
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 0, 380, 374);
+        jLabel1.setBounds(10, 0, 390, 370);
 
         jMenu1.setText("Archivo");
 
