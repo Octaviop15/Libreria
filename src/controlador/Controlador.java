@@ -176,7 +176,7 @@ public class Controlador {
         vmodificacioncliente.setControlador(this);
         vmodificacioncliente.setLocationRelativeTo(null);
         
-       vp.jMenu5.setEnabled(false);
+       vp.jMenu6.setEnabled(false);
        vp.menuItemCompra.setEnabled(false);
     }
     
@@ -652,7 +652,7 @@ public class Controlador {
                    
                 //Se selecciona el id del cliente de la venta y procedemos a hacer un insert de la venta  
                 String SQL1 = "SELECT idCliente FROM cliente WHERE DNI = '"+dni+"'";
-                String SQL2 = "SELECT idUsuario FROM usuario WHERE usuario = '"+nombreUsuario+"'";
+                String SQL2 = "SELECT idUsuarios FROM usuario WHERE usuario = '"+nombreUsuario+"'";
                 
                
                 try {                             
@@ -662,7 +662,7 @@ public class Controlador {
                     ResultSet rs2 = st2.executeQuery(SQL2);
                     if(rs1.next() && rs2.next()){                                                     
                         int idCliente = rs1.getInt("idCliente");
-                        int idUsuario = rs2.getInt("idUsuario");
+                        int idUsuario = rs2.getInt("idUsuarios");
                         
                         // insertamos la venta
                         String SQL4 = "INSERT INTO venta (fecha,total,idModoPago,idCliente,idUsuario) VALUES ('"+fecha+"','"+total+"','"+modoPago+"','"+idCliente+"','"+idUsuario+"')";                                 
@@ -691,7 +691,7 @@ public class Controlador {
               //    ResultSet rs4 = st4.getGeneratedKeys();
                     if(rs5.next()){
                         int idVenta = rs5.getInt("idVenta");
-                        JOptionPane.showMessageDialog(null, idVenta);                                                                                                           
+                                                                                                                                 
                         for(int i=0;i<cantFilas;i++){                               
                             String ISBN = vnv.getISBN_tabla(i);
                             int cantidad = vnv.getCant_tabla(i);
@@ -1093,12 +1093,12 @@ public class Controlador {
                              
                if(vc.getTotal_f() != 0){
                 
-                String SQL6 = "SELECT idUsuario FROM usuario WHERE usuario = '"+nombreUsuario+"'"; 
+                String SQL6 = "SELECT idUsuarios FROM usuario WHERE usuario = '"+nombreUsuario+"'"; 
                 try{
                     Statement st6 = conn.createStatement();
                     ResultSet rs6 = st6.executeQuery(SQL6);
                     if(rs6.next()){
-                        int idUsuario = rs6.getInt("idUsuario");
+                        int idUsuario = rs6.getInt("idUsuarios");
                     
                     
                 
@@ -3203,7 +3203,7 @@ liquidacion.radic();
            vp.setVisible(false);
            login.limpiarlogin();
            login.setVisible(true);
-          
+          Logear(login.BTN_LOGUSER);
         }
     }
  }
