@@ -18,6 +18,7 @@ private Controlador controlador;
 public static final String BTN_BUSCAR_LIQUIDACIONEMPLEADO = "BUSCAR LIQUIDACIONEMP";
 public static final String BTN_ACT_TABLA = "ACTUALIZAR TABLA";
 public static final String BTN_SLECT_EMPLE = "SELECCIONAR EMPLE";
+public static final String BTN_SLECT_AGRE = "AGREGAR";
 
   public void setControlador(Controlador controlador){
         this.controlador = controlador;
@@ -25,6 +26,28 @@ public static final String BTN_SLECT_EMPLE = "SELECCIONAR EMPLE";
   
  public String getCUIL(){
         return insertarcuil.getText();
+    }
+ public int getidem(){
+        return  Integer.parseInt(idemp.getText());
+    }
+ public String getnombre(){
+        return nombre.getText();
+    }
+ public String getfecha(){
+        return fechaingreso.getText();
+    }
+ public String getcategoria(){
+        return categoria.getText();
+    }
+ 
+ public void radic(){
+        insertarcuil.setText("");
+        idemp.setText("0");
+        nombre.setText("0");
+        fechaingreso.setText("");
+        categoria.setText("");
+        
+     
     }
     /**
      * Creates new form VLiquidacion
@@ -50,6 +73,15 @@ public static final String BTN_SLECT_EMPLE = "SELECCIONAR EMPLE";
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         Seleccionar = new javax.swing.JButton();
+        idemp = new javax.swing.JTextField();
+        nombre = new javax.swing.JTextField();
+        fechaingreso = new javax.swing.JTextField();
+        categoria = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        liquidacion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -92,30 +124,93 @@ public static final String BTN_SLECT_EMPLE = "SELECCIONAR EMPLE";
         });
 
         Seleccionar.setText("Seleccionar");
+        Seleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SeleccionarActionPerformed(evt);
+            }
+        });
+
+        idemp.setText("0");
+        idemp.setEnabled(false);
+
+        nombre.setEnabled(false);
+
+        fechaingreso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                fechaingresoKeyTyped(evt);
+            }
+        });
+
+        categoria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                categoriaKeyTyped(evt);
+            }
+        });
+
+        jLabel2.setText("ID Empleado");
+
+        jLabel3.setText("Fecha");
+
+        jLabel4.setText("Categoria");
+
+        jLabel5.setText("Nombre");
+
+        liquidacion.setText("Agregar Liquidacion");
+        liquidacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                liquidacionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(buscaremp)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(insertarcuil, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(137, 137, 137)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(9, 9, 9)
+                                    .addComponent(buscaremp)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(insertarcuil, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButton1))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(137, 137, 137)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(45, 45, 45))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(25, 25, 25)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(Seleccionar)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel5))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(liquidacion)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                                            .addComponent(idemp)))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(19, 19, 19)
+                                    .addComponent(jLabel3))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel4)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(fechaingreso, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(categoria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(Seleccionar)))
-                .addContainerGap(118, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,7 +225,22 @@ public static final String BTN_SLECT_EMPLE = "SELECCIONAR EMPLE";
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Seleccionar)
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(idemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fechaingreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel5)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(liquidacion)
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         pack();
@@ -142,10 +252,17 @@ public static final String BTN_SLECT_EMPLE = "SELECCIONAR EMPLE";
 
     private void insertarcuilKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_insertarcuilKeyTyped
 char c = evt.getKeyChar();
+        int cant = insertarcuil.getText().length();
         
         if(!Character.isDigit(c)){
             getToolkit().beep();
-            evt.consume();}         // TODO add your handling code here:
+            evt.consume();
+        }
+        
+        if(cant>=11){
+            getToolkit().beep();
+            evt.consume();
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_insertarcuilKeyTyped
 
     private void buscarempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarempActionPerformed
@@ -155,6 +272,33 @@ controlador.buscarempleadoliquidacion(BTN_BUSCAR_LIQUIDACIONEMPLEADO);        //
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     controlador.actogu(BTN_ACT_TABLA);      // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void categoriaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_categoriaKeyTyped
+char c = evt.getKeyChar();
+        int cant = categoria.getText().length();
+        
+        if(!Character.isDigit(c)){
+            getToolkit().beep();
+            evt.consume();
+        }
+        
+        if(cant>=2){
+            getToolkit().beep();
+            evt.consume();
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_categoriaKeyTyped
+
+    private void fechaingresoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechaingresoKeyTyped
+       // TODO add your handling code here:
+    }//GEN-LAST:event_fechaingresoKeyTyped
+
+    private void SeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeleccionarActionPerformed
+ controlador.selecc(BTN_SLECT_EMPLE);           // TODO add your handling code here:
+    }//GEN-LAST:event_SeleccionarActionPerformed
+
+    private void liquidacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_liquidacionActionPerformed
+       controlador.AGRE(BTN_SLECT_AGRE);   // TODO add your handling code here:
+    }//GEN-LAST:event_liquidacionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,9 +348,18 @@ controlador.buscarempleadoliquidacion(BTN_BUSCAR_LIQUIDACIONEMPLEADO);        //
     public static javax.swing.JButton Seleccionar;
     public static javax.swing.JTable Tablausuario;
     public static javax.swing.JButton buscaremp;
+    public static javax.swing.JTextField categoria;
+    public static javax.swing.JTextField fechaingreso;
+    public static javax.swing.JTextField idemp;
     public static javax.swing.JTextField insertarcuil;
     public static javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton liquidacion;
+    public static javax.swing.JTextField nombre;
     // End of variables declaration//GEN-END:variables
 }

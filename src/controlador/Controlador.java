@@ -2795,7 +2795,7 @@ try{
 catch(SQLException ex){
     JOptionPane.showMessageDialog(null,"no se puedo mostrar");
 }
-
+ liquidacion.radic();
 }
 
  }   
@@ -2816,7 +2816,67 @@ catch(SQLException ex){
 
     }
        
+          public void selecc(String mod){
+     
+   if(mod.equals(liquidacion.BTN_SLECT_EMPLE))
+   {
        
+   int fila =liquidacion.Tablausuario.getSelectedRow();
+   if(fila>=0){
+       liquidacion.idemp.setText(liquidacion.Tablausuario.getValueAt(fila, 0).toString());
+       liquidacion.nombre.setText(liquidacion.Tablausuario.getValueAt(fila, 1).toString());
+ 
+
+   }
+   else{JOptionPane.showMessageDialog(null,"no se seleciono fila");
+   }
+   
+   }
+  
+   }
+    
+          
+          public void AGRE(String valor){
+if(valor.equals(liquidacion.BTN_SLECT_AGRE)){
+    Conexion conectar = new Conexion();
+    Connection conn   = conectar.getConexion();
+    
+    int idem= liquidacion.getidem();
+     String cate= liquidacion.getcategoria();
+      String fecha= liquidacion.getfecha();
+      
+    if(idem<=0 || cate.equals("") || fecha.equals("")  )
+    { JOptionPane.showMessageDialog(null,"Los campos ID EMPLEADO,CATEGORIA y FECHA no pueden ser Nulos");}
+    else{
+   
+
+    
+    
+   
+    
+    String SQL = "INSERT INTO liquidacionsueldo (idEmpleado,categoria,fecha_de_ingreso) "
+                      +    "VALUES ('"+idem+"','"+cate+"','"+fecha+"')";
+
+    
+       try{  
+           
+                  Statement sentencia = conn.createStatement();
+                  sentencia.executeUpdate(SQL);
+
+       }
+              catch(SQLException e){
+                  JOptionPane.showMessageDialog(null,e);
+              }
+       
+       
+       JOptionPane.showMessageDialog(null,"Liquidacion Agregada");
+       
+}
+   
+        }
+liquidacion.radic();
+}
+          
        
  }
     
