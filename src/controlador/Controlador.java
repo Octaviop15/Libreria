@@ -39,6 +39,7 @@ public class Controlador {
     private Vmodificacioncliente vmodificacioncliente;
     private ValtaEmpleado valtaEmple;
     private Login login;
+    private VLiquidacion liquidacion;
     /*Variables de ayuda*/
     String f;
     String o;
@@ -66,7 +67,7 @@ public class Controlador {
    
         
         
-        
+        liquidacion=new VLiquidacion(vp,true);
         valtaEmple = new ValtaEmpleado(vp, true);
         edit=new Edit(vp,true);
         editm = new EditM(null,true);
@@ -84,6 +85,8 @@ public class Controlador {
     }
     
     public void ejecutar(){
+        liquidacion.setControlador(this);
+        liquidacion.setLocationRelativeTo(null);
         vp.setControlador(this);
         vp.setLocationRelativeTo(null);
         vp.setVisible(true);
@@ -108,6 +111,7 @@ public class Controlador {
         motacho();
         mostrarempleado();
         mostarUser();
+        mostarempleadoliquidacion();
         vautorm.setControlador(this);
         vautorm.setLocationRelativeTo(null);
         vaut.setControlador(this);
@@ -122,6 +126,8 @@ public class Controlador {
         
     }
      public void ejecutarusuario(){
+        liquidacion.setControlador(this);
+        liquidacion.setLocationRelativeTo(null);
         vp.setControlador(this);
         vp.setLocationRelativeTo(null);
         vp.setVisible(true);
@@ -146,6 +152,7 @@ public class Controlador {
         motacho();
         mostrarempleado();
         mostarUser();
+        mostarempleadoliquidacion();
         vautorm.setControlador(this);
         vautorm.setLocationRelativeTo(null);
         vaut.setControlador(this);
@@ -2694,7 +2701,123 @@ if(valor.equals(valtaEmple.BTN_BUSCAR_MODIUSER)){
           JOptionPane.showMessageDialog(null,"Tabla Actualizada");  
         }
     }
+   
+     public void vistali(String valor){
+    if(valor.equals(vp.BTN_NUEVA_LIQUIDACION)){
+            liquidacion.setVisible(true);
+            
+        }
+
+    }
+
+     
+     public void mostarempleadoliquidacion(){
+    
+Conexion conectar = new Conexion();
+Connection conn   = conectar.getConexion();
+
+DefaultTableModel modo = new DefaultTableModel();
+modo.addColumn("idEmpleado");
+modo.addColumn("Nombre");
+modo.addColumn("Apellido");
+modo.addColumn("CUIL");
+
+liquidacion.Tablausuario.setModel(modo);
+
+String sql="SELECT * FROM empleado ";
+
+String datos[]= new String [4];
+try{
+    
+    Statement st = conn.createStatement();
+    ResultSet rs = st.executeQuery(sql);
   
+    while(rs.next()){
+    datos[0]=rs.getString(1);
+    datos[1]=rs.getString(2);
+    datos[2]=rs.getString(3);
+    datos[3]=rs.getString(9);
+    
+     
+    
+    
+    modo.addRow(datos);
+    }
+    
+   
+    
+    liquidacion.Tablausuario.setModel(modo);
+    }
+catch(SQLException ex){
+    JOptionPane.showMessageDialog(null,"no se puedo mostrar");
+}
+}
+     
+     
+       public void buscandoempliqui(String value){
+Conexion conectar = new Conexion();
+Connection conn   = conectar.getConexion();
+
+if(value.equals("")){
+ JOptionPane.showMessageDialog(null,"Ingrese un Cuil para buscar");
+  mostarempleadoliquidacion();
+}
+else{ 
+DefaultTableModel modo = new DefaultTableModel();
+modo.addColumn("idEmpleado");
+modo.addColumn("Nombre");
+modo.addColumn("Apellido");
+modo.addColumn("CUIL");
+
+liquidacion.Tablausuario.setModel(modo);
+String sql="SELECT * FROM empleado WHERE CUIL='"+value+"'";
+ 
+String datos[]= new String [4];
+
+try{
+    
+    Statement st = conn.createStatement();
+    ResultSet rs = st.executeQuery(sql);
+  
+    while(rs.next()){
+    datos[0]=rs.getString(1);
+    datos[1]=rs.getString(2);
+    datos[2]=rs.getString(3);
+    datos[3]=rs.getString(9);
+
+    
+    modo.addRow(datos);
+    }
+
+    liquidacion.Tablausuario.setModel(modo);
+    
+    }
+catch(SQLException ex){
+    JOptionPane.showMessageDialog(null,"no se puedo mostrar");
+}
+
+}
+
+ }   
+       
+       public void buscarempleadoliquidacion(String valor){
+    if(valor.equals(liquidacion.BTN_BUSCAR_LIQUIDACIONEMPLEADO)){
+            buscandoempliqui(liquidacion.insertarcuil.getText());
+          
+        }
+    }
+       
+       
+       public void actogu(String valor){
+    if(valor.equals(liquidacion.BTN_ACT_TABLA)){
+             mostarempleadoliquidacion();
+            
+        }
+
+    }
+       
+       
+       
  }
     
  
