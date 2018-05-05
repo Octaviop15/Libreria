@@ -113,10 +113,8 @@
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="Requerido4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                               <Component id="itemTurno" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="Requerido6" min="-2" pref="84" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -132,7 +130,7 @@
                               <Component id="Requerido2" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="42" max="32767" attributes="0"/>
+                      <EmptySpace pref="113" max="32767" attributes="0"/>
                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -178,7 +176,6 @@
                           <Component id="campoFechaNacimiento" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="itemTurno" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="Requerido4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Requerido6" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -407,10 +404,9 @@
     <Component class="javax.swing.JComboBox" name="itemTurno">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="Turno"/>
-            <StringItem index="1" value="Ma&#xf1;ana"/>
-            <StringItem index="2" value="Tarde"/>
+          <StringArray count="2">
+            <StringItem index="0" value="Turno Ma&#xf1;ana"/>
+            <StringItem index="1" value="Turno Tarde"/>
           </StringArray>
         </Property>
       </Properties>
@@ -443,11 +439,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="Requerido5">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Requerido"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="Requerido6">
       <Properties>
         <Property name="text" type="java.lang.String" value="Requerido"/>
       </Properties>

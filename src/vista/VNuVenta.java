@@ -26,6 +26,7 @@ public class VNuVenta extends javax.swing.JDialog {
     public static final String BTN_ELIMINAR_DETALLE_VENTA = "ELIMINAR DETALLE VENTA";
     public static final String BTN_FINALIZAR_CARGA = "FINALIZAR CARGA";
     public static final String BTN_GENERAR_VENTA = "GENERAR VENTA";
+    public static final String BTN_GENERAR_FACTURA = "GENERAR FACTURA";
     DefaultTableModel model;
     
 
@@ -129,6 +130,17 @@ public class VNuVenta extends javax.swing.JDialog {
         return Integer.parseInt(txtDNI.getText());
     }
     
+    public String getNombre(){
+        return txtNombre.getText();
+    }
+    
+    public String getApellido(){
+        return txtApellido.getText();
+    }
+    
+    public String getDomicilio(){
+        return txtDireccion.getText();
+    }
     public void setNombre(String nombre){
         txtNombre.setText(nombre);
     }
@@ -230,14 +242,31 @@ public class VNuVenta extends javax.swing.JDialog {
     public String getISBN_tabla(int i){
         return tablaVentaLibros.getValueAt(i,0).toString();
     }
+    public String getTitulo_tabla(int i){
+        return tablaVentaLibros.getValueAt(i, 1).toString();
+    }
+    
+    public String getPrecio_tabla(int i){
+        return tablaVentaLibros.getValueAt(i,2).toString();
+    }
+    
+    public String getCantidad_tabla(int i){
+        return tablaVentaLibros.getValueAt(i,3).toString();
+    }
+    
+    public String getSubtotal1_tabla(int i){
+        return tablaVentaLibros.getValueAt(i,4).toString();
+    }
+    
+    public Double getSubtotal2_tabla(int i){
+        return tablaVentaLibros.getValueAt(i,4).toString();
+    }
+        
     
     public int getCant_tabla(int i){
         return Integer.parseInt(tablaVentaLibros.getValueAt(i, 2).toString());
     }
     
-    public double getSubtotal_tabla(int i){
-        return Double.parseDouble(tablaVentaLibros.getValueAt(i, 3).toString());
-    }
     
     public int getModoPago(){
         if(cmbModoPago.getSelectedItem().toString().equals("Efectivo")){
@@ -290,7 +319,7 @@ public class VNuVenta extends javax.swing.JDialog {
         jLabel11 = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
+        btnFactura = new javax.swing.JButton();
         txtFecha = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         cmbModoPago = new javax.swing.JComboBox<>();
@@ -435,7 +464,12 @@ public class VNuVenta extends javax.swing.JDialog {
             }
         });
 
-        jButton6.setText("Factura");
+        btnFactura.setText("Factura");
+        btnFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFacturaActionPerformed(evt);
+            }
+        });
 
         txtFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -497,7 +531,7 @@ public class VNuVenta extends javax.swing.JDialog {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btnGenerarVenta)
                             .addGap(18, 18, 18)
-                            .addComponent(jButton6)
+                            .addComponent(btnFactura)
                             .addGap(268, 268, 268)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
@@ -585,7 +619,7 @@ public class VNuVenta extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGenerarVenta)
-                    .addComponent(jButton6)
+                    .addComponent(btnFactura)
                     .addComponent(jButton4))
                 .addContainerGap())
         );
@@ -683,19 +717,23 @@ public class VNuVenta extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDireccionActionPerformed
 
+    private void btnFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturaActionPerformed
+        controlador.procesar(BTN_GENERAR_FACTURA);
+    }//GEN-LAST:event_btnFacturaActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarDetalleVenta;
     private javax.swing.JButton btnBuscarC;
     private javax.swing.JButton btnBuscarL;
+    private javax.swing.JButton btnFactura;
     private javax.swing.JButton btnGenerarVenta;
     private javax.swing.JButton btnTotal;
     private javax.swing.JComboBox<String> cmbModoPago;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
