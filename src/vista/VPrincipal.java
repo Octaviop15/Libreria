@@ -13,6 +13,7 @@ public class VPrincipal extends javax.swing.JFrame {
     public static final String BTN_ALTA_EMPLEADO = "AGREGAR EMPLEADO";
     public static final String BTN_COMPRA = "COMPRA";
     public static final String BTN_NUEVO_CLIENTE = "NUEVO CLIENTE";
+    public static final String BTN_NUEVA_LIQUIDACION = "NUEVA LIQUIDACION";
     
     private Controlador controlador;
 
@@ -32,6 +33,7 @@ public class VPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton4 = new javax.swing.JButton();
+        nuevali = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
@@ -51,6 +53,13 @@ public class VPrincipal extends javax.swing.JFrame {
         jButton4.setText("jButton4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        nuevali.setText("Liquidacion");
+        nuevali.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevaliActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Archivo");
 
@@ -155,11 +164,17 @@ public class VPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(268, Short.MAX_VALUE)
+                .addComponent(nuevali)
+                .addGap(47, 47, 47))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 360, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(nuevali)
+                .addContainerGap(302, Short.MAX_VALUE))
         );
 
         pack();
@@ -203,8 +218,16 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemEmpleadoActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+
         System.exit(1);// TODO add your handling code here:
+
+      // TODO add your handling code here:
+
     }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void nuevaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevaliActionPerformed
+        controlador.vistali(BTN_NUEVA_LIQUIDACION); // TODO add your handling code here:
+    }//GEN-LAST:event_nuevaliActionPerformed
 
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -224,5 +247,6 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemEmpleado;
     public static javax.swing.JMenuItem menuItemLibro;
     public static javax.swing.JMenuItem menuItemVenta;
+    private javax.swing.JButton nuevali;
     // End of variables declaration//GEN-END:variables
 }
