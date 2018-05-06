@@ -134,7 +134,8 @@ public class Controlador {
         vmodcliente.setLocationRelativeTo(null);
         vmodificacioncliente.setControlador(this);
         vmodificacioncliente.setLocationRelativeTo(null);
-    
+     vp.jMenu6.setEnabled(true);
+       vp.menuItemCompra.setEnabled(true);
         
     }
      public void ejecutarusuario(){
