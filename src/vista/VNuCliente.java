@@ -26,6 +26,7 @@ public class VNuCliente extends javax.swing.JDialog {
     public VNuCliente(javax.swing.JDialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setTitle("Nuevo cliente");
         requerido1.setVisible(false);
         requerido2.setVisible(false);
         requerido3.setVisible(false);

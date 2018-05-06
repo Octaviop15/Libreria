@@ -28,6 +28,7 @@ public void setControlador(Controlador controlador){
     public VautorM(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setTitle("Modificacion de autor");
     }
 
     public int geti(){

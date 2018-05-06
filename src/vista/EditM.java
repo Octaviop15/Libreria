@@ -23,6 +23,7 @@ public static final String BTN_NUEVO_ACE = "NUEVO ACE";
     public EditM(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setTitle("Modificacion de editorial");
     }
 public void setControlador(Controlador controlador){
         this.controlador = controlador;

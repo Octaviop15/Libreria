@@ -884,8 +884,7 @@ public class Controlador {
                     //establecemos los valores en los jTextField de la ventana modLibro
                     vml.setISBN(rs.getString("ISBN"));
                     vml.setTitulo(rs.getString("titulo"));
-                    vml.setEdicion(rs.getString("edicion"));
-                    vml.setFecha(rs.getString("fecha_de_lanzamiento"));
+                    vml.setEdicion(rs.getString("edicion"));               
                     vml.setPaginas(rs.getString("paginas"));
                     vml.setPreciov(rs.getDouble("precio_venta"));
                     vml.setPrecioc(rs.getDouble("precio_compra"));
@@ -1209,7 +1208,7 @@ public class Controlador {
                       
                       document.add(p);                 
                       document.add(new Paragraph("\n"));
-                      document.add(new Paragraph("Fecha:" + fecha + "\n" + "Apellido:" + apellido + "\n" + "Nombre:" + nombre + "\n" + "DNI:" + DNI + "\n" + "Dirreccion:" + domicilio));
+                      document.add(new Paragraph("Fecha:" + fecha + "\n" +  "Dirreccion: Yerba Buena Shopping, Av. Aconquija 1799, 4107 Yerba Buena, Tucumán" + "\n" + "Cliente:" + "\n\n" +  "Apellido:" + apellido + "\n" + "Nombre:" + nombre + "\n" + "DNI:" + DNI + "\n" + "Dirreccion:" + domicilio));
                       document.add(new Paragraph("\n"));
                       document.add(new Paragraph("Detalle de venta"));
                        
@@ -1253,6 +1252,43 @@ public class Controlador {
                     JOptionPane.showMessageDialog(null,"Debe calcular el total de la venta"); 
                     
                 }
+            }
+                
+                
+                
+    if(valor.equals(liquidacion.BTN_CALCULAR)){
+  
+        
+    
+    Double sueldo = liquidacion.getSueldo();
+    Double jubilacion = sueldo * 0.11;
+    Double ley_19032  = sueldo * 0.03;   
+    int antiguedad = liquidacion.compararFecha();
+    
+    
+    
+  
+    
+   
+    
+    liquidacion.setAntiguedad(antiguedad);
+    liquidacion.setJubilacion(jubilacion);
+    liquidacion.setLey_19032(ley_19032);
+    
+    
+    liquidacion.calcularEscalafon();
+    double escalafon = liquidacion.getEscalafon();
+    Double total_haberes = sueldo + escalafon; 
+    Double total_descuentos = jubilacion + ley_19032; 
+    Double sueldo_neto = total_haberes - total_descuentos;
+    
+    liquidacion.setHaberes(total_haberes);
+    liquidacion.setDescuentos(total_descuentos);
+    liquidacion.setSueldoNeto(sueldo_neto); 
+    
+}
+    
+
                        
                 
                
@@ -1280,7 +1316,7 @@ public class Controlador {
             
              
              
-    }
+    
     
     
 
@@ -3025,6 +3061,42 @@ if(valor.equals(valtaEmple.BTN_BUSCAR_MODIUSER)){
    
      public void vistali(String valor){
     if(valor.equals(vp.BTN_NUEVA_LIQUIDACION)){
+        Conexion conectar = new Conexion();
+        Connection conn   = conectar.getConexion();
+        
+        liquidacion.limpiarTabla();
+        
+        Object[] datos = new Object[2];
+        int idEmpleado = liquidacion.getidem();
+        
+        String SQL1 = "SELECT periodo,idLiqSueldo FROM LiquidacionSueldo where idEmpleado = '"+idEmpleado+"'";
+        try {
+            
+       
+        Statement st1 = conn.createStatement();
+        ResultSet rs1 = st1.executeQuery(SQL1);
+        while(rs1.next()){
+            datos[0] = rs1.getString("periodo");
+            int idLiqSueldo = rs1.getInt("idLiqSueldo");
+            
+            
+            String SQL2 = "SELECT neto_pagar FROM detalleLiquidacion WHERE LiquidacionSueldo_idLiqSueldo = '"+idLiqSueldo+"'";
+            Statement st2 = conn.createStatement();
+            ResultSet rs2 = st2.executeQuery(SQL2);
+            if(rs2.next()){
+                datos[1] = rs2.getDouble("neto_pagar");
+                
+                liquidacion.insertarFila(datos);
+                
+                
+            }
+            
+        }
+        
+        
+         } catch (Exception e) {
+        }
+        
             liquidacion.setVisible(true);
             
         }
@@ -3155,6 +3227,10 @@ catch(SQLException ex){
    }
   
    }
+          
+          
+    
+          
     
           
           public void AGRE(String valor){
@@ -3162,9 +3238,12 @@ if(valor.equals(liquidacion.BTN_SLECT_AGRE)){
     Conexion conectar = new Conexion();
     Connection conn   = conectar.getConexion();
     
+    
+    Object[] datos = new Object[2];
     int idem= liquidacion.getidem();
      String cate= liquidacion.getcategoria();
       String fecha= liquidacion.getfecha();
+      String periodo = liquidacion.getPeriodo();
       
     if(idem<=0 || cate.equals("") || fecha.equals("")  )
     { JOptionPane.showMessageDialog(null,"Los campos ID EMPLEADO,CATEGORIA y FECHA no pueden ser Nulos");}
@@ -3175,8 +3254,8 @@ if(valor.equals(liquidacion.BTN_SLECT_AGRE)){
     
    
     
-    String SQL = "INSERT INTO liquidacionsueldo (idEmpleado,categoria,fecha_de_ingreso) "
-                      +    "VALUES ('"+idem+"','"+cate+"','"+fecha+"')";
+    String SQL = "INSERT INTO liquidacionsueldo (idEmpleado,categoria,fecha_de_ingreso,periodo) "
+                      +    "VALUES ('"+idem+"','"+cate+"','"+fecha+"','"+periodo+"')";
 
     
        try{  
@@ -3193,13 +3272,45 @@ if(valor.equals(liquidacion.BTN_SLECT_AGRE)){
        JOptionPane.showMessageDialog(null,"Liquidacion Agregada");
        
 }
+    
+    
    
-        }
+
+    
+
 liquidacion.radic();
+
+
+String SQL1 = "SELECT idLiquidacionSueldo_idLiqSueldo FROM liquidacion ORDER BY idLiquidacionSueldo_idLiqSueldo DESC LIMIT 1";
+try{
+Statement st = conn.createStatement();
+ResultSet rs = st.executeQuery(SQL1);
+if(rs.next()){
+    int idLiquidacion = rs.getInt("LiquidacionSueldo_idLiqSueldo");
+
+
+    String SQL2 = "INSERT INTO detalleLiquidacion (sueldo,aporte_jub,aporte_ley19032,escalafon,total_haberes,total_decuento,neto_pagar,LiquidacionSueldo_idLiqSueldo) "
+                  + "VALUES ('"+liquidacion.getSueldo()+"','"+liquidacion.getJubilacion()+"','"+liquidacion.getLey19032()+"','"+escalafon+"','"+liquidacion.getTotalHaberes()+"','"+liquidacion.getTotalDescuentos()+"','"+liquidacion.getNetoPagar()+"','"+idLiquidacion+"'";
+
+    
+
 }
+}catch(Exception e){
+    JOptionPane.showMessageDialog(null,e);
+}
+datos[0] = periodo;
+datos[1] = liquidacion.getNetoPagar();
+liquidacion.insertarFila(datos);
+
+
+          }
+
           
+
+
        
- }
+          }
+}
     
  
    

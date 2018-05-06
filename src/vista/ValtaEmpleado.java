@@ -39,6 +39,7 @@ private Controlador controlador;
     public ValtaEmpleado(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setTitle("Gestion de empleado");
          
         
         Requerido1.setVisible(false);

@@ -23,6 +23,7 @@ public class Edit extends javax.swing.JDialog {
     public Edit(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setTitle("Editorial");
     }
 
     public void setControlador(Controlador controlador){

@@ -50,18 +50,19 @@ public class VPrincipal extends javax.swing.JFrame {
         menuItemEditorial = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         menuItemEmpleado = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
+        meunItemLiquidacion = new javax.swing.JMenuItem();
 
         jButton4.setText("jButton4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(400, 400));
         getContentPane().setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 51, 51));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1393924_605824496122545_1496992593_n.png"))); // NOI18N
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 0, 380, 374);
+        jLabel1.setBounds(10, 0, 370, 360);
 
         jMenu1.setText("Archivo");
 
@@ -158,10 +159,15 @@ public class VPrincipal extends javax.swing.JFrame {
         });
         jMenu5.add(menuItemEmpleado);
 
-        jMenuBar1.add(jMenu5);
+        meunItemLiquidacion.setText("Liquidacion");
+        meunItemLiquidacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                meunItemLiquidacionActionPerformed(evt);
+            }
+        });
+        jMenu5.add(meunItemLiquidacion);
 
-        jMenu6.setText("Liquidacion");
-        jMenuBar1.add(jMenu6);
+        jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
 
@@ -218,8 +224,12 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_nuevaliActionPerformed
 
     private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
-        controlador.vistali(BTN_NUEVA_LIQUIDACION);
+       
     }//GEN-LAST:event_jMenu3ActionPerformed
+
+    private void meunItemLiquidacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meunItemLiquidacionActionPerformed
+         controlador.vistali(BTN_NUEVA_LIQUIDACION);// TODO add your handling code here:
+    }//GEN-LAST:event_meunItemLiquidacionActionPerformed
 
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -230,7 +240,6 @@ public class VPrincipal extends javax.swing.JFrame {
     public static javax.swing.JMenu jMenu2;
     public static javax.swing.JMenu jMenu4;
     public static javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     public static javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem9;
     public static javax.swing.JMenuItem menuItemAutor;
@@ -241,5 +250,6 @@ public class VPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemEmpleado;
     public static javax.swing.JMenuItem menuItemLibro;
     public static javax.swing.JMenuItem menuItemVenta;
+    private javax.swing.JMenuItem meunItemLiquidacion;
     // End of variables declaration//GEN-END:variables
 }

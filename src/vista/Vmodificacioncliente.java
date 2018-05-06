@@ -56,6 +56,7 @@ public class Vmodificacioncliente extends javax.swing.JDialog {
     public Vmodificacioncliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setTitle("Modificacion de cliente");
         Requerido1.setVisible(false);
         Requerido2.setVisible(false);
         Requerido3.setVisible(false);

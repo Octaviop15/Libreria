@@ -29,6 +29,7 @@ public class VmodiCliente extends javax.swing.JDialog {
     public VmodiCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setTitle("Gestion de cliente");
     }
 
     /**

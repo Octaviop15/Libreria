@@ -31,6 +31,7 @@ public class VCompra extends javax.swing.JDialog {
     public VCompra(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setTitle("Compra");
         desactivar_txt();
         desactivar_btn();
         cargarTabla();
@@ -80,14 +81,14 @@ public class VCompra extends javax.swing.JDialog {
      }
      
      public void desactivar_txt(){
-         txtFecha.setEnabled(false);
-         txtTitulo.setEnabled(false);
-         txtPrecio.setEnabled(false);
-         txtStock.setEnabled(false);
-         txtCantidad.setEnabled(false);
-         txtTotal.setEnabled(false);
-         txtApellido.setEnabled(false);
-         txtNombre.setEnabled(false);
+         txtFecha.setEditable(false);
+         txtTitulo.setEditable(false);
+         txtPrecio.setEditable(false);
+         txtStock.setEditable(false);
+         txtCantidad.setEditable(false);
+         txtTotal.setEditable(false);
+         txtApellido.setEditable(false);
+         txtNombre.setEditable(false);
          
      }
      
@@ -98,16 +99,16 @@ public class VCompra extends javax.swing.JDialog {
      
      public void activarTotal(){
          btnTotal.setEnabled(true);
-         txtTotal.setEnabled(true);
+         txtTotal.setEditable(true);
      }
      
       public void desactivarTotal(){
          btnTotal.setEnabled(false);
-         txtTotal.setEnabled(false);
+         txtTotal.setEditable(false);
      }
       
        public void activarCantidad(){
-         txtCantidad.setEnabled(true);
+         txtCantidad.setEditable(true);
          btnAgregarDetalleCompra.setEnabled(true);
      }
      

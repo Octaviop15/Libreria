@@ -2,6 +2,7 @@
 package vista;
 
 import controlador.Controlador;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 
@@ -19,6 +20,7 @@ public class VModLibro extends javax.swing.JDialog {
     public VModLibro(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setTitle("Modificacion de libro");
         requerido1.setVisible(false);
         requerido2.setVisible(false);
     }
@@ -46,7 +48,7 @@ public class VModLibro extends javax.swing.JDialog {
      }
        public void limpiar(){
          txtISBN.setText("");
-         txtFecha.setText("");
+     
          txtTitulo.setText("");
          txtEdicion.setText("");
          txtPaginas.setText("");
@@ -107,10 +109,11 @@ public class VModLibro extends javax.swing.JDialog {
         return txtPaginas.getText();
     }
  
-    public String getFecha(){
-        return txtFecha.getText();
-    }
-    
+      public String getFecha(){
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
+        return formato.format(fecha.getDate());
+     }
+      
     public String getDescripcion(){
         return txtareaDescripcion.getText();
     }
@@ -183,11 +186,7 @@ public class VModLibro extends javax.swing.JDialog {
         txtPaginas.setText(paginas);
     }
     
-    public void setFecha(String fecha){
-        txtFecha.setText(fecha);
-    }
-    
- 
+   
     public void setStock(int stock){
         txtStock.setText(String.valueOf(stock));
     }
@@ -230,7 +229,6 @@ public class VModLibro extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         txtEdicion = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtFecha = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtPaginas = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
@@ -252,6 +250,7 @@ public class VModLibro extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtPrecioc = new javax.swing.JTextField();
+        fecha = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -359,22 +358,24 @@ public class VModLibro extends javax.swing.JDialog {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtISBN)
-                            .addComponent(txtTitulo)
-                            .addComponent(txtEdicion)
-                            .addComponent(txtFecha)
-                            .addComponent(txtPaginas)
-                            .addComponent(txtPreciov)
-                            .addComponent(txtPrecioc)
-                            .addComponent(txtStock)
-                            .addComponent(cmbEditorial, 0, 215, Short.MAX_VALUE)
-                            .addComponent(cmbAutor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cmbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(requerido1)
-                            .addComponent(requerido2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtISBN)
+                                    .addComponent(txtTitulo)
+                                    .addComponent(txtEdicion)
+                                    .addComponent(txtPaginas)
+                                    .addComponent(txtPreciov)
+                                    .addComponent(txtPrecioc)
+                                    .addComponent(txtStock)
+                                    .addComponent(cmbEditorial, 0, 215, Short.MAX_VALUE)
+                                    .addComponent(cmbAutor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(requerido1)
+                                    .addComponent(requerido2)))
+                            .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -402,10 +403,10 @@ public class VModLibro extends javax.swing.JDialog {
                             .addComponent(jLabel6)
                             .addComponent(txtEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)))
@@ -500,6 +501,7 @@ public class VModLibro extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cmbAutor;
     private javax.swing.JComboBox<String> cmbCategoria;
     private javax.swing.JComboBox<String> cmbEditorial;
+    private com.toedter.calendar.JDateChooser fecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -516,7 +518,6 @@ public class VModLibro extends javax.swing.JDialog {
     private javax.swing.JLabel requerido1;
     private javax.swing.JLabel requerido2;
     private javax.swing.JTextField txtEdicion;
-    private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtISBN;
     private javax.swing.JTextField txtPaginas;
     private javax.swing.JTextField txtPrecioc;

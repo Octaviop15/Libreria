@@ -56,23 +56,27 @@
                           <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="txtISBN" max="32767" attributes="0"/>
-                          <Component id="txtTitulo" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtEdicion" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtFecha" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtPaginas" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtPreciov" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtPrecioc" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtStock" alignment="0" max="32767" attributes="0"/>
-                          <Component id="cmbEditorial" alignment="0" pref="215" max="32767" attributes="0"/>
-                          <Component id="cmbAutor" alignment="0" max="32767" attributes="0"/>
-                          <Component id="cmbCategoria" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="requerido1" min="-2" max="-2" attributes="0"/>
-                          <Component id="requerido2" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txtISBN" max="32767" attributes="0"/>
+                                  <Component id="txtTitulo" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtEdicion" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtPaginas" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtPreciov" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtPrecioc" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtStock" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="cmbEditorial" alignment="0" pref="215" max="32767" attributes="0"/>
+                                  <Component id="cmbAutor" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="cmbCategoria" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="requerido1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="requerido2" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="fecha" min="-2" pref="121" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -110,11 +114,11 @@
                           <Component id="txtEdicion" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtFecha" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                          <Component id="fecha" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="txtPaginas" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -195,8 +199,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Fecha Lanzamiento"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtFecha">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
@@ -326,6 +328,8 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPrecioc">
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="fecha">
     </Component>
   </SubComponents>
 </Form>

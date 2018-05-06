@@ -36,6 +36,7 @@ public String getnombrecategoria(){
     public Vcategoria(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setTitle("Gestion de categoria");
     }
 
     /**

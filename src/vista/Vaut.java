@@ -44,6 +44,7 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
     public Vaut(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setTitle("Gestion de autor");
     }
 
     /**

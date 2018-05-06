@@ -36,6 +36,7 @@ public class VNuVenta extends javax.swing.JDialog {
     public VNuVenta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setTitle("Venta");
         cargarTabla();
           setFechaHora();
         desactivar_txt();
@@ -89,17 +90,17 @@ public class VNuVenta extends javax.swing.JDialog {
     
     
     public void desactivar_txt(){
-        txtNombre.setEnabled(false);
-        txtApellido.setEnabled(false);
-        txtTitulo.setEnabled(false);
-        txtPrecio.setEnabled(false);
-        txtStock.setEnabled(false);
-        txtTotal.setEnabled(false);
-        txtCant.setEnabled(false);
-        txtDireccion.setEnabled(false);    
-        txtFecha.setEnabled(false);
-        txtNombreEmpleado.setEnabled(false);
-        txtApellidoEmpleado.setEnabled(false);
+        txtNombre.setEditable(false);
+        txtApellido.setEditable(false);
+        txtTitulo.setEditable(false);
+        txtPrecio.setEditable(false);
+        txtStock.setEditable(false);
+        txtTotal.setEditable(false);
+        txtCant.setEditable(false);
+        txtDireccion.setEditable(false);    
+        txtFecha.setEditable(false);
+        txtNombreEmpleado.setEditable(false);
+        txtApellidoEmpleado.setEditable(false);
         
     }
     
@@ -110,22 +111,22 @@ public class VNuVenta extends javax.swing.JDialog {
     
     public void activarTotal(){
         btnTotal.setEnabled(true);
-        txtTotal.setEnabled(true);
+        txtTotal.setEditable(true);
     }
     
      public void desactivarTotal(){
          btnTotal.setEnabled(false);
-         txtTotal.setEnabled(false);
+         txtTotal.setEditable(false);
      }
      
     
     public void activarCantidad(){
-        txtCant.setEnabled(true);
+        txtCant.setEditable(true);
         btnAgregarDetalleVenta.setEnabled(true);
     }
     
     public void visibilidadCantOff(){
-        txtCant.setEnabled(false);
+        txtCant.setEditable(false);
         
     }
    
