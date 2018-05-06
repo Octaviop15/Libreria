@@ -2973,7 +2973,7 @@ if(valor.equals(valtaEmple.BTN_BUSCAR_MODIUSER)){
              }
               if(cap.equals("Administrador"))
               {
-              JOptionPane.showMessageDialog(null,"Sesion Iniciada como ADMINISTRADOR\n Bienvenido"+user);
+              JOptionPane.showMessageDialog(null,"Sesion Iniciada como ADMINISTRADOR\n Bienvenido "+user);
               ejecutar();
               login.setVisible(false);
              
