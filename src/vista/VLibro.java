@@ -85,7 +85,7 @@ public class VLibro extends javax.swing.JDialog {
      
      public String getFecha(){
         SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
-        return formato.format(fecha.getDate());
+        return formato.format(fecha.getDate()); 
      }
      
      public void limpiarTabla(){

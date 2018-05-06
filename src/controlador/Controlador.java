@@ -134,7 +134,8 @@ public class Controlador {
         vmodcliente.setLocationRelativeTo(null);
         vmodificacioncliente.setControlador(this);
         vmodificacioncliente.setLocationRelativeTo(null);
-    
+     vp.jMenuItem2.setEnabled(true);
+       vp.menuItemCompra.setEnabled(true);
         
     }
      public void ejecutarusuario(){
@@ -176,7 +177,7 @@ public class Controlador {
         vmodificacioncliente.setControlador(this);
         vmodificacioncliente.setLocationRelativeTo(null);
         
-       vp.jMenu5.setEnabled(false);
+       vp.jMenuItem2.setEnabled(false);
        vp.menuItemCompra.setEnabled(false);
     }
     
@@ -1664,9 +1665,9 @@ if(valor.equals(vaut.BTN_NUEVO_AUTOR)){
     
     String n= vaut.getaunom();
     String h= vaut.getauape();
-    
+   
     if(n.equals("") || h.equals(""))
-    { JOptionPane.showMessageDialog(null,"EL autor Debe Tener Nombre Y Apellido");}
+    { JOptionPane.showMessageDialog(null,"EL autor Debe Tener Nombre Y Apellido ");}
     else{
    
 
@@ -1693,6 +1694,7 @@ if(valor.equals(vaut.BTN_NUEVO_AUTOR)){
               }
        JOptionPane.showMessageDialog(null,"Autor Agregado");
         mostrar();
+        vaut.limpiautor();
 }
     
         }
@@ -1811,7 +1813,7 @@ catch(SQLException ex){
        vautorm.a.setText(vaut.tablaautor.getValueAt(fil, 2).toString());
        vautorm.p.setText(vaut.tablaautor.getValueAt(fil, 3).toString());
        vautorm.c.setText(vaut.tablaautor.getValueAt(fil, 4).toString());
-       vautorm.f.setText(vaut.tablaautor.getValueAt(fil, 5).toString());
+       
        vautorm.i.setText(vaut.tablaautor.getValueAt(fil, 0).toString());
        
      vautorm.setVisible(true);
@@ -2113,7 +2115,7 @@ catch(SQLException ex){
        vmodificacioncliente.nomtxt.setText(vmodcliente.modcliente.getValueAt(fila, 1).toString());
        vmodificacioncliente.apetxt.setText(vmodcliente.modcliente.getValueAt(fila, 2).toString());
        vmodificacioncliente.dnitxt.setText(vmodcliente.modcliente.getValueAt(fila, 3).toString());
-       vmodificacioncliente.nacitxt.setText(vmodcliente.modcliente.getValueAt(fila, 4).toString());
+  
        vmodificacioncliente.fijotxt.setText(vmodcliente.modcliente.getValueAt(fila, 5).toString());
        vmodificacioncliente.moviltxt.setText(vmodcliente.modcliente.getValueAt(fila, 6).toString());
        vmodificacioncliente.ciutxt.setText(vmodcliente.modcliente.getValueAt(fila, 7).toString());
@@ -2388,7 +2390,7 @@ try{
     datosusuario[0]=rs.getString(1);
     datosusuario[1]=rs.getString(2);
     datosusuario[2]=rs.getString(3);
-    datosusuario[3]=rs.getString(10);
+    datosusuario[3]=rs.getString(9);
      
     
     
@@ -2515,7 +2517,7 @@ Connection conn   = conectar.getConexion();
        valtaEmple.campoNombre.setText(valtaEmple.tablaempleados.getValueAt(fila, 1).toString());
        valtaEmple.campoApellido.setText(valtaEmple.tablaempleados.getValueAt(fila, 2).toString());
        valtaEmple.campoCiudad.setText(valtaEmple.tablaempleados.getValueAt(fila, 4).toString());
-       valtaEmple.campoFechaNacimiento.setText(valtaEmple.tablaempleados.getValueAt(fila, 3).toString());
+    
       
        valtaEmple.campoTelFijo.setText(valtaEmple.tablaempleados.getValueAt(fila, 5).toString());
        valtaEmple.campoTelMovil.setText(valtaEmple.tablaempleados.getValueAt(fila,6).toString());
@@ -2675,9 +2677,9 @@ if(valor.equals(valtaEmple.BTN_BUSCAR_ALTAU)){
     int n= valtaEmple.getidempleado();
      String user= valtaEmple.getUsuario();
       String pa= valtaEmple.getpass();
-       String ro= valtaEmple.getRol();
-    if(n<=0 || user.equals("") || pa.equals("") || ro.equals("") )
-    { JOptionPane.showMessageDialog(null,"Los campos PASSWORD y USUARIO no pueden ser Nulos");}
+       String rx= valtaEmple.getRol();
+    if(n<=0 || user.equals("") || pa.equals("") || rx.equals("") )
+    { JOptionPane.showMessageDialog(null,"Los campos IDEMPLEADO,PASSWORD y USUARIO no pueden ser Nulos");}
     else{
    
 
@@ -2686,7 +2688,7 @@ if(valor.equals(valtaEmple.BTN_BUSCAR_ALTAU)){
    
     
     String SQL = "INSERT INTO usuario (usuario,password,rol,idEmpleado) "
-                      +    "VALUES ('"+user+"','"+pa+"','"+ro+"','"+n+"')";
+                      +    "VALUES ('"+user+"','"+pa+"','"+rx+"','"+n+"')";
 
     
        try{  
@@ -2894,7 +2896,7 @@ if(valor.equals(valtaEmple.BTN_BUSCAR_MODIUSER)){
    try{
 
     String Ssql = "UPDATE usuario SET usuario=?, password=?,rol=?"
-                    + "WHERE idEmpleado=?";
+                    + "WHERE idUsuarios=?";
     
  
     PreparedStatement prest = conn.prepareStatement(Ssql);
@@ -2904,7 +2906,7 @@ if(valor.equals(valtaEmple.BTN_BUSCAR_MODIUSER)){
      prest.setString(1, user);
      prest.setString(2, pass);
      prest.setString(3, ro);
-     prest.setInt(4, idemp);
+     prest.setInt(4, iduser);
      
 
     
@@ -3008,7 +3010,7 @@ if(valor.equals(valtaEmple.BTN_BUSCAR_MODIUSER)){
              }
               if(cap.equals("Administrador"))
               {
-              JOptionPane.showMessageDialog(null,"Sesion Iniciada como ADMINISTRADOR\n Bienvenido"+user);
+              JOptionPane.showMessageDialog(null,"Sesion Iniciada como ADMINISTRADOR\n Bienvenido "+user);
               ejecutar();
               login.setVisible(false);
              
@@ -3305,12 +3307,23 @@ liquidacion.insertarFila(datos);
 
           }
 
-          
+         
 
 
        
           }
+
+
+           public void cerrar(String valor){
+  
+           vp.dispose();
+           login.limpiarlogin();
+           login.setVisible(true);
+          
+
 }
+ }
+
     
  
    

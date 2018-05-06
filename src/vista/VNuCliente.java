@@ -6,6 +6,7 @@
 package vista;
 
 import controlador.Controlador;
+import java.text.SimpleDateFormat;
 
 
 
@@ -62,7 +63,7 @@ public class VNuCliente extends javax.swing.JDialog {
             requerido3.setVisible(false);
         }
         
-        if(txtFecNac.getText().equals("")){
+        if(txtFecNac.equals("")){
             requerido4.setVisible(true);
             cont++;
         }
@@ -89,7 +90,7 @@ public class VNuCliente extends javax.swing.JDialog {
         txtNombre.setText("");
         txtApellido.setText("");
         txtDNI.setText("");
-        txtFecNac.setText("");
+        
         txtCiudad.setText("");
         txtDireccion.setText("");
         txtTel.setText("");
@@ -111,7 +112,8 @@ public class VNuCliente extends javax.swing.JDialog {
     }
     
     public String getFechaNac(){
-        return txtFecNac.getText();
+        SimpleDateFormat formato=new SimpleDateFormat("yyyy/MM/dd");
+        return formato.format(txtFecNac.getDate());
     }
     
     public String getTelFijo(){
@@ -147,7 +149,6 @@ public class VNuCliente extends javax.swing.JDialog {
         txtNombre = new javax.swing.JTextField();
         txtApellido = new javax.swing.JTextField();
         txtDNI = new javax.swing.JTextField();
-        txtFecNac = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtTel = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -167,6 +168,7 @@ public class VNuCliente extends javax.swing.JDialog {
         requerido4 = new javax.swing.JLabel();
         Requerido5 = new javax.swing.JLabel();
         Admini = new javax.swing.JButton();
+        txtFecNac = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(643, 342));
@@ -231,7 +233,7 @@ public class VNuCliente extends javax.swing.JDialog {
 
         jLabel9.setText("Direccion");
 
-        jLabel10.setText("Correro");
+        jLabel10.setText("Correo");
 
         txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -308,14 +310,13 @@ public class VNuCliente extends javax.swing.JDialog {
                                             .addComponent(jLabel4))
                                         .addGroup(layout.createSequentialGroup()
                                             .addGap(78, 78, 78)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txtFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(txtFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addComponent(jLabel6))
                             .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -368,11 +369,11 @@ public class VNuCliente extends javax.swing.JDialog {
                             .addComponent(jLabel5)
                             .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(requerido3))
-                        .addGap(11, 11, 11)
+                        .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(txtFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(requerido4))))
+                            .addComponent(requerido4)
+                            .addComponent(txtFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -381,7 +382,7 @@ public class VNuCliente extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
@@ -535,7 +536,7 @@ controlador.mostrarclientes(BTN_AGREGAR_MODC);        // TODO add your handling 
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDNI;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtFecNac;
+    public static com.toedter.calendar.JDateChooser txtFecNac;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTel;
     // End of variables declaration//GEN-END:variables

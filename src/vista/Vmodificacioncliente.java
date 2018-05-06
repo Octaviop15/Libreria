@@ -7,6 +7,7 @@
 package vista;
 
 import controlador.Controlador;
+import java.text.SimpleDateFormat;
 
 
 /**
@@ -33,7 +34,9 @@ public class Vmodificacioncliente extends javax.swing.JDialog {
         return Integer.parseInt(dnitxt.getText());
         }
     public String getnacicli(){
-        return nacitxt.getText();
+           SimpleDateFormat formato=new SimpleDateFormat("yyyy/MM/dd");
+        return formato.format(nacitxt.getDate());
+       
         }
     public String getfijocli(){
       return fijotxt.getText();
@@ -89,7 +92,7 @@ public class Vmodificacioncliente extends javax.swing.JDialog {
             Requerido3.setVisible(false);
         }
         
-        if(nacitxt.getText().equals("")){
+        if(nacitxt.equals("")){
             Requerido4.setVisible(true);
             cont++;
         }
@@ -129,7 +132,6 @@ public class Vmodificacioncliente extends javax.swing.JDialog {
         nomtxt = new javax.swing.JTextField();
         apetxt = new javax.swing.JTextField();
         dnitxt = new javax.swing.JTextField();
-        nacitxt = new javax.swing.JTextField();
         fijotxt = new javax.swing.JTextField();
         moviltxt = new javax.swing.JTextField();
         ciutxt = new javax.swing.JTextField();
@@ -142,6 +144,7 @@ public class Vmodificacioncliente extends javax.swing.JDialog {
         Requerido3 = new javax.swing.JLabel();
         Requerido4 = new javax.swing.JLabel();
         Requerido5 = new javax.swing.JLabel();
+        nacitxt = new com.toedter.calendar.JDateChooser();
 
         jLabel2.setText("jLabel2");
 
@@ -240,7 +243,7 @@ public class Vmodificacioncliente extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(59, 59, 59)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -263,23 +266,24 @@ public class Vmodificacioncliente extends javax.swing.JDialog {
                                 .addComponent(apetxt, javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(dnitxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(Nacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(nacitxt, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(diretxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                                .addComponent(cotxt, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(ciutxt, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(moviltxt, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(fijotxt, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(Nacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(nacitxt, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton1)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(diretxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                                        .addComponent(cotxt, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(ciutxt, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(moviltxt, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(fijotxt, javax.swing.GroupLayout.Alignment.TRAILING)))))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -318,11 +322,11 @@ public class Vmodificacioncliente extends javax.swing.JDialog {
                     .addComponent(dnitxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Requerido3))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Nacimiento)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(nacitxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Requerido4)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(Nacimiento)
+                        .addComponent(Requerido4))
+                    .addComponent(nacitxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(fijotxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -502,7 +506,7 @@ public class Vmodificacioncliente extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     public static javax.swing.JTextField moviltxt;
-    public static javax.swing.JTextField nacitxt;
+    public static com.toedter.calendar.JDateChooser nacitxt;
     private javax.swing.JLabel nombretxt;
     public static javax.swing.JTextField nomtxt;
     // End of variables declaration//GEN-END:variables
