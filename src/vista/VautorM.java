@@ -7,6 +7,7 @@
 package vista;
 
 import controlador.Controlador;
+import java.text.SimpleDateFormat;
 import static vista.EditM.BTN_NUEVO_ACE;
 
 /**
@@ -50,7 +51,9 @@ public void setControlador(Controlador controlador){
         
     }
     public String getf(){
-        return f.getText();
+        
+            SimpleDateFormat formato=new SimpleDateFormat("yyyy/MM/dd");
+        return formato.format(f.getDate());
         
     }
     /**
@@ -66,7 +69,6 @@ public void setControlador(Controlador controlador){
         a = new javax.swing.JTextField();
         p = new javax.swing.JTextField();
         c = new javax.swing.JTextField();
-        f = new javax.swing.JTextField();
         i = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -76,6 +78,7 @@ public void setControlador(Controlador controlador){
         jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        f = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -105,12 +108,6 @@ public void setControlador(Controlador controlador){
         c.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 cKeyTyped(evt);
-            }
-        });
-
-        f.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                fKeyTyped(evt);
             }
         });
 
@@ -159,19 +156,22 @@ public void setControlador(Controlador controlador){
                         .addComponent(jButton2))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel5))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
-                        .addGap(18, 41, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(a, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                            .addComponent(p, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(c, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(f, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(n))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 41, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(a, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                                    .addComponent(p, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(c, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(n)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(41, 41, 41)
+                                .addComponent(f, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(53, 53, 53))
         );
         layout.setVerticalGroup(
@@ -195,11 +195,11 @@ public void setControlador(Controlador controlador){
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
                         .addComponent(c, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(f, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(14, 14, 14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(f, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(i, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -257,15 +257,6 @@ controlador.modiautor(BTN_NUEVO_ACEPTAR);         // TODO add your handling code
         }   // TODO add your handling code here:
     }//GEN-LAST:event_cKeyTyped
 
-    private void fKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fKeyTyped
-     char c = evt.getKeyChar();
-        
-        if(!Character.isLetter(c)){
-            getToolkit().beep();
-            evt.consume();
-        }     // TODO add your handling code here:
-    }//GEN-LAST:event_fKeyTyped
-
     private void nActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nActionPerformed
     
     }//GEN-LAST:event_nActionPerformed
@@ -275,7 +266,7 @@ controlador.modiautor(BTN_NUEVO_ACEPTAR);         // TODO add your handling code
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTextField a;
     public javax.swing.JTextField c;
-    public javax.swing.JTextField f;
+    private com.toedter.calendar.JDateChooser f;
     public javax.swing.JTextField i;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

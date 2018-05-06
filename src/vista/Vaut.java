@@ -7,6 +7,7 @@
 package vista;
 
 import controlador.Controlador;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -23,6 +24,7 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
     /**
      * Creates new form Vaut
      */
+
 
      public void limpiautor(){
         aunomtxt.setText("");
@@ -44,6 +46,7 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
     public Vaut(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
     }
 
     /**
@@ -66,7 +69,6 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        aufechanaci = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -77,6 +79,7 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
         modiautor = new javax.swing.JButton();
         Borraautor = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        aufechanaci = new com.toedter.calendar.JDateChooser();
 
         jLabel1.setText("jLabel1");
 
@@ -122,12 +125,6 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
         jLabel4.setText("Pais");
 
         jLabel5.setText("Ciudad");
-
-        aufechanaci.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aufechanaciActionPerformed(evt);
-            }
-        });
 
         jLabel6.setText("Fecha de Nacimiento");
 
@@ -201,11 +198,6 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(aupatxt, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(aucitxt, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(aufechanaci, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,6 +241,12 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
                 .addGap(205, 205, 205)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addGap(45, 45, 45)
+                .addComponent(aufechanaci, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,7 +276,7 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
                     .addComponent(jLabel5)
                     .addComponent(aucitxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(aufechanaci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -299,10 +297,6 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void aufechanaciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aufechanaciActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_aufechanaciActionPerformed
 
     private void aunomtxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_aunomtxtKeyTyped
  char c = evt.getKeyChar();
@@ -337,7 +331,11 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
     }//GEN-LAST:event_aucitxtKeyTyped
 
     private void auagreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_auagreActionPerformed
-controlador.altaau(BTN_NUEVO_AUTOR);        // TODO add your handling code here:
+
+        
+         controlador.altaau(BTN_NUEVO_AUTOR);   
+         
+            // TODO add your handling code here:
     }//GEN-LAST:event_auagreActionPerformed
 
     private void busquedaautorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busquedaautorActionPerformed
@@ -392,7 +390,8 @@ public String getaupa(){
     }
 
 public String getaufechanaci(){
-       return aufechanaci.getText(); 
+          SimpleDateFormat formato=new SimpleDateFormat("yyyy/MM/dd");
+        return formato.format(aufechanaci.getDate());
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Borraautor;
@@ -400,7 +399,7 @@ public String getaufechanaci(){
     private javax.swing.JButton auagre;
     private javax.swing.JTextField auapetxt;
     private javax.swing.JTextField aucitxt;
-    private javax.swing.JTextField aufechanaci;
+    private com.toedter.calendar.JDateChooser aufechanaci;
     private javax.swing.JTextField aunomtxt;
     private javax.swing.JTextField aupatxt;
     public static javax.swing.JTextField busqautorid;

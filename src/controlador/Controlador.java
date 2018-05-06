@@ -1629,9 +1629,9 @@ if(valor.equals(vaut.BTN_NUEVO_AUTOR)){
     
     String n= vaut.getaunom();
     String h= vaut.getauape();
-    
+   
     if(n.equals("") || h.equals(""))
-    { JOptionPane.showMessageDialog(null,"EL autor Debe Tener Nombre Y Apellido");}
+    { JOptionPane.showMessageDialog(null,"EL autor Debe Tener Nombre Y Apellido ");}
     else{
    
 
@@ -1658,6 +1658,7 @@ if(valor.equals(vaut.BTN_NUEVO_AUTOR)){
               }
        JOptionPane.showMessageDialog(null,"Autor Agregado");
         mostrar();
+        vaut.limpiautor();
 }
     
         }
@@ -1776,7 +1777,7 @@ catch(SQLException ex){
        vautorm.a.setText(vaut.tablaautor.getValueAt(fil, 2).toString());
        vautorm.p.setText(vaut.tablaautor.getValueAt(fil, 3).toString());
        vautorm.c.setText(vaut.tablaautor.getValueAt(fil, 4).toString());
-       vautorm.f.setText(vaut.tablaautor.getValueAt(fil, 5).toString());
+       
        vautorm.i.setText(vaut.tablaautor.getValueAt(fil, 0).toString());
        
      vautorm.setVisible(true);
@@ -2078,7 +2079,7 @@ catch(SQLException ex){
        vmodificacioncliente.nomtxt.setText(vmodcliente.modcliente.getValueAt(fila, 1).toString());
        vmodificacioncliente.apetxt.setText(vmodcliente.modcliente.getValueAt(fila, 2).toString());
        vmodificacioncliente.dnitxt.setText(vmodcliente.modcliente.getValueAt(fila, 3).toString());
-       vmodificacioncliente.nacitxt.setText(vmodcliente.modcliente.getValueAt(fila, 4).toString());
+  
        vmodificacioncliente.fijotxt.setText(vmodcliente.modcliente.getValueAt(fila, 5).toString());
        vmodificacioncliente.moviltxt.setText(vmodcliente.modcliente.getValueAt(fila, 6).toString());
        vmodificacioncliente.ciutxt.setText(vmodcliente.modcliente.getValueAt(fila, 7).toString());
@@ -2480,7 +2481,7 @@ Connection conn   = conectar.getConexion();
        valtaEmple.campoNombre.setText(valtaEmple.tablaempleados.getValueAt(fila, 1).toString());
        valtaEmple.campoApellido.setText(valtaEmple.tablaempleados.getValueAt(fila, 2).toString());
        valtaEmple.campoCiudad.setText(valtaEmple.tablaempleados.getValueAt(fila, 4).toString());
-       valtaEmple.campoFechaNacimiento.setText(valtaEmple.tablaempleados.getValueAt(fila, 3).toString());
+    
       
        valtaEmple.campoTelFijo.setText(valtaEmple.tablaempleados.getValueAt(fila, 5).toString());
        valtaEmple.campoTelMovil.setText(valtaEmple.tablaempleados.getValueAt(fila,6).toString());
