@@ -14,6 +14,7 @@ public class VPrincipal extends javax.swing.JFrame {
     public static final String BTN_COMPRA = "COMPRA";
     public static final String BTN_NUEVO_CLIENTE = "NUEVO CLIENTE";
     public static final String BTN_NUEVA_LIQUIDACION = "NUEVA LIQUIDACION";
+     public static final String BTN_CERRAR = "CERRAR";
     
     private Controlador controlador;
 
@@ -50,7 +51,7 @@ public class VPrincipal extends javax.swing.JFrame {
         menuItemEditorial = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         menuItemEmpleado = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        menuItemLiquidacion = new javax.swing.JMenuItem();
 
         jButton4.setText("jButton4");
 
@@ -62,11 +63,11 @@ public class VPrincipal extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 51, 51));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1393924_605824496122545_1496992593_n.png"))); // NOI18N
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 0, 370, 360);
+        jLabel1.setBounds(10, 0, 390, 370);
 
         jMenu1.setText("Archivo");
 
-        jMenuItem9.setText("Salir");
+        jMenuItem9.setText("Cerrar Sesion");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem9ActionPerformed(evt);
@@ -159,13 +160,13 @@ public class VPrincipal extends javax.swing.JFrame {
         });
         jMenu5.add(menuItemEmpleado);
 
-        jMenuItem2.setText("Liquidacion");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        menuItemLiquidacion.setText("Liquidacion");
+        menuItemLiquidacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                menuItemLiquidacionActionPerformed(evt);
             }
         });
-        jMenu5.add(jMenuItem2);
+        jMenu5.add(menuItemLiquidacion);
 
         jMenuBar1.add(jMenu5);
 
@@ -213,7 +214,7 @@ public class VPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
 
-        System.exit(1);// TODO add your handling code here:
+       controlador.cerrar(BTN_CERRAR);
 
       // TODO add your handling code here:
 
@@ -224,14 +225,13 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_nuevaliActionPerformed
 
     private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
-       
+        controlador.vistali(BTN_NUEVA_LIQUIDACION);
     }//GEN-LAST:event_jMenu3ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-         controlador.vistali(BTN_NUEVA_LIQUIDACION);// TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private void menuItemLiquidacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemLiquidacionActionPerformed
+        controlador.vistali(BTN_NUEVA_LIQUIDACION);
+    }//GEN-LAST:event_menuItemLiquidacionActionPerformed
 
- 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JMenu JMenu3;
     private javax.swing.JButton jButton4;
@@ -241,7 +241,6 @@ public class VPrincipal extends javax.swing.JFrame {
     public static javax.swing.JMenu jMenu4;
     public static javax.swing.JMenu jMenu5;
     public static javax.swing.JMenuBar jMenuBar1;
-    public static javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem9;
     public static javax.swing.JMenuItem menuItemAutor;
     public static javax.swing.JMenuItem menuItemCategoria;
@@ -250,6 +249,7 @@ public class VPrincipal extends javax.swing.JFrame {
     public static javax.swing.JMenuItem menuItemEditorial;
     private javax.swing.JMenuItem menuItemEmpleado;
     public static javax.swing.JMenuItem menuItemLibro;
+    public static javax.swing.JMenuItem menuItemLiquidacion;
     public static javax.swing.JMenuItem menuItemVenta;
     // End of variables declaration//GEN-END:variables
 }

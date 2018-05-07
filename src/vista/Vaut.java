@@ -47,8 +47,10 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
         super(parent, modal);
         initComponents();
 
+
         setTitle("Gestion de autor");
         
+
 
     }
 

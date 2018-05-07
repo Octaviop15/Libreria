@@ -134,7 +134,11 @@ public class Controlador {
         vmodcliente.setLocationRelativeTo(null);
         vmodificacioncliente.setControlador(this);
         vmodificacioncliente.setLocationRelativeTo(null);
-     vp.jMenuItem2.setEnabled(true);
+
+     vp.menuItemLiquidacion.setEnabled(true);
+
+     vp.menuItemLiquidacion.setEnabled(true);
+
        vp.menuItemCompra.setEnabled(true);
         
     }
@@ -177,7 +181,10 @@ public class Controlador {
         vmodificacioncliente.setControlador(this);
         vmodificacioncliente.setLocationRelativeTo(null);
         
-       vp.jMenuItem2.setEnabled(false);
+
+       vp.menuItemLiquidacion.setEnabled(false);
+
+       vp.menuItemLiquidacion.setEnabled(false);
        vp.menuItemCompra.setEnabled(false);
     }
     
@@ -1906,7 +1913,7 @@ if(valor.equals(vautorm.BTN_NUEVO_ACEPTAR)){
          
      PreparedStatement ppt = conn.prepareStatement("DELETE FROM autor WHERE idAutor='"+id+"'");
      ppt.executeUpdate();
-     JOptionPane.showMessageDialog(null,"Usuario Eliminado");
+     JOptionPane.showMessageDialog(null,"Autor Eliminado");
      mostrar();
      }
      catch(SQLException e){JOptionPane.showMessageDialog(null,"No se pudo Eliminar");}
@@ -3297,6 +3304,7 @@ if(rs.next()){
     
 
 }
+
 }catch(Exception e){
     JOptionPane.showMessageDialog(null,e);
 }
@@ -3321,7 +3329,11 @@ liquidacion.insertarFila(datos);
            login.setVisible(true);
           
 
-}
+
+    
+           
+    }
+
  }
 
     
