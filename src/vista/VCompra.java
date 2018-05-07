@@ -74,8 +74,8 @@ public class VCompra extends javax.swing.JDialog {
          txtPrecio.setText("");
          txtStock.setText("");
          txtCantidad.setText("");
-         txtApellido.setText("");
-         txtNombre.setText("");
+         
+         cargarTabla();
          
          
      }
@@ -93,17 +93,17 @@ public class VCompra extends javax.swing.JDialog {
      }
      
      public void desactivar_btn(){
-         btnTotal.setEnabled(false);
+         
          btnAgregarDetalleCompra.setEnabled(false);
      }
      
      public void activarTotal(){
-         btnTotal.setEnabled(true);
+         
          txtTotal.setEditable(true);
      }
      
       public void desactivarTotal(){
-         btnTotal.setEnabled(false);
+        
          txtTotal.setEditable(false);
      }
       
@@ -120,7 +120,7 @@ public class VCompra extends javax.swing.JDialog {
      } 
      
       public int getIdEditorial(int i){
-         return idEditorial.get(i-1);
+         return idEditorial.get(i);
      }
      
      
@@ -286,7 +286,6 @@ public class VCompra extends javax.swing.JDialog {
         btnAgregarDetalleCompra = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         txtTotal = new javax.swing.JTextField();
-        btnTotal = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btnGenerarCompra = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -294,6 +293,7 @@ public class VCompra extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtApellido = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -351,13 +351,6 @@ public class VCompra extends javax.swing.JDialog {
 
         txtTotal.setText("0");
 
-        btnTotal.setText("Total");
-        btnTotal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTotalActionPerformed(evt);
-            }
-        });
-
         jButton2.setText("Salir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -377,6 +370,8 @@ public class VCompra extends javax.swing.JDialog {
         jLabel7.setText("Nombre:");
 
         jLabel8.setText("Apellido:");
+
+        jLabel9.setText("Total:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -405,7 +400,7 @@ public class VCompra extends javax.swing.JDialog {
                             .addGap(37, 37, 37)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnTotal))))
+                                .addComponent(jLabel9))))
                     .addComponent(jLabel5)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -486,8 +481,9 @@ public class VCompra extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnTotal)
-                        .addGap(18, 18, 18)
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
@@ -516,10 +512,6 @@ public class VCompra extends javax.swing.JDialog {
         controlador.procesar(BTN_ELIMINAR_DETALLE_COMPRA);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void btnTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTotalActionPerformed
-        controlador.procesar(BTN_OBTENER_TOTAL);
-    }//GEN-LAST:event_btnTotalActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -537,7 +529,6 @@ public class VCompra extends javax.swing.JDialog {
     private javax.swing.JButton btnBuscaLibro;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGenerarCompra;
-    private javax.swing.JButton btnTotal;
     private javax.swing.JComboBox<String> cmbEditorial;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -549,6 +540,7 @@ public class VCompra extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaDetalleCompra;
     private javax.swing.JTextField txtApellido;

@@ -252,7 +252,7 @@ controlador.modiautor(BTN_NUEVO_ACEPTAR);         // TODO add your handling code
     private void cKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cKeyTyped
        char c = evt.getKeyChar();
         
-        if(!Character.isLetter(c)){
+        if(Character.isDigit(c)){
             getToolkit().beep();
             evt.consume();
         }   // TODO add your handling code here:
@@ -267,7 +267,7 @@ controlador.modiautor(BTN_NUEVO_ACEPTAR);         // TODO add your handling code
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTextField a;
     public javax.swing.JTextField c;
-    private com.toedter.calendar.JDateChooser f;
+    public static com.toedter.calendar.JDateChooser f;
     public javax.swing.JTextField i;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

@@ -201,6 +201,9 @@
       </Events>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="f">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

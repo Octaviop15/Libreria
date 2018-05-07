@@ -181,6 +181,7 @@ public class VPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemAutorActionPerformed
 
     private void menuItemLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemLibroActionPerformed
+      
         controlador.procesar(BTN_LIBRO);
     }//GEN-LAST:event_menuItemLibroActionPerformed
 
@@ -247,7 +248,7 @@ public class VPrincipal extends javax.swing.JFrame {
     public static javax.swing.JMenuItem menuItemCliente;
     public static javax.swing.JMenuItem menuItemCompra;
     public static javax.swing.JMenuItem menuItemEditorial;
-    private javax.swing.JMenuItem menuItemEmpleado;
+    public static javax.swing.JMenuItem menuItemEmpleado;
     public static javax.swing.JMenuItem menuItemLibro;
     public static javax.swing.JMenuItem menuItemLiquidacion;
     public static javax.swing.JMenuItem menuItemVenta;

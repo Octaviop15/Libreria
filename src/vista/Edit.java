@@ -341,7 +341,7 @@ char c = evt.getKeyChar();
     private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
        char c = evt.getKeyChar();
         
-        if(!Character.isLetter(c)){
+        if(Character.isDigit(c)){
             getToolkit().beep();
             evt.consume(); // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4KeyTyped

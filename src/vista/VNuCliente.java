@@ -63,7 +63,7 @@ public class VNuCliente extends javax.swing.JDialog {
             requerido3.setVisible(false);
         }
         
-        if(txtFecNac.equals("")){
+        if(txtFecNac.getDate() == null){
             requerido4.setVisible(true);
             cont++;
         }
@@ -95,7 +95,8 @@ public class VNuCliente extends javax.swing.JDialog {
         txtDireccion.setText("");
         txtTel.setText("");
         txtCelular.setText("");
-        txtCorreo.setText("");    
+        txtCorreo.setText("");   
+        txtFecNac.setDate(null);
     }
     
     
@@ -370,10 +371,10 @@ public class VNuCliente extends javax.swing.JDialog {
                             .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(requerido3))
                         .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(requerido4)
-                            .addComponent(txtFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -502,7 +503,7 @@ controlador.mostrarclientes(BTN_AGREGAR_MODC);        // TODO add your handling 
     private void txtCiudadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCiudadKeyTyped
         char c = evt.getKeyChar();
 
-        if(!Character.isLetter(c)){
+        if(Character.isDigit(c)){
             getToolkit().beep();
             evt.consume();
         }

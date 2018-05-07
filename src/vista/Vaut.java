@@ -330,7 +330,7 @@ public static final String BTN_NUEVO_AUTOR = "NUEVO AUTOR";
     private void aucitxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_aucitxtKeyTyped
  char c = evt.getKeyChar();
         
-        if(!Character.isLetter(c)){
+        if(Character.isDigit(c)){
             getToolkit().beep();
             evt.consume();}        // TODO add your handling code here:
     }//GEN-LAST:event_aucitxtKeyTyped
@@ -404,7 +404,7 @@ public String getaufechanaci(){
     private javax.swing.JButton auagre;
     private javax.swing.JTextField auapetxt;
     private javax.swing.JTextField aucitxt;
-    private com.toedter.calendar.JDateChooser aufechanaci;
+    public static com.toedter.calendar.JDateChooser aufechanaci;
     private javax.swing.JTextField aunomtxt;
     private javax.swing.JTextField aupatxt;
     public static javax.swing.JTextField busqautorid;

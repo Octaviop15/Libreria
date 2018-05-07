@@ -92,7 +92,7 @@ public class Vmodificacioncliente extends javax.swing.JDialog {
             Requerido3.setVisible(false);
         }
         
-        if(nacitxt.equals("")){
+        if(nacitxt.getDate() == null){
             Requerido4.setVisible(true);
             cont++;
         }
@@ -359,7 +359,7 @@ public class Vmodificacioncliente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+          this.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -390,7 +390,7 @@ public class Vmodificacioncliente extends javax.swing.JDialog {
     private void ciutxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ciutxtKeyTyped
  char c = evt.getKeyChar();
         
-        if(!Character.isLetter(c)){
+        if(Character.isDigit(c)){
             getToolkit().beep();
             evt.consume();
         }        // TODO add your handling code here:

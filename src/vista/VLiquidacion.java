@@ -25,12 +25,14 @@ public static final String BTN_SLECT_EMPLE = "SELECCIONAR EMPLE";
 public static final String BTN_SLECT_AGRE = "AGREGAR";
 public static final String BTN_CALCULAR = "CALCULAR";
 private DefaultTableModel model;
+private double escalafon;
 
 
 public VLiquidacion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setTitle("Liquidacion");
+      
         setFechaHora();
         editable();
     }
@@ -43,6 +45,8 @@ public VLiquidacion(java.awt.Frame parent, boolean modal) {
   public void editable(){
       txtFecha.setEditable(false);
       txtJubilacion.setEditable(false);
+      txtLey19032.setEditable(false);
+      txtAntiguedad.setEditable(false);
       txtEscalfon.setEditable(false);
       txtHaberes.setEditable(false);
       txtDescuentos.setEditable(false);
@@ -51,11 +55,21 @@ public VLiquidacion(java.awt.Frame parent, boolean modal) {
   }
   
   public void limpiar(){
+      txtSueldo.setText("");
+      fecha.setDate(null);
       txtJubilacion.setText("");
+      txtAntiguedad.setText("");
+      txtLey19032.setText("");
       txtEscalfon.setText("");
       txtHaberes.setText("");
       txtDescuentos.setText("");
       txtNeto.setText("");
+         insertarcuil.setText("");
+        idemp.setText("0");
+        nombre.setText("0"); 
+        categoria.setText("");
+        txtPeriodo.setText("");
+        
   }
   
   public void cargarTabla(){
@@ -64,6 +78,7 @@ public VLiquidacion(java.awt.Frame parent, boolean modal) {
       tablaLiquidaciones.setModel(model);
   }
   
+ 
    public void setFechaHora(){
         Date fecha = new Date(Calendar.getInstance().getTimeInMillis());
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
@@ -78,39 +93,49 @@ public VLiquidacion(java.awt.Frame parent, boolean modal) {
       String fechaActual = txtFecha.getText();
       int añoA = Integer.parseInt(fechaActual.substring(0,4));     
       
-      String fechaIngreso = getfecha();
+      String fechaIngreso = getFecha();
       int añoI = Integer.parseInt(fechaIngreso.substring(0,4));
       
       int antiguedad = añoA - añoI;
       return antiguedad; 
     }
     
-    public void calcularEscalafon(){
-        if(getEscalafon() < 5){
-            setEscalafon(0.0);
+    public double calcularEscalafon(){
+        if(getAntiguedad2() < 5){
+            escalafon = 0;
+            
          
         }
-        if(getEscalafon() >= 5){
-            double valor = getSueldo() * 0.05;
-            setEscalafon(valor);
+        if(getAntiguedad2() >= 5){
+            escalafon = Double.parseDouble(getSueldo()) * 0.05;
+          
             
              
         }
-        if(getEscalafon()>= 10){
-            double valor= getSueldo() * 0.10;
-            setEscalafon(valor);
+        if(getAntiguedad2()>= 10){
+            escalafon = Double.parseDouble(getSueldo()) * 0.10;
+            
         }
         
-        if( getEscalafon() >= 15){
-            double valor =  getSueldo() * 0.15;
-            setEscalafon(valor);
-        }
-       
+        if( getAntiguedad2() >= 15){
+            escalafon =  Double.parseDouble(getSueldo()) * 0.15;
             
+        }
+        return escalafon;
+       
+        
+    }
     
+    public void activar_btnLiq(){
+        btnLiquidacion.setEnabled(true);
+    }
     
+    public String getAntiguedad1(){
+        return txtAntiguedad.getText();
+    }
     
-    
+    public int getAntiguedad2(){
+        return Integer.parseInt(txtAntiguedad.getText());
     }
    public void setAntiguedad(int antiguedad){
        txtAntiguedad.setText(String.valueOf(antiguedad));
@@ -126,7 +151,7 @@ public VLiquidacion(java.awt.Frame parent, boolean modal) {
  public String getnombre(){
         return nombre.getText();
     }
- public String getfecha(){
+ public String getFecha(){
         SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
         return formato.format(fecha.getDate()); 
     }
@@ -144,31 +169,34 @@ public VLiquidacion(java.awt.Frame parent, boolean modal) {
      return txtPeriodo.getText();
  }
  
- public Double getSueldo(){
-     return Double.parseDouble(txtSueldo.getText());
+ public String getSueldo(){
+     return txtSueldo.getText();
  }
  
- public Double getJubilacion(){
+ public double getSueldo2(){
+     return Double.parseDouble(txtSueldo.getText());
+ }
+ public double getJubilacion(){
       return Double.parseDouble(txtJubilacion.getText());
  }
  
- public Double getLey19032(){
+ public double getLey19032(){
       return Double.parseDouble(txtLey19032.getText());
  }
  
-  public Double getEscalafon(){
+  public double getEscalafon(){
       return Double.parseDouble(txtEscalfon.getText());
  }
   
-  public Double getTotalHaberes(){
+  public double getTotalHaberes(){
       return Double.parseDouble(txtHaberes.getText());
   }
   
-   public Double getTotalDescuentos(){
+   public double getTotalDescuentos(){
       return Double.parseDouble(txtDescuentos.getText());
   }
    
-   public Double getNetoPagar(){
+   public double getNetoPagar(){
       return Double.parseDouble(txtNeto.getText());
   }
    
@@ -196,6 +224,10 @@ public VLiquidacion(java.awt.Frame parent, boolean modal) {
        txtNeto.setText(String.valueOf(monto));
    }
    
+   public String  getSueldoNeto(){
+       return txtNeto.getText();
+   }
+   
    public void insertarFila(Object[] datos){
        model.addRow(datos);
    }
@@ -215,14 +247,7 @@ public VLiquidacion(java.awt.Frame parent, boolean modal) {
  
  
  
- public void radic(){
-        insertarcuil.setText("");
-        idemp.setText("0");
-        nombre.setText("0"); 
-        categoria.setText("");
-        
-     
-    }
+
     /**
      * Creates new form VLiquidacion
      */
@@ -250,7 +275,7 @@ public VLiquidacion(java.awt.Frame parent, boolean modal) {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        liquidacion = new javax.swing.JButton();
+        btnLiquidacion = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaLiquidaciones = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
@@ -275,6 +300,7 @@ public VLiquidacion(java.awt.Frame parent, boolean modal) {
         fecha = new com.toedter.calendar.JDateChooser();
         txtAntiguedad = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -342,10 +368,10 @@ public VLiquidacion(java.awt.Frame parent, boolean modal) {
 
         jLabel5.setText("Nombre");
 
-        liquidacion.setText("Agregar Liquidacion");
-        liquidacion.addActionListener(new java.awt.event.ActionListener() {
+        btnLiquidacion.setText("Agregar Liquidacion");
+        btnLiquidacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                liquidacionActionPerformed(evt);
+                btnLiquidacionActionPerformed(evt);
             }
         });
 
@@ -389,14 +415,17 @@ public VLiquidacion(java.awt.Frame parent, boolean modal) {
 
         jLabel15.setText("Antiguedad");
 
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(liquidacion)
-                .addGap(48, 48, 48))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -492,6 +521,12 @@ public VLiquidacion(java.awt.Frame parent, boolean modal) {
                 .addGap(18, 18, 18)
                 .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(85, 85, 85))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnLiquidacion, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -531,8 +566,10 @@ public VLiquidacion(java.awt.Frame parent, boolean modal) {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
-                        .addComponent(liquidacion)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnLiquidacion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalir)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -619,13 +656,18 @@ char c = evt.getKeyChar();
  controlador.selecc(BTN_SLECT_EMPLE);           // TODO add your handling code here:
     }//GEN-LAST:event_SeleccionarActionPerformed
 
-    private void liquidacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_liquidacionActionPerformed
+    private void btnLiquidacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiquidacionActionPerformed
        controlador.AGRE(BTN_SLECT_AGRE);   // TODO add your handling code here:
-    }//GEN-LAST:event_liquidacionActionPerformed
+    }//GEN-LAST:event_btnLiquidacionActionPerformed
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
         controlador.procesar(BTN_CALCULAR);        // TODO add your handling code here:
     }//GEN-LAST:event_btnCalcularActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        limpiar();
+        this.dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_btnSalirActionPerformed
 
    
 
@@ -635,9 +677,11 @@ char c = evt.getKeyChar();
     public static javax.swing.JButton Seleccionar;
     public static javax.swing.JTable Tablausuario;
     private javax.swing.JButton btnCalcular;
+    private javax.swing.JButton btnLiquidacion;
+    private javax.swing.JButton btnSalir;
     public static javax.swing.JButton buscaremp;
     public static javax.swing.JTextField categoria;
-    private com.toedter.calendar.JDateChooser fecha;
+    public static com.toedter.calendar.JDateChooser fecha;
     public static javax.swing.JTextField idemp;
     public static javax.swing.JTextField insertarcuil;
     public static javax.swing.JButton jButton1;
@@ -658,7 +702,6 @@ char c = evt.getKeyChar();
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton liquidacion;
     public static javax.swing.JTextField nombre;
     private javax.swing.JTable tablaLiquidaciones;
     private javax.swing.JTextField txtAntiguedad;

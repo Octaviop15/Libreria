@@ -4,8 +4,10 @@ package vista;
 import controlador.Controlador;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import javax.swing.ComboBoxEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 public class VLibro extends javax.swing.JDialog {
 
@@ -28,10 +30,20 @@ public class VLibro extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setTitle("Gestion de libros");
+     
         cargarTabla();
+        
+        
         
         requerido1.setVisible(false);
         requerido2.setVisible(false);
+        requerido6.setVisible(false);
+        requerido4.setVisible(false);
+        requerido5.setVisible(false);
+        requerido3.setVisible(false);
+        requerido7.setVisible(false);
+        requerido8.setVisible(false);
+        requerido9.setVisible(false);
      
         
     }
@@ -54,8 +66,73 @@ public class VLibro extends javax.swing.JDialog {
              contt++;
          }
          else{requerido2.setVisible(false);}
-                
+         
+         if(txtPrecioVenta.getText().equals("")){
+             requerido6.setVisible(true);
+             contt++;
+         }
+         else{requerido6.setVisible(false);}
+         
+         if(txtPrecioCompra.getText().equals("")){
+             requerido4.setVisible(true);
+             contt++;
+         }
+         else{requerido4.setVisible(false);}
+         
+          if(txtStock.getText().equals("")){
+             requerido5.setVisible(true);
+             contt++;
+         }
+         else{requerido5.setVisible(false);}
+          
+          if(fecha.getDate() == null){
+             requerido3.setVisible(true);
+             contt++;
+          }
+          else{requerido3.setVisible(false);}
+          
+          if(cmbEditorial.getSelectedIndex() == 0){
+             requerido7.setVisible(true);
+             contt++;
+          }
+          else{requerido7.setVisible(false);}
+          
+           if(cmbAutor.getSelectedIndex() == 0){
+             requerido8.setVisible(true);
+             contt++;
+          }
+           else{requerido8.setVisible(false);}
+           
+            if(cmbAutor.getSelectedIndex() == 0){
+             requerido9.setVisible(true);
+             contt++;
+          }
+             else{requerido9.setVisible(false);}
+                      
      }
+     
+     
+       public void cargarTabla(){
+         String[] titulos = {"ISBN","Titulo","Autor","Edicion","Editorial","Precio venta","precio compra","stock"};
+         model = new DefaultTableModel(null,titulos);
+         tablaLibros.setModel(model);
+         
+         
+     }
+       
+       public void tamañoColumnaTabla(){
+           TableColumnModel columnModel = tablaLibros.getColumnModel();
+
+           columnModel.getColumn(0).setPreferredWidth(100);
+           columnModel.getColumn(1).setPreferredWidth(200);
+           columnModel.getColumn(2).setPreferredWidth(100);
+           columnModel.getColumn(3).setPreferredWidth(100);
+           columnModel.getColumn(4).setPreferredWidth(100);
+           columnModel.getColumn(5).setPreferredWidth(50);
+           columnModel.getColumn(6).setPreferredWidth(50);
+           columnModel.getColumn(7).setPreferredWidth(50);
+           
+       }
      
      
      
@@ -69,23 +146,19 @@ public class VLibro extends javax.swing.JDialog {
          txtPrecioCompra.setText("");
          txtStock.setText("");
          txtareaDescripcion.setText("");
+         fecha.setDate(null);
          
                  
        
      }
      
      
-     public void cargarTabla(){
-         String[] titulos = {"ISBN","Titulo","Autor","Edicion","Editorial","Precio venta","precio compra","stock"};
-         model = new DefaultTableModel(null,titulos);
-         tablaLibros.setModel(model);
-         
-         
-     }
+   
      
-     public String getFecha(){
+     public String getFecha(){        
         SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
-        return formato.format(fecha.getDate()); 
+        return formato.format(fecha.getDate());     
+         
      }
      
      public void limpiarTabla(){
@@ -123,6 +196,20 @@ public class VLibro extends javax.swing.JDialog {
          return idCategoria.get(i);
      }
      
+     public void limpiarArray(){
+         int i = 0;
+         while(i<idEditorial.size()){
+         idEditorial.remove(i);
+         }
+         while(i<idAutor.size()){
+          idAutor.remove(i);
+         }
+         
+        while(i<idCategoria.size()){      
+         idCategoria.remove(i);
+     }
+     }
+     
     
     
     public String getISBN(){
@@ -145,15 +232,15 @@ public class VLibro extends javax.swing.JDialog {
     public double getPrecioVenta(){
         return Double.parseDouble(txtPrecioVenta.getText());
     }
-    
+ 
     public double getPrecioCompra(){
         return Double.parseDouble(txtPrecioCompra.getText());
     }
     
     
     
-    public int getStock(){
-        return Integer.parseInt(txtStock.getText());
+    public String getStock(){
+        return txtStock.getText();
     }
     
     public String getEdicion(){
@@ -315,6 +402,13 @@ public class VLibro extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         cmbCategoria = new javax.swing.JComboBox<>();
         fecha = new com.toedter.calendar.JDateChooser();
+        requerido6 = new javax.swing.JLabel();
+        requerido4 = new javax.swing.JLabel();
+        requerido5 = new javax.swing.JLabel();
+        requerido3 = new javax.swing.JLabel();
+        requerido7 = new javax.swing.JLabel();
+        requerido8 = new javax.swing.JLabel();
+        requerido9 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -349,6 +443,11 @@ public class VLibro extends javax.swing.JDialog {
         txtISBN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtISBNActionPerformed(evt);
+            }
+        });
+        txtISBN.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtISBNKeyTyped(evt);
             }
         });
 
@@ -409,6 +508,7 @@ public class VLibro extends javax.swing.JDialog {
 
             }
         ));
+        tablaLibros.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane4.setViewportView(tablaLibros);
 
         jButton1.setText("Eliminar");
@@ -438,6 +538,12 @@ public class VLibro extends javax.swing.JDialog {
 
         jLabel8.setText("Precio compra");
 
+        txtPrecioCompra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioCompraKeyTyped(evt);
+            }
+        });
+
         txtareaDescripcion.setColumns(20);
         txtareaDescripcion.setRows(5);
         jScrollPane5.setViewportView(txtareaDescripcion);
@@ -445,6 +551,20 @@ public class VLibro extends javax.swing.JDialog {
         jLabel13.setText("Descripicion");
 
         jLabel7.setText("Categoria");
+
+        requerido6.setText("requerido");
+
+        requerido4.setText("requerido");
+
+        requerido5.setText("requerido");
+
+        requerido3.setText("requerido");
+
+        requerido7.setText("requerido");
+
+        requerido8.setText("requerido");
+
+        requerido9.setText("requerido");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -487,8 +607,6 @@ public class VLibro extends javax.swing.JDialog {
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
@@ -507,25 +625,41 @@ public class VLibro extends javax.swing.JDialog {
                                 .addComponent(jLabel6)
                                 .addGap(121, 121, 121)
                                 .addComponent(txtEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(13, 13, 13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(requerido1)
+                    .addComponent(requerido2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(requerido4)
+                            .addComponent(requerido6)
+                            .addComponent(requerido5)))
+                    .addComponent(requerido3)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(requerido8)
+                        .addComponent(requerido7)
+                        .addComponent(requerido9)))
+                .addGap(167, 167, 167)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
+                .addGap(108, 108, 108))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(63, 63, 63))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnAgregar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(requerido1)
-                                    .addComponent(requerido2))
-                                .addGap(18, 67, Short.MAX_VALUE)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(28, 28, 28))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -533,30 +667,57 @@ public class VLibro extends javax.swing.JDialog {
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(304, 304, 304)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel3)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addGap(69, 69, 69)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(requerido6)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(requerido4)))
+                        .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAgregar)
-                            .addComponent(jButton2)
-                            .addComponent(jButton1)))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11)
+                            .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(requerido5))
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cmbEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(requerido7))
+                            .addComponent(jLabel12))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9)
+                            .addComponent(requerido8))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel7)
+                                .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(requerido9)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(requerido1)
+                            .addComponent(jLabel13))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(25, 25, 25)
-                                        .addComponent(jLabel2))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel3)))
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel4)
-                                .addGap(69, 69, 69))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(requerido1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -566,49 +727,29 @@ public class VLibro extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
-                                    .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(requerido3))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(txtPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(txtPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(8, 8, 8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(17, 17, 17)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(40, 40, 40)
-                .addComponent(jLabel13)
+                                    .addComponent(jLabel6)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                        .addComponent(jButton3)
-                        .addGap(163, 163, 163))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(btnAgregar)
+                        .addGap(39, 39, 39)
+                        .addComponent(jButton2)
+                        .addGap(33, 33, 33)
+                        .addComponent(jButton1))
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
-        setBounds(0, 0, 977, 698);
+        setBounds(0, 0, 977, 718);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtPaginasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPaginasActionPerformed
@@ -632,6 +773,7 @@ public class VLibro extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       
         this.dispose();
        
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -648,7 +790,7 @@ public class VLibro extends javax.swing.JDialog {
     private void txtPrecioVentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioVentaKeyTyped
         char c = evt.getKeyChar();
         
-        if(!Character.isDigit(c)){
+        if(Character.isLetter(c)){
             getToolkit().beep();
             evt.consume();
         }
@@ -666,6 +808,24 @@ public class VLibro extends javax.swing.JDialog {
     private void txtISBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtISBNActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtISBNActionPerformed
+
+    private void txtISBNKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtISBNKeyTyped
+        char c = evt.getKeyChar();
+        
+        if(!Character.isDigit(c)){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtISBNKeyTyped
+
+    private void txtPrecioCompraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioCompraKeyTyped
+        char c = evt.getKeyChar();
+        
+        if(Character.isLetter(c)){
+            getToolkit().beep();
+            evt.consume();   
+        }// TODO add your handling code here:
+    }//GEN-LAST:event_txtPrecioCompraKeyTyped
 
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -698,6 +858,13 @@ public class VLibro extends javax.swing.JDialog {
     private javax.swing.JTable jTable2;
     private javax.swing.JLabel requerido1;
     private javax.swing.JLabel requerido2;
+    private javax.swing.JLabel requerido3;
+    private javax.swing.JLabel requerido4;
+    private javax.swing.JLabel requerido5;
+    private javax.swing.JLabel requerido6;
+    private javax.swing.JLabel requerido7;
+    private javax.swing.JLabel requerido8;
+    private javax.swing.JLabel requerido9;
     private javax.swing.JTable tablaLibros;
     private javax.swing.JTextField txtEdicion;
     private javax.swing.JTextField txtISBN;
