@@ -10,7 +10,7 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.NodeTest;
+
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -548,7 +548,7 @@ public class Controlador {
           if(valor.equals(vnv.BTN_BUSCAR_LIBRO)){
             Conexion conectar = new Conexion();
             Connection conn   = conectar.getConexion();
-            
+            if(!vnv.getDNI().equals("")){
             String[] datos = new String[3];
             String ISBN = vnv.getISBN();
             String SQL = "SELECT titulo,precio_venta,stock FROM libro WHERE ISBN = '"+ISBN+"'";
@@ -580,7 +580,11 @@ public class Controlador {
             }else{
                 JOptionPane.showMessageDialog(null,"Ingrese ISBN del libro");
                 
-            }    
+            } 
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"Ingrese DNI del cliente");
+            }
           
             
         }
@@ -663,9 +667,12 @@ public class Controlador {
            if(valor.equals(vnv.BTN_GENERAR_VENTA)){
                 Conexion conectar = new Conexion();
                 Connection conn   = conectar.getConexion();
+                 int modoPago  = vnv.getModoPago();
                 
+                if(modoPago > 0){
+                     if(vnv.getTotalf()!= 0){  
                 int cantFilas = vnv.getCantFilasTabla();
-                int modoPago  = vnv.getModoPago();
+               
                 int stock;
                 String fecha    = vnv.getFecha();                       
                 double total       = vnv.getTotalf();
@@ -675,8 +682,8 @@ public class Controlador {
                 
                 
                 //Si se selecciona un modo de pago 
-                if(modoPago > 0){
-                if(vnv.getTotalf()!= 0){    
+                
+                 
               
                         
                    
